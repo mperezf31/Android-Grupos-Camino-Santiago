@@ -1,6 +1,6 @@
 package mperezf.mimo.gruposcaminosantiago.domain.model
 
-data class Group(
+data class GroupData(
     val id: Int,
     val photo: String,
     val title: String,
@@ -10,7 +10,7 @@ data class Group(
     val departurePlace: String,
     val latitude: Double,
     val longitude: Double,
-    val founder: User,
-    val members: List<User>,
-    val messages: List<Message>
+    val founder: UserData,
+    val members: List<UserData>,
+    val posts: List<MessageData>
 )
