@@ -1,7 +1,7 @@
 package mperezf.mimo.gruposcaminosantiago.data.mapper
 
+import mperezf.mimo.gruposcaminosantiago.data.model.MessageData
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
-import mperezf.mimo.gruposcaminosantiago.domain.model.MessageData
 
 class MessageMapper : BaseMapper<MessageData, Message>() {
 
@@ -11,6 +11,15 @@ class MessageMapper : BaseMapper<MessageData, Message>() {
             author = UserMapper().map(dataModel.author),
             content = dataModel.content,
             whenSent = dataModel.whenSent
+        )
+    }
+
+    public override fun reverseMap(model: Message): MessageData {
+        return MessageData(
+            id = model.id,
+            author = UserMapper().reverseMap(model.author),
+            content = model.content,
+            whenSent = model.whenSent
         )
     }
 

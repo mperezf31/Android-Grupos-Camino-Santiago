@@ -1,4 +1,4 @@
-package mperezf.mimo.gruposcaminosantiago.domain.model
+package mperezf.mimo.gruposcaminosantiago.data.model
 
 data class MessageData(
     val id: Int,

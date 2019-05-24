@@ -6,6 +6,7 @@ import java.util.*
 abstract class BaseMapper<T, S> {
 
     protected abstract fun map(dataModel: T): S
+    protected abstract fun reverseMap(model: S): T
 
     fun getMapper(): Function<T, S> {
         return Function { T ->

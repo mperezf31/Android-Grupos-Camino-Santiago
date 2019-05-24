@@ -1,9 +1,9 @@
-package mperezf.mimo.gruposcaminosantiago.data.network
+package mperezf.mimo.gruposcaminosantiago.data.remote
 
 import io.reactivex.Observable
-import mperezf.mimo.gruposcaminosantiago.domain.model.GroupData
-import mperezf.mimo.gruposcaminosantiago.domain.model.MessageData
-import mperezf.mimo.gruposcaminosantiago.domain.model.UserData
+import mperezf.mimo.gruposcaminosantiago.data.model.GroupData
+import mperezf.mimo.gruposcaminosantiago.data.model.MessageData
+import mperezf.mimo.gruposcaminosantiago.data.model.UserData
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -28,10 +28,10 @@ interface ApiService {
     fun deleteGroup(@HeaderMap token: Map<String, String>): Observable<ResponseBody>
 
     @POST("group/{id}/pilgrim")
-    fun addMemberGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<UserData>
+    fun addMemberGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<GroupData>
 
     @DELETE("group/{id}/pilgrim")
-    fun removeMemberGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<UserData>
+    fun removeMemberGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<GroupData>
 
     @POST("group/{id}/post")
     fun addMessageGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int, @Body message: MessageData): Observable<GroupData>
