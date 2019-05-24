@@ -5,7 +5,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 
-abstract class BaseInteractor<T, P>(var mMainThread: Scheduler, var mIOExecutor: Scheduler) {
+abstract class BaseObservableInteractor<T, P>(var mMainThread: Scheduler, var mIOExecutor: Scheduler) {
 
     private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
