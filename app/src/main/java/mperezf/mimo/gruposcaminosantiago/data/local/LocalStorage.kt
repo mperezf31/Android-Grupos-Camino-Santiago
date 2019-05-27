@@ -23,11 +23,11 @@ class LocalStorage(context: Context) {
         return db.userDao().saveUser(user)
     }
 
-    fun getAuthenticatedUser(): Maybe<UserData> {
+    fun getAuthenticatedUser(): Observable<UserData> {
         return db.userDao().getAuthenticatedUser
     }
 
-    fun logout(): Completable{
+    fun logout(){
         return db.userDao().deleteAllUser()
     }
 

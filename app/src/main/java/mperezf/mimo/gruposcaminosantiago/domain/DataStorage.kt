@@ -9,7 +9,7 @@ import okhttp3.ResponseBody
 
 interface DataStorage {
 
-    fun getAuthenticatedUser(): Maybe<User>
+    fun getAuthenticatedUser(): Observable<User>
 
     fun login(user: User): Observable<User>
 

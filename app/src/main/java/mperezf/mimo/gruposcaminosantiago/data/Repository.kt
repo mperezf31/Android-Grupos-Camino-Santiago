@@ -26,7 +26,7 @@ class Repository(context: Context) : DataStorage {
     private val messageMapper = MessageMapper()
     private val groupMapper = GroupMapper()
 
-    override fun getAuthenticatedUser(): Maybe<User> {
+    override fun getAuthenticatedUser(): Observable<User> {
         return localStorage.getAuthenticatedUser().map(userMapper.getMapper())
     }
 

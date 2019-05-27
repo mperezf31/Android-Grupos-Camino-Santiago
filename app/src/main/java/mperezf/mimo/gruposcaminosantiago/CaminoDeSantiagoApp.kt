@@ -4,13 +4,15 @@ import android.app.Application
 
 class CaminoDeSantiagoApp : Application() {
 
+    companion object {
+        lateinit var instance: CaminoDeSantiagoApp
+            private set
+    }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
     }
 
-    companion object {
-        lateinit var instance: CaminoDeSantiagoApp
-            private set
-    }
+
 }
