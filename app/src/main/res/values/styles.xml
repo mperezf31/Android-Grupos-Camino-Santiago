@@ -7,11 +7,28 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="CustomEditText" parent="android:style/Widget.EditText">
+        <item name="android:backgroundTint">@color/grey_3</item>
+        <item name="android:textColor">@color/grey_1</item>
+        <item name="android:textColorHint">@color/grey_2</item>
+        <item name="android:ems">12</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="CustomButton" parent="android:style/Widget.Button">
+        <item name="android:textColor">@color/grey_1</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
 </resources>
+
