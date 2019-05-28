@@ -12,9 +12,13 @@
     <string name="menu_settings">Ajustes</string>
     <string name="menu_share">Compartir</string>
     <string name="menu_logout">Cerrar sesión</string>
-    <string name="create_account">Crear cuenta</string>
     <string name="login">Acceder</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
+    <string name="already_have_account">¿Ya tienes cuenta?</string>
+    <string name="create_account">Crear cuenta</string>
+    <string name="select_avatar">Seleccionar avatar</string>
+    <string name="name">Nombre</string>
+    <string name="confirm_password">Confirmar contraseña</string>
 
 </resources>

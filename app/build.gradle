@@ -47,6 +47,7 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:1.1.1"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     implementation 'br.com.simplepass:loading-button-android:2.1.4'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

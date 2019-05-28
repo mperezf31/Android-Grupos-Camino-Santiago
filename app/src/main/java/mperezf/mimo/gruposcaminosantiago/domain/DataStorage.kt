@@ -1,6 +1,5 @@
 package mperezf.mimo.gruposcaminosantiago.domain
 
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message

@@ -17,7 +17,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="CustomEditText" parent="android:style/Widget.EditText">
-        <item name="android:backgroundTint">@color/grey_3</item>
+        <item name="android:backgroundTint">@color/grey_2</item>
         <item name="android:textColor">@color/grey_1</item>
         <item name="android:textColorHint">@color/grey_2</item>
         <item name="android:ems">12</item>
@@ -29,6 +29,19 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="CustomButtonSecundary" parent="android:style/Widget.Button">
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:textColor">@color/grey_1</item>
+        <item name="android:background">@drawable/bg_button_secundary</item>
+    </style>
+
+    <style name="TitleFullScreenPage" parent="android:style/Widget.TextView">
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
 </resources>
-
