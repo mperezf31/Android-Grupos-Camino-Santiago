@@ -16,10 +16,7 @@ class LoginActivity : AppCompatActivity() , LoginFragment.LoginFragmentListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+
         if (savedInstanceState == null) {
             showLogin()
         }
