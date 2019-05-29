@@ -30,11 +30,11 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="CustomButtonSecundary" parent="android:style/Widget.Button">
+    <style name="CustomButtonSecondary" parent="android:style/Widget.Button">
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:textColor">@color/grey_1</item>
-        <item name="android:background">@drawable/bg_button_secundary</item>
+        <item name="android:background">@drawable/bg_button_secondary_selector</item>
     </style>
 
     <style name="TitleFullScreenPage" parent="android:style/Widget.TextView">

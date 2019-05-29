@@ -8,5 +8,9 @@
     <color name="grey_2">#e0e0e0</color>
 
     <color name="blue_1">#02b5d0</color>
+    <color name="blue_2">#7702b5d0</color>
+
+    <color name="opacity_1">#22ffffff</color>
+
 
 </resources>
