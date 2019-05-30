@@ -34,6 +34,7 @@ class LoginFragment : BaseFragment() {
         }
 
         bt_login.setOnClickListener {
+            closeKeyboard()
             if (validateForm()) {
                 viewModel.doLogin(et_email.text.toString(), et_password.text.toString())
             }
@@ -53,7 +54,14 @@ class LoginFragment : BaseFragment() {
         })
 
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
-            showLoading(it)
+            if (it) {
+                bt_login.isEnabled = false
+                bt_login.startAnimation()
+
+            } else {
+                bt_login.revertAnimation()
+                bt_login.isEnabled = true
+            }
         })
 
         viewModel.getFinishLogin().observe(this, Observer<Boolean> {
@@ -76,6 +84,13 @@ class LoginFragment : BaseFragment() {
     override fun onDetach() {
         super.onDetach()
         loginFragmentListener = null
+    }
+
+    override fun onDestroy() {
+        bt_login.dispose()
+        viewModel.dispose()
+        super.onDestroy()
+
     }
 
     interface LoginFragmentListener {

@@ -19,7 +19,7 @@ abstract class BaseObservableInteractor<T, P>(var mainThread: Scheduler, var iOE
     }
 
 
-    fun close() {
+    fun dispose() {
         if (!mCompositeDisposable.isDisposed) {
             mCompositeDisposable.dispose()
         }

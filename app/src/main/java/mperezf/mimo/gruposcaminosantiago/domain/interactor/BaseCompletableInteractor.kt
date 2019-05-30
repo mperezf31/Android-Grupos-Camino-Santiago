@@ -18,7 +18,7 @@ abstract class BaseCompletableInteractor<T, P>(var mainThread: Scheduler, var iO
         mCompositeDisposable.add(observable.subscribeWith(observer))
     }
 
-    fun close() {
+    fun dispose() {
         if (!mCompositeDisposable.isDisposed) {
             mCompositeDisposable.dispose()
         }

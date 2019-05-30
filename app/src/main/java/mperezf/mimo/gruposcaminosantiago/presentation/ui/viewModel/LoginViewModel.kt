@@ -61,4 +61,9 @@ class LoginViewModel : BaseViewModel() {
             }
         }, User(email = email, password = password))
     }
+
+
+    override fun dispose() {
+        loginInteractor.dispose()
+    }
 }

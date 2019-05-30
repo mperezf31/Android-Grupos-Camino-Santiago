@@ -5,6 +5,7 @@ import mperezf.mimo.gruposcaminosantiago.data.model.GroupData
 import mperezf.mimo.gruposcaminosantiago.data.model.MessageData
 import mperezf.mimo.gruposcaminosantiago.data.model.UserData
 import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
