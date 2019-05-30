@@ -1,9 +1,8 @@
 package mperezf.mimo.gruposcaminosantiago.data
 
-import android.content.Context
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.BuildConfig
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.data.local.LocalStorage
 import mperezf.mimo.gruposcaminosantiago.data.mapper.GroupMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.MessageMapper
@@ -16,10 +15,10 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import okhttp3.ResponseBody
 
-class Repository(context: Context) : DataStorage {
+object Repository : DataStorage {
 
     private val apiService: ApiService = RetrofitClient(BuildConfig.SERVER_URL).getApiService()
-    private val localStorage: LocalStorage = LocalStorage(context)
+    private val localStorage: LocalStorage = LocalStorage(CaminoDeSantiagoApp.instance)
 
     //Mappers
     private val userMapper = UserMapper()

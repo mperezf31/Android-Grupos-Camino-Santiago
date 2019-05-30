@@ -3,18 +3,17 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.login_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.validate
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.LoginViewModel
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -36,22 +35,38 @@ class LoginFragment : Fragment() {
 
         bt_login.setOnClickListener {
             if (validateForm()) {
-                Log.d(LoginFragment::class.java.name, "Valid data")
+                viewModel.doLogin(et_email.text.toString(), et_password.text.toString())
             }
         }
-    }
-
-    private fun validateForm(): Boolean {
-        return (et_email.validate(true,InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
-                && et_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        addObservers()
     }
 
+    private fun addObservers() {
+        viewModel.getErrorMsg().observe(this, Observer<String> {
+            showMessage(it)
+        })
+
+        viewModel.getLoadingState().observe(this, Observer<Boolean> {
+            showLoading(it)
+        })
+
+        viewModel.getFinishLogin().observe(this, Observer<Boolean> {
+            loginFragmentListener?.finishLogin()
+        })
+
+    }
+
+
+    private fun validateForm(): Boolean {
+        return (et_email.validate(true, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+                && et_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD))
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -65,5 +80,7 @@ class LoginFragment : Fragment() {
 
     interface LoginFragmentListener {
         fun showRegister()
+
+        fun finishLogin()
     }
 }

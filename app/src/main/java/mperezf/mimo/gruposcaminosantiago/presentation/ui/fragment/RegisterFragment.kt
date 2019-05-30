@@ -14,7 +14,7 @@ import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.validate
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.RegisterViewModel
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = RegisterFragment()

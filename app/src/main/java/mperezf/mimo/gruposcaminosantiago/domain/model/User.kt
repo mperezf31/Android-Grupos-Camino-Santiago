@@ -1,8 +1,9 @@
 package mperezf.mimo.gruposcaminosantiago.domain.model
 
 data class User(
-    val id: Int,
-    val email: String,
-    val name: String,
-    val photo: String
+    val id: Int? = 0,
+    val email: String? = "",
+    val password: String? = "",
+    val name: String? = "",
+    val photo: String? = ""
 )

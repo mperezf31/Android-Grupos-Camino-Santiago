@@ -1,12 +1,10 @@
 package mperezf.mimo.gruposcaminosantiago.data.local.db
 
+import io.reactivex.Observable
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import io.reactivex.Completable
-import io.reactivex.Maybe
-import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.data.model.UserData
 
 @Dao
@@ -16,7 +14,7 @@ interface UserModelDao {
     val getAuthenticatedUser: Observable<UserData>
 
     @Insert(onConflict = REPLACE)
-    fun saveUser(userEntity: UserData): Completable
+    fun saveUser(userEntity: UserData)
 
     @Query("DELETE FROM UserData")
     fun deleteAllUser()

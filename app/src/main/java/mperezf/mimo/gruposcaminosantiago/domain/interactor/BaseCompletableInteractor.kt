@@ -5,7 +5,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
 
-abstract class BaseCompletableInteractor<T, P>(var mMainThread: Scheduler, var mIOExecutor: Scheduler) {
+abstract class BaseCompletableInteractor<T, P>(var mainThread: Scheduler, var iOExecutor: Scheduler) {
 
     private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -13,8 +13,8 @@ abstract class BaseCompletableInteractor<T, P>(var mMainThread: Scheduler, var m
 
     fun execute(observer: DisposableCompletableObserver, params: P) {
         val observable = result(params)
-            .subscribeOn(mIOExecutor)
-            .observeOn(mMainThread)
+            .subscribeOn(iOExecutor)
+            .observeOn(mainThread)
         mCompositeDisposable.add(observable.subscribeWith(observer))
     }
 
