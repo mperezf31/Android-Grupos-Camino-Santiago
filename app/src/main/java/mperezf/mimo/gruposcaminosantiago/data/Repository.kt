@@ -1,5 +1,7 @@
 package mperezf.mimo.gruposcaminosantiago.data
 
+import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.BuildConfig
 import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
@@ -25,12 +27,18 @@ object Repository : DataStorage {
     private val messageMapper = MessageMapper()
     private val groupMapper = GroupMapper()
 
-    override fun getAuthenticatedUser(): Observable<User> {
+    override fun getAuthenticatedUser(): Maybe<User> {
         return localStorage.getAuthenticatedUser().map(userMapper.getMapper())
     }
 
+    override fun logout(): Completable {
+        return localStorage.logout()
+    }
+
     override fun login(user: User): Observable<User> {
-        return apiService.login(userMapper.reverseMap(user)).map(userMapper.getMapper())
+        return apiService.login(userMapper.reverseMap(user)).doOnNext {
+            localStorage.saveAuthenticatedUser(it)
+        }.map(userMapper.getMapper())
     }
 
     override fun register(user: User): Observable<User> {

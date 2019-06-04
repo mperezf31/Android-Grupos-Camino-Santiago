@@ -82,15 +82,13 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun onDetach() {
-        super.onDetach()
         loginFragmentListener = null
+        super.onDetach()
     }
 
     override fun onDestroy() {
-        bt_login.dispose()
         viewModel.dispose()
         super.onDestroy()
-
     }
 
     interface LoginFragmentListener {

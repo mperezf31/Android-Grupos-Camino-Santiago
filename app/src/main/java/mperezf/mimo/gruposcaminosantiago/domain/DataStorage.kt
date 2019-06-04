@@ -1,5 +1,7 @@
 package mperezf.mimo.gruposcaminosantiago.domain
 
+import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
@@ -8,7 +10,9 @@ import okhttp3.ResponseBody
 
 interface DataStorage {
 
-    fun getAuthenticatedUser(): Observable<User>
+    fun getAuthenticatedUser(): Maybe<User>
+
+    fun logout(): Completable
 
     fun login(user: User): Observable<User>
 

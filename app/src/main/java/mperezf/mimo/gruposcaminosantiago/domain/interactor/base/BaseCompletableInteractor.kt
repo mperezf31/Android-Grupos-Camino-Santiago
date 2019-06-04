@@ -1,4 +1,4 @@
-package mperezf.mimo.gruposcaminosantiago.domain.interactor
+package mperezf.mimo.gruposcaminosantiago.domain.interactor.base
 
 import io.reactivex.Completable
 import io.reactivex.Scheduler

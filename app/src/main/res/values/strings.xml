@@ -23,5 +23,7 @@
     <string name="required_field">"Campo requerido"</string>
     <string name="user_or_pass_not_valid">Usuario o contraseña incorrectos</string>
     <string name="internet_error">Error de conexión</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="logout_confirmation">¿Seguro que desea cerrar sesión?</string>
 
 </resources>

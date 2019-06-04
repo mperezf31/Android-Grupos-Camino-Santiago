@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.room.Room
+import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.data.local.db.AppDatabase
 import mperezf.mimo.gruposcaminosantiago.data.model.UserData
@@ -21,12 +23,14 @@ class LocalStorage(context: Context) {
         return db.userDao().saveUser(user)
     }
 
-    fun getAuthenticatedUser(): Observable<UserData> {
+    fun getAuthenticatedUser(): Maybe<UserData> {
         return db.userDao().getAuthenticatedUser
     }
 
-    fun logout(){
-        return db.userDao().deleteAllUser()
+    fun logout(): Completable{
+       return  Completable.fromAction {
+            db.userDao().deleteAllUser()
+        }
     }
 
 }
