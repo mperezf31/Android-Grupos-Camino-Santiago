@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.LogoutDialog
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.MainViewModel
 
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             authenticatedUser = it
             showUserInfo(it)
         }, {
-           goToLogin()
+            goToLogin()
         })
 
         fab.setOnClickListener { view ->
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun showUserInfo(user: User) {
-        iv_drawer_avatar.setImageDrawable(getDrawable(R.drawable.ic_avatar))
+        user.photo?.let { it -> iv_drawer_avatar.fromBase64(it) }
         nav_header_title.text = user.name
         nav_header_subtitle.text = user.email
     }
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun logoutConfirmed() {
-        viewModel.logout{
+        viewModel.logout {
             goToLogin()
         }
     }
