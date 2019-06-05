@@ -21,6 +21,7 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.LogoutDialogFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupListFragment
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.SettingsFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.MainViewModel
 
 
@@ -39,10 +40,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
             R.string.navigation_drawer_open,
@@ -92,6 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 showFragment(GroupListFragment.newInstance(authenticatedUser?.id!!))
             }
             R.id.nav_settings -> {
+                showFragment(SettingsFragment())
             }
 
 

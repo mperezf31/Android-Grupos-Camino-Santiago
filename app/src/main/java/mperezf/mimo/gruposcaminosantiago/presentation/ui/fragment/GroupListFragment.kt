@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.group_list_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
@@ -38,8 +39,10 @@ class GroupListFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.group_list_fragment, container, false)
         setHasOptionsMenu(true)
+
         return view
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -57,12 +60,7 @@ class GroupListFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.order_by_distance -> {
-                item.isChecked = true
-                true
-            }
-            R.id.order_by_departure_date -> {
-                item.isChecked = true
+            R.id.menu_add_group -> {
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -25,8 +25,11 @@
     <string name="logout">Cerrar sesión</string>
     <string name="logout_confirmation">¿Seguro que desea cerrar sesión?</string>
     <string name="no_items_to_show">No hay grupos que mostrar.</string>
-    <string name="no_items_to_show_advice">Revise los filtros o inténtelo de nuevo más tarde.</string>
-    <string name="order_by_date">Ordenar por fecha</string>
-    <string name="order_by_distance">Ordenar por distancia</string>
+    <string name="no_items_to_show_advice">Revise los grupos visibles en los ajustes</string>
+    <string name="preferences_visible_groups_title">Grupos visibles</string>
+    <string name="preferences_groups_created">Grupos que he creado</string>
+    <string name="preferences_groups_member">Grupos de los que soy miembro</string>
+    <string name="preferences_other_groups">Otros grupos</string>
+    <string name="create_group">Crear grupo</string>
 
 </resources>

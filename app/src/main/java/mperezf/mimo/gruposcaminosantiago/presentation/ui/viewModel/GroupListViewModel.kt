@@ -10,13 +10,15 @@ import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupListInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.SettingsFragment
 import retrofit2.HttpException
 
 
 class GroupListViewModel : BaseViewModel() {
 
 
-    private val groupListInteractor: GroupListInteractor = GroupListInteractor(Repository, AndroidSchedulers.mainThread(), Schedulers.io())
+    private val groupListInteractor: GroupListInteractor =
+        GroupListInteractor(Repository, AndroidSchedulers.mainThread(), Schedulers.io())
 
     val errorMsg = MutableLiveData<String>()
     val showLoading = MutableLiveData<Boolean>()
@@ -42,13 +44,13 @@ class GroupListViewModel : BaseViewModel() {
 
         groupListInteractor.execute(object : DisposableObserver<UserGroupList>() {
             override fun onNext(groupList: UserGroupList) {
-               showGroups(groupList)
+                showGroups(groupList)
             }
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
 
-                if (e is HttpException && e.code() == 404){
+                if (e is HttpException && e.code() == 404) {
                     errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
                 } else {
                     errorMsg.postValue(context.getString(R.string.internet_error))
@@ -65,11 +67,21 @@ class GroupListViewModel : BaseViewModel() {
 
     private fun showGroups(groupList: UserGroupList) {
         val groups: ArrayList<Group> = ArrayList()
-        groups.addAll(groupList.groupsCreated )
-        groups.addAll(groupList.groupsAssociated )
-        groups.addAll(groupList.otherGroups )
+
+        if (preferences.getBoolean(SettingsFragment.PREF_GROUPS_CREATED, true)) {
+            groups.addAll(groupList.groupsCreated)
+        }
+
+        if (preferences.getBoolean(SettingsFragment.PREF_GROUPS_MEMBER, true)) {
+            groups.addAll(groupList.groupsAssociated)
+        }
+
+        if (preferences.getBoolean(SettingsFragment.PREF__OTHER_GROUPS, true)) {
+            groups.addAll(groupList.otherGroups)
+        }
 
         groupsUpdate.postValue(groups)
+
     }
 
 

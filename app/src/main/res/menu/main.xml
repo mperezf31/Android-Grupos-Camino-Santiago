@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:id="@+id/group_order" android:checkableBehavior="single">
-        <item
-            android:id="@+id/order_by_distance"
-            android:title="@string/order_by_distance" />
-        <item
-            android:id="@+id/order_by_departure_date"
-            android:title="@string/order_by_date" />
-    </group>
+    <item
+        android:id="@+id/menu_add_group"
+        android:icon="@drawable/ic_add"
+        android:orderInCategory="100"
+        android:title="@string/create_group"
+        app:showAsAction="always" />
 
 </menu>
