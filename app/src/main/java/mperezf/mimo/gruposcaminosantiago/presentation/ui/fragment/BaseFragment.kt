@@ -12,10 +12,6 @@ open class BaseFragment : Fragment() {
         view?.let { msg?.let { it1 -> Snackbar.make(it, it1, Snackbar.LENGTH_LONG).show() } }
     }
 
-    fun showLoading(show: Boolean) {
-
-    }
-
     fun closeKeyboard() {
         view?.let { v ->
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager

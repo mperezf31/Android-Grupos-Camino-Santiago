@@ -4,8 +4,8 @@ import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.data.model.GroupData
 import mperezf.mimo.gruposcaminosantiago.data.model.MessageData
 import mperezf.mimo.gruposcaminosantiago.data.model.UserData
+import mperezf.mimo.gruposcaminosantiago.data.model.UserGroupListData
 import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -16,8 +16,8 @@ interface ApiService {
     @POST("user")
     fun register(@Body user: UserData): Observable<UserData>
 
-    @GET
-    fun getGroups(@HeaderMap token: Map<String, String>): Observable<List<GroupData>>
+    @GET("groups")
+    fun getGroups(@HeaderMap token: Map<String, String>): Observable<UserGroupListData>
 
     @GET("group/{id}")
     fun getGroupDetail(@HeaderMap token: Map<String, String>, @Path("id") id: Int): Observable<GroupData>

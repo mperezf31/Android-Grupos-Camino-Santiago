@@ -8,6 +8,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -17,12 +19,13 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.LogoutDialog
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.LogoutDialogFragment
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupListFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.MainViewModel
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    LogoutDialog.OnLogoutListener {
+    LogoutDialogFragment.OnLogoutListener {
 
     private lateinit var viewModel: MainViewModel
 
@@ -35,12 +38,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getAuthenticatedUser({
-            authenticatedUser = it
-            showUserInfo(it)
-        }, {
-            goToLogin()
-        })
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -55,13 +52,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        viewModel.getAuthenticatedUser({
+            authenticatedUser = it
+            showUserInfo(it)
+            showFragment(GroupListFragment.newInstance(it.id!!))
+        }, {
+            goToLogin()
+        })
     }
+
 
     private fun showUserInfo(user: User) {
         user.photo?.let { it -> iv_drawer_avatar.fromBase64(it) }
         nav_header_title.text = user.name
         nav_header_subtitle.text = user.email
     }
+
+    private fun showFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .replace(R.id.main_container, fragment)
+            .commitNow()
+    }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -95,8 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_logout -> {
-                val tituloFragmentDialog = LogoutDialog.newInstance()
-                tituloFragmentDialog.show(supportFragmentManager, LogoutDialog.TAG)
+                LogoutDialogFragment.newInstance().show(supportFragmentManager, LogoutDialogFragment.TAG)
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)

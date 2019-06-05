@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/grey_1"
+    app:cardCornerRadius="@dimen/group_item_card_corner"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_group"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_default" />
+
+        <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/iv_group"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nombre del grupo" />
+
+        <ImageView
+            android:id="@+id/iv_group_location"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:tint="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="@+id/tv_group_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_name"
+            app:srcCompat="@drawable/ic_location" />
+
+        <ImageView
+            android:id="@+id/iv_group_date"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:tint="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="@+id/iv_group_location"
+            app:layout_constraintTop_toBottomOf="@+id/iv_group_location"
+            app:srcCompat="@drawable/ic_date" />
+
+        <TextView
+            android:id="@+id/tv_group_departure_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_group_location"
+            app:layout_constraintTop_toTopOf="@+id/iv_group_location"
+            tools:text="Lugar de salida" />
+
+        <TextView
+            android:id="@+id/tv_group_date_departure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_group_date"
+            app:layout_constraintTop_toTopOf="@+id/iv_group_date"
+            tools:text="Fecha de salida" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

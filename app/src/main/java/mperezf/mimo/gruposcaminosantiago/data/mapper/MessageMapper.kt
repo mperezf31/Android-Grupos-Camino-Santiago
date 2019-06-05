@@ -6,9 +6,10 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 class MessageMapper : BaseMapper<MessageData, Message>() {
 
     public override fun map(dataModel: MessageData): Message {
+
         return Message(
             id = dataModel.id,
-            author = UserMapper().map(dataModel.author),
+            author = dataModel.author?.let { UserMapper().map(it) },
             content = dataModel.content,
             whenSent = dataModel.whenSent
         )
@@ -17,7 +18,7 @@ class MessageMapper : BaseMapper<MessageData, Message>() {
     public override fun reverseMap(model: Message): MessageData {
         return MessageData(
             id = model.id,
-            author = UserMapper().reverseMap(model.author),
+            author = model.author?.let { UserMapper().reverseMap(it) },
             content = model.content,
             whenSent = model.whenSent
         )

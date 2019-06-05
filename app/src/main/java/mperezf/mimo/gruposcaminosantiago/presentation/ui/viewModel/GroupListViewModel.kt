@@ -2,23 +2,25 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.data.Repository
-import mperezf.mimo.gruposcaminosantiago.domain.interactor.LoginInteractor
-import mperezf.mimo.gruposcaminosantiago.domain.model.User
+import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupListInteractor
+import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
 import retrofit2.HttpException
 
 
-class LoginViewModel : BaseViewModel() {
+class GroupListViewModel : BaseViewModel() {
 
-    private val loginInteractor: LoginInteractor = LoginInteractor(Repository, mainThread(), Schedulers.io())
+
+    private val groupListInteractor: GroupListInteractor = GroupListInteractor(Repository, AndroidSchedulers.mainThread(), Schedulers.io())
 
     val errorMsg = MutableLiveData<String>()
     val showLoading = MutableLiveData<Boolean>()
-    val finishLogin = MutableLiveData<Boolean>()
+    val groupsUpdate = MutableLiveData<List<Group>>()
 
 
     fun getErrorMsg(): LiveData<String> {
@@ -29,25 +31,24 @@ class LoginViewModel : BaseViewModel() {
         return showLoading
     }
 
-
-    fun getFinishLogin(): LiveData<Boolean> {
-        return finishLogin
+    fun getGroupsUpdate(): LiveData<List<Group>> {
+        return groupsUpdate
     }
 
 
-    fun doLogin(email: String, password: String) {
+    fun getGroups(userId: Int) {
 
         showLoading.postValue(true)
 
-        loginInteractor.execute(object : DisposableObserver<User>() {
-            override fun onNext(user: User) {
-                finishLogin.postValue(true)
+        groupListInteractor.execute(object : DisposableObserver<UserGroupList>() {
+            override fun onNext(groupList: UserGroupList) {
+               showGroups(groupList)
             }
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
 
-                if ((e as HttpException).code() == 404) {
+                if (e is HttpException && e.code() == 404){
                     errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
                 } else {
                     errorMsg.postValue(context.getString(R.string.internet_error))
@@ -59,11 +60,21 @@ class LoginViewModel : BaseViewModel() {
                 showLoading.postValue(false)
 
             }
-        }, User(email = email, password = password))
+        }, userId)
+    }
+
+    private fun showGroups(groupList: UserGroupList) {
+        val groups: ArrayList<Group> = ArrayList()
+        groups.addAll(groupList.groupsCreated )
+        groups.addAll(groupList.groupsAssociated )
+        groups.addAll(groupList.otherGroups )
+
+        groupsUpdate.postValue(groups)
     }
 
 
     override fun dispose() {
-        loginInteractor.dispose()
+        groupListInteractor.dispose()
     }
+
 }

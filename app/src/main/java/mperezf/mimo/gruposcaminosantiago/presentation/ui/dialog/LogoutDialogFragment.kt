@@ -7,12 +7,12 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import mperezf.mimo.gruposcaminosantiago.R
 
-class LogoutDialog : DialogFragment(){
+class LogoutDialogFragment : DialogFragment(){
 
     companion object {
-        val TAG: String = LogoutDialog::class.java.simpleName
+        val TAG: String = LogoutDialogFragment::class.java.simpleName
 
-        fun newInstance() = LogoutDialog()
+        fun newInstance() = LogoutDialogFragment()
     }
 
     private var onLogoutListener: OnLogoutListener? = null

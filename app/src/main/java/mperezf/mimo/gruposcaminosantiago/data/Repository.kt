@@ -3,18 +3,21 @@ package mperezf.mimo.gruposcaminosantiago.data
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
+import io.reactivex.functions.Function
 import mperezf.mimo.gruposcaminosantiago.BuildConfig
 import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.data.local.LocalStorage
 import mperezf.mimo.gruposcaminosantiago.data.mapper.GroupMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.MessageMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.UserMapper
+import mperezf.mimo.gruposcaminosantiago.data.model.UserGroupListData
 import mperezf.mimo.gruposcaminosantiago.data.remote.ApiService
 import mperezf.mimo.gruposcaminosantiago.data.remote.RetrofitClient
 import mperezf.mimo.gruposcaminosantiago.domain.DataStorage
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
+import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
 import okhttp3.ResponseBody
 
 object Repository : DataStorage {
@@ -45,8 +48,12 @@ object Repository : DataStorage {
         return apiService.register(userMapper.reverseMap(user)).map(userMapper.getMapper())
     }
 
-    override fun getGroups(): Observable<List<Group>> {
-        return apiService.getGroups(getAuthenticationToken()).map(groupMapper.getListMapper())
+    override fun getGroups(userId: Int): Observable<UserGroupList> {
+        return apiService.getGroups(getAuthenticationToken(userId.toString())).map {
+            UserGroupList(it.groupsCreated.map { group -> groupMapper.map(group) },
+                it.groupsAssociated.map { group -> groupMapper.map(group) },
+                it.otherGroups.map { group -> groupMapper.map(group) })
+        }
     }
 
     override fun getGroupDetail(id: Int): Observable<Group> {

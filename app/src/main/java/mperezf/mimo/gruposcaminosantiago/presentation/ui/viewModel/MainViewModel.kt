@@ -6,14 +6,18 @@ import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.LogoutInteractor
-import mperezf.mimo.gruposcaminosantiago.domain.interactor.base.AuthenticatedUserInteractor
+import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 
 
 class MainViewModel : BaseViewModel() {
 
     private val authenticatedUserInteractor: AuthenticatedUserInteractor =
-        AuthenticatedUserInteractor(Repository, mainThread(), Schedulers.io())
+        AuthenticatedUserInteractor(
+            Repository,
+            mainThread(),
+            Schedulers.io()
+        )
 
     private val logoutInteractor: LogoutInteractor =
         LogoutInteractor(Repository, mainThread(), Schedulers.io())

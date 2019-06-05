@@ -6,6 +6,7 @@ import io.reactivex.Observable
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
+import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
 import okhttp3.ResponseBody
 
 interface DataStorage {
@@ -18,7 +19,7 @@ interface DataStorage {
 
     fun register(user: User): Observable<User>
 
-    fun getGroups(): Observable<List<Group>>
+    fun getGroups(userId: Int): Observable<UserGroupList>
 
     fun getGroupDetail(id: Int): Observable<Group>
 

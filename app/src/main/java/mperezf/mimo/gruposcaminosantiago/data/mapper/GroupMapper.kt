@@ -16,9 +16,9 @@ class GroupMapper : BaseMapper<GroupData, Group>() {
             departurePlace = dataModel.departurePlace,
             latitude = dataModel.latitude,
             longitude = dataModel.longitude,
-            founder = UserMapper().map(dataModel.founder),
-            members = dataModel.members.map { UserMapper().map(it) },
-            messages = dataModel.posts.map { MessageMapper().map(it) }
+            founder = dataModel.founder?.let { UserMapper().map(it) },
+            members = dataModel.members?.map { UserMapper().map(it) },
+            messages = dataModel.posts?.map { MessageMapper().map(it) }
         )
     }
 
@@ -33,9 +33,9 @@ class GroupMapper : BaseMapper<GroupData, Group>() {
             departurePlace = model.departurePlace,
             latitude = model.latitude,
             longitude = model.longitude,
-            founder = UserMapper().reverseMap(model.founder),
-            members = model.members.map { UserMapper().reverseMap(it) },
-            posts = model.messages.map { MessageMapper().reverseMap(it) }
+            founder = model.founder?.let { UserMapper().reverseMap(it) },
+            members = model.members?.map { UserMapper().reverseMap(it) },
+            posts = model.messages?.map { MessageMapper().reverseMap(it) }
         )
     }
 

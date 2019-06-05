@@ -25,5 +25,7 @@
     <string name="internet_error">Error de conexión</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_confirmation">¿Seguro que desea cerrar sesión?</string>
+    <string name="no_items_to_show">No hay grupos que mostrar.</string>
+    <string name="no_items_to_show_advice">Revise los filtros o inténtelo de nuevo más tarde.</string>
 
 </resources>
