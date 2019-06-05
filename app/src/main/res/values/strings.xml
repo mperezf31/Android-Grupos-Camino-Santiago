@@ -5,7 +5,6 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="app_title">Grupos\nCamino de Santiago</string>
     <string name="menu_groups">Grupos</string>
@@ -27,5 +26,7 @@
     <string name="logout_confirmation">¿Seguro que desea cerrar sesión?</string>
     <string name="no_items_to_show">No hay grupos que mostrar.</string>
     <string name="no_items_to_show_advice">Revise los filtros o inténtelo de nuevo más tarde.</string>
+    <string name="order_by_date">Ordenar por fecha</string>
+    <string name="order_by_distance">Ordenar por distancia</string>
 
 </resources>

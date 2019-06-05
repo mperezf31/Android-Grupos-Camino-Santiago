@@ -1,15 +1,10 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
-import android.opengl.Visibility
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.group_list_fragment.*
-
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupsAdapter
@@ -41,7 +36,9 @@ class GroupListFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.group_list_fragment, container, false)
+        val view = inflater.inflate(R.layout.group_list_fragment, container, false)
+        setHasOptionsMenu(true)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -51,6 +48,25 @@ class GroupListFragment : BaseFragment() {
         addObservers()
         viewModel.getGroups(userId)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.order_by_distance -> {
+                item.isChecked = true
+                true
+            }
+            R.id.order_by_departure_date -> {
+                item.isChecked = true
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun createGroupsAdapter() {
@@ -71,7 +87,7 @@ class GroupListFragment : BaseFragment() {
 
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                if (!srl_group_list.isRefreshing){
+                if (!srl_group_list.isRefreshing) {
                     pb_groups.visibility = View.VISIBLE
                 }
             } else {

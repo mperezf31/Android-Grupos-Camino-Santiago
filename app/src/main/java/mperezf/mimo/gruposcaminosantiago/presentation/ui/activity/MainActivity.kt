@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        nav_view.setCheckedItem(R.id.nav_groups)
         nav_view.setNavigationItemSelectedListener(this)
 
         viewModel.getAuthenticatedUser({
@@ -85,28 +86,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_groups -> {
-                // Handle the camera action
+                showFragment(GroupListFragment.newInstance(authenticatedUser?.id!!))
             }
             R.id.nav_settings -> {
-
             }
-            R.id.nav_share -> {
 
+
+            R.id.nav_share -> {
             }
             R.id.nav_logout -> {
                 LogoutDialogFragment.newInstance().show(supportFragmentManager, LogoutDialogFragment.TAG)
