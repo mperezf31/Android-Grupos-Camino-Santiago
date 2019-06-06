@@ -13,7 +13,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_group_detail.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupDetailFragment
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupMemberListFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
@@ -28,19 +30,25 @@ class GroupDetailActivity : AppCompatActivity() {
     private lateinit var viewModel: GroupDetailViewModel
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        groupDetail?.let {
+        groupDetail?.let { group ->
             when (item.itemId) {
 
                 R.id.group_detail_tab -> {
-                    showFragment(GroupDetailFragment.newInstance(it))
+                    showFragment(GroupDetailFragment.newInstance(group))
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.group_members_tab -> {
-                    showFragment(GroupDetailFragment.newInstance(it))
+
+                    var members = emptyList<User>()
+                    group.members?.let {
+                         members = it
+                    }
+
+                    showFragment(GroupMemberListFragment.newInstance(ArrayList(members)))
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.group_chat_tab -> {
-                    showFragment(GroupDetailFragment.newInstance(it))
+                    showFragment(GroupDetailFragment.newInstance(group))
                     return@OnNavigationItemSelectedListener true
                 }
                 else -> false
@@ -61,7 +69,7 @@ class GroupDetailActivity : AppCompatActivity() {
         addObservers()
 
         intent?.extras?.let { extras ->
-            if (extras.containsKey(GROUP_TITLE)){
+            if (extras.containsKey(GROUP_TITLE)) {
                 title = extras.getString(GROUP_TITLE)
             }
 
@@ -77,13 +85,24 @@ class GroupDetailActivity : AppCompatActivity() {
             }
         }
     }
-    
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    override fun onDestroy() {
+        viewModel.dispose()
+        super.onDestroy()
     }
 
 
@@ -113,10 +132,5 @@ class GroupDetailActivity : AppCompatActivity() {
         })
     }
 
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
 
 }

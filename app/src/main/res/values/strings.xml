@@ -41,5 +41,6 @@
     <string name="group_departure_place">Lugar de salida</string>
     <string name="title_activity_maps">Map</string>
     <string name="group_admin">Organizador</string>
+    <string name="add_member_to_group">Unirse al grupo</string>
 
 </resources>

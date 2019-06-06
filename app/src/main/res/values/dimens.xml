@@ -20,5 +20,12 @@
     <dimen name="group_info_text_size">12sp</dimen>
     <dimen name="group_title_size">18sp</dimen>
     <dimen name="avatar_admin_size">60dp</dimen>
+    <dimen name="member_item_card_corner">8dp</dimen>
+    <dimen name="avatar_member_size">65dp</dimen>
+    <dimen name="member_name_top_margin">8dp</dimen>
+    <dimen name="member_name_size">15sp</dimen>
+    <dimen name="member_email_size">12sp</dimen>
+    <dimen name="member_padding">8dp</dimen>
+    <dimen name="member_avatar_margin_top">4dp</dimen>
 
 </resources>

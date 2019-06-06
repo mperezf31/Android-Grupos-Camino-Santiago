@@ -26,7 +26,6 @@ class GroupDetailFragment : Fragment(), OnMapReadyCallback {
     companion object {
 
         private const val GROUP_DETAIL = "group_detail"
-        private const val ARG_PARAM2 = "param2"
 
         @JvmStatic
         fun newInstance(group: Group) =

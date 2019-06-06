@@ -100,6 +100,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    override fun onDestroy() {
+        viewModel.dispose()
+        super.onDestroy()
+    }
+
+
     override fun logoutConfirmed() {
         viewModel.logout {
             goToLogin()

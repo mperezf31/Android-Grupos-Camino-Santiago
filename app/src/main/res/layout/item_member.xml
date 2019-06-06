@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="@dimen/member_item_card_corner"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/member_padding"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_member"
+            android:layout_marginTop="@dimen/member_avatar_margin_top"
+            android:layout_width="@dimen/avatar_member_size"
+            android:layout_height="@dimen/avatar_member_size"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_avatar" />
+
+        <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/member_name_top_margin"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/member_name_size"
+            android:textStyle="bold"
+            tools:text="Juan Pérez" />
+
+
+        <TextView
+            android:id="@+id/tv_member_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/member_email_size"
+            tools:text="juan@gmail.com" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
