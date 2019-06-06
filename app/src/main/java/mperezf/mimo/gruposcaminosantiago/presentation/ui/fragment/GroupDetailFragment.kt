@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.group_detail_fragment.*
 
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromTimestamp
 
 
 class GroupDetailFragment : Fragment() {
@@ -36,8 +39,34 @@ class GroupDetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_group_detail, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.group_detail_fragment, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showDetailGroup()
+    }
+
+    private fun showDetailGroup() {
+
+        group?.apply {
+            photo?.let { iv_group.fromBase64(it) }
+            departureDate?.let {
+                tv_group_departure_date.fromTimestamp(it)
+            }
+
+            arrivalDate?.let {
+                tv_group_arrival_date.fromTimestamp(it)
+            }
+
+            description?.let {
+                tv_group_description.text = it
+            }
+        }
+
+
     }
 
 
