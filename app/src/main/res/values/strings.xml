@@ -32,12 +32,14 @@
     <string name="preferences_other_groups">Otros grupos</string>
     <string name="create_group">Crear grupo</string>
     <string name="title_activity_group_detail">GroupDetailActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="detail">Detalle</string>
+    <string name="members">Miembros</string>
+    <string name="chat">Chat</string>
     <string name="group_departure_date">Salida</string>
     <string name="group_arrival_Date">Llegada</string>
     <string name="group_description_title">Descripción</string>
     <string name="group_departure_place">Lugar de salida</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="group_admin">Organizador</string>
 
 </resources>

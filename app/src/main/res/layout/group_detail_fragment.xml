@@ -37,8 +37,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:text="@string/group_departure_date"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/iv_group"
@@ -48,6 +49,7 @@
                     android:id="@+id/tv_group_departure_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/group_info_text_size"
                     app:layout_constraintStart_toStartOf="@+id/tv_group_departure_date_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_group_departure_date_title"
@@ -58,9 +60,9 @@
                     android:id="@+id/tv_group_arrival_date_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:text="@string/group_arrival_Date"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/tv_group_departure_date"
@@ -70,7 +72,7 @@
                     android:id="@+id/tv_group_arrival_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/group_info_text_size"
                     app:layout_constraintStart_toStartOf="@+id/tv_group_arrival_date_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_group_arrival_date_title"
@@ -115,6 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/text_color"
                     tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit in, cum nulla porttitor. Accumsan lacinia fermentum sociis nunc nisl metus cum consequat, " />
 
             </LinearLayout>
@@ -149,7 +152,99 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/colorPrimary" />
 
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
+
+                <TextView
+                    android:id="@+id/tv_group_departure_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/text_color"
+                    tools:text="Plaza San Francisco " />
+
+
             </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="@dimen/group_item_card_corner"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_admin_section_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/group_admin"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/line_admin_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_admin_section_title" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_avatar_group_admin"
+                    android:layout_width="@dimen/avatar_admin_size"
+                    android:layout_height="@dimen/avatar_admin_size"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_avatar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_admin_section" />
+
+                <TextView
+                    android:id="@+id/tv_group_admin_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/iv_avatar_group_admin"
+                    app:layout_constraintTop_toBottomOf="@+id/line_admin_section"
+                    tools:text="Juan" />
+
+                <TextView
+                    android:id="@+id/tv_group_admin_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/text_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/tv_group_admin_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_group_admin_name"
+                    tools:text="juan@gmail.com" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 

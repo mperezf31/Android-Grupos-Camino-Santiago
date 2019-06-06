@@ -15,6 +15,7 @@
     <color name="error">#de1738</color>
     <color name="spinning_color">#fff</color>
     <color name="bg_color">#cfdae8</color>
+    <color name="text_color">#808080</color>
 
 
 </resources>
