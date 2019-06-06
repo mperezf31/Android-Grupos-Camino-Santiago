@@ -21,7 +21,7 @@
     <string name="confirm_password">Confirmar contraseña</string>
     <string name="required_field">"Campo requerido"</string>
     <string name="user_or_pass_not_valid">Usuario o contraseña incorrectos</string>
-    <string name="internet_error">Error de conexión</string>
+    <string name="internet_error">Se ha producido un error de conexión</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_confirmation">¿Seguro que desea cerrar sesión?</string>
     <string name="no_items_to_show">No hay grupos que mostrar.</string>
@@ -31,5 +31,12 @@
     <string name="preferences_groups_member">Grupos de los que soy miembro</string>
     <string name="preferences_other_groups">Otros grupos</string>
     <string name="create_group">Crear grupo</string>
+    <string name="title_activity_group_detail">GroupDetailActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

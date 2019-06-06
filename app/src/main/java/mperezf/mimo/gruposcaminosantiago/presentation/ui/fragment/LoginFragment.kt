@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.login_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.validate
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.LoginViewModel
+import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.LoginViewModel
 
 class LoginFragment : BaseFragment() {
 

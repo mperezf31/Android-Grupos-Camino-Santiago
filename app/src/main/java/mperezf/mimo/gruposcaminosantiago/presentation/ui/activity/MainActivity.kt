@@ -2,7 +2,6 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
@@ -22,7 +19,7 @@ import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.LogoutDialogFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupListFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.SettingsFragment
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.MainViewModel
+import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.MainViewModel
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,

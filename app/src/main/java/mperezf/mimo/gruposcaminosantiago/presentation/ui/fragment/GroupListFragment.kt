@@ -1,28 +1,29 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.group_list_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.GroupDetailActivity
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupsAdapter
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel.GroupListViewModel
+import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupListViewModel
 
 class GroupListFragment : BaseFragment() {
 
     companion object {
         private const val USER_ID = "user_id"
 
-        fun newInstance(userId: Int): GroupListFragment {
-            val args = Bundle()
-            args.putSerializable(USER_ID, userId)
-            val fragment = GroupListFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        @JvmStatic
+        fun newInstance(userId: Int): GroupListFragment =
+            GroupListFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(USER_ID, userId)
+                }
+            }
     }
 
     private lateinit var viewModel: GroupListViewModel
@@ -30,10 +31,9 @@ class GroupListFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getInt(USER_ID)?.let {
-            userId = it
+        arguments?.let {
+            userId = it.getInt(USER_ID)
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -75,7 +75,11 @@ class GroupListFragment : BaseFragment() {
     }
 
     private fun groupSelected(selectedGroup: Group) {
-
+        val intent = Intent(context, GroupDetailActivity::class.java)
+        intent.putExtra(GroupDetailActivity.GROUP_ID, selectedGroup.id)
+        intent.putExtra(GroupDetailActivity.GROUP_TITLE, selectedGroup.title)
+        startActivity(intent)
+        activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun addObservers() {

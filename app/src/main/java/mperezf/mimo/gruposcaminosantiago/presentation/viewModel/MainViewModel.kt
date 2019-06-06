@@ -1,4 +1,4 @@
-package mperezf.mimo.gruposcaminosantiago.presentation.ui.viewModel
+package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableCompletableObserver
