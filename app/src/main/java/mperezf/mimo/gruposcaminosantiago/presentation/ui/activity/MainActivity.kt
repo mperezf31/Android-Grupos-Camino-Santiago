@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewModel.getAuthenticatedUser({
             authenticatedUser = it
             showUserInfo(it)
-            showFragment(GroupListFragment.newInstance(it.id!!))
+            showFragment(GroupListFragment.newInstance())
         }, {
             goToLogin()
         })
@@ -82,16 +82,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.nav_groups -> {
-                showFragment(GroupListFragment.newInstance(authenticatedUser?.id!!))
-            }
-            R.id.nav_settings -> {
-                showFragment(SettingsFragment())
+                showFragment(GroupListFragment.newInstance())
             }
 
+            R.id.nav_settings -> {
+                showFragment(SettingsFragment.newInstance())
+            }
 
             R.id.nav_share -> {
             }
+
             R.id.nav_logout -> {
                 LogoutDialogFragment.newInstance().show(supportFragmentManager, LogoutDialogFragment.TAG)
             }

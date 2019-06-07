@@ -19,7 +19,7 @@ import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupMemberLis
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
-class GroupDetailActivity : AppCompatActivity() {
+class GroupDetailActivity : AppCompatActivity(), GroupMemberListFragment.MemberFragmentListener {
 
     companion object {
         const val GROUP_ID = "group_id"
@@ -38,13 +38,7 @@ class GroupDetailActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.group_members_tab -> {
-
-                    var members = emptyList<User>()
-                    group.members?.let {
-                         members = it
-                    }
-
-                    showFragment(GroupMemberListFragment.newInstance(ArrayList(members)))
+                    showFragment(GroupMemberListFragment.newInstance(group))
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.group_chat_tab -> {
@@ -130,6 +124,11 @@ class GroupDetailActivity : AppCompatActivity() {
                 pb_group_detail.visibility = View.GONE
             }
         })
+    }
+
+
+    override fun updateGroup(group: Group) {
+       groupDetail = group
     }
 
 

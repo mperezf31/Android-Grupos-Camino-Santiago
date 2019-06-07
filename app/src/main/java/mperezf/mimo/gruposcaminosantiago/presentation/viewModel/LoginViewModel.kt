@@ -16,9 +16,9 @@ class LoginViewModel : BaseViewModel() {
 
     private val loginInteractor: LoginInteractor = LoginInteractor(Repository, mainThread(), Schedulers.io())
 
-    val errorMsg = MutableLiveData<String>()
-    val showLoading = MutableLiveData<Boolean>()
-    val finishLogin = MutableLiveData<Boolean>()
+    private val errorMsg = MutableLiveData<String>()
+    private val showLoading = MutableLiveData<Boolean>()
+    private val finishLogin = MutableLiveData<Boolean>()
 
 
     fun getErrorMsg(): LiveData<String> {

@@ -38,7 +38,7 @@ class GroupListViewModel : BaseViewModel() {
     }
 
 
-    fun getGroups(userId: Int) {
+    fun getGroups() {
 
         showLoading.postValue(true)
 
@@ -62,7 +62,7 @@ class GroupListViewModel : BaseViewModel() {
                 showLoading.postValue(false)
 
             }
-        }, userId)
+        }, Unit)
     }
 
     private fun showGroups(groupList: UserGroupList) {

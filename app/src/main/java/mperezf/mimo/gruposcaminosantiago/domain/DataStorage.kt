@@ -19,7 +19,7 @@ interface DataStorage {
 
     fun register(user: User): Observable<User>
 
-    fun getGroups(userId: Int): Observable<UserGroupList>
+    fun getGroups(): Observable<UserGroupList>
 
     fun getGroupDetail(id: Int): Observable<Group>
 

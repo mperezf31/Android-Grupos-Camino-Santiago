@@ -12,6 +12,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val PREF_GROUPS_CREATED = "pref_groups_created"
         const val PREF_GROUPS_MEMBER = "pref_groups_member"
         const val PREF__OTHER_GROUPS = "pref_other_groups"
+
+        @JvmStatic
+        fun newInstance(): SettingsFragment = SettingsFragment()
     }
 
 

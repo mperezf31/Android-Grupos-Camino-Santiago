@@ -15,26 +15,11 @@ import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupListViewMod
 class GroupListFragment : BaseFragment() {
 
     companion object {
-        private const val USER_ID = "user_id"
-
         @JvmStatic
-        fun newInstance(userId: Int): GroupListFragment =
-            GroupListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(USER_ID, userId)
-                }
-            }
+        fun newInstance(): GroupListFragment = GroupListFragment()
     }
 
     private lateinit var viewModel: GroupListViewModel
-    private var userId: Int = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            userId = it.getInt(USER_ID)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.group_list_fragment, container, false)
@@ -49,7 +34,7 @@ class GroupListFragment : BaseFragment() {
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel::class.java)
         createGroupsAdapter()
         addObservers()
-        viewModel.getGroups(userId)
+        viewModel.getGroups()
 
     }
 
@@ -103,7 +88,7 @@ class GroupListFragment : BaseFragment() {
         })
 
         srl_group_list.setOnRefreshListener {
-            viewModel.getGroups(userId)
+            viewModel.getGroups()
         }
     }
 

@@ -21,14 +21,15 @@
         android:id="@+id/bt_switch_member"
         style="@style/CustomButton"
         android:layout_width="180dp"
-        android:minHeight="35dp"
-        android:textSize="13sp"
-        android:textAllCaps="false"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="@string/add_member_to_group"
+        android:minHeight="35dp"
+        tools:text="@string/add_member_to_group"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        app:initialCornerAngle="10dp"
         app:spinning_bar_color="@color/colorPrimary" />
 
 

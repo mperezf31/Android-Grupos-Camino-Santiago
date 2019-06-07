@@ -23,9 +23,6 @@ class GroupDetailViewModel : BaseViewModel() {
             Schedulers.io()
         )
 
-    private val logoutInteractor: LogoutInteractor =
-        LogoutInteractor(Repository, mainThread(), Schedulers.io())
-
 
     fun getLoadingState(): LiveData<Boolean> {
         return showLoading

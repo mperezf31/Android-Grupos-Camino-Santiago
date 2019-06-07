@@ -48,37 +48,52 @@ object Repository : DataStorage {
         return apiService.register(userMapper.reverseMap(user)).map(userMapper.getMapper())
     }
 
-    override fun getGroups(userId: Int): Observable<UserGroupList> {
-        return apiService.getGroups(getAuthenticationToken(userId.toString())).map {
-            UserGroupList(it.groupsCreated.map { group -> groupMapper.map(group) },
-                it.groupsAssociated.map { group -> groupMapper.map(group) },
-                it.otherGroups.map { group -> groupMapper.map(group) })
+    override fun getGroups(): Observable<UserGroupList> {
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.getGroups(getAuthenticationToken(it.id.toString())).map {
+                UserGroupList(it.groupsCreated.map { group -> groupMapper.map(group) },
+                    it.groupsAssociated.map { group -> groupMapper.map(group) },
+                    it.otherGroups.map { group -> groupMapper.map(group) })
+            }
         }
     }
 
     override fun getGroupDetail(id: Int): Observable<Group> {
-        return apiService.getGroupDetail(getAuthenticationToken(), id).map(groupMapper.getMapper())
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.getGroupDetail(getAuthenticationToken(it.id.toString()), id).map(groupMapper.getMapper())
+        }
     }
 
     override fun addGroup(group: Group): Observable<Group> {
-        return apiService.addGroup(getAuthenticationToken(), groupMapper.reverseMap(group)).map(groupMapper.getMapper())
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.addGroup(getAuthenticationToken(it.id.toString()), groupMapper.reverseMap(group))
+                .map(groupMapper.getMapper())
+        }
     }
 
     override fun deleteGroup(): Observable<ResponseBody> {
-        return apiService.deleteGroup(getAuthenticationToken())
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.deleteGroup(getAuthenticationToken(it.id.toString()))
+        }
     }
 
     override fun addMemberGroup(groupId: Int): Observable<Group> {
-        return apiService.addMemberGroup(getAuthenticationToken(), groupId).map(groupMapper.getMapper())
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.addMemberGroup(getAuthenticationToken(it.id.toString()), groupId).map(groupMapper.getMapper())
+        }
     }
 
     override fun removeMemberGroup(groupId: Int): Observable<Group> {
-        return apiService.removeMemberGroup(getAuthenticationToken(), groupId).map(groupMapper.getMapper())
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.removeMemberGroup(getAuthenticationToken(it.id.toString()), groupId).map(groupMapper.getMapper())
+        }
     }
 
     override fun addMessageGroup(groupId: Int, message: Message): Observable<Group> {
-        return apiService.addMessageGroup(getAuthenticationToken(), groupId, messageMapper.reverseMap(message))
-            .map(groupMapper.getMapper())
+        return localStorage.getAuthenticatedUser().toObservable().flatMap {
+            apiService.addMessageGroup(getAuthenticationToken(it.id.toString()), groupId, messageMapper.reverseMap(message))
+                .map(groupMapper.getMapper())
+        }
     }
 
     private fun getAuthenticationToken(token: String = ""): HashMap<String, String> {
