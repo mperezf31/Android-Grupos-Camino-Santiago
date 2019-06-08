@@ -90,13 +90,10 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
     private fun addObservers() {
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                bt_switch_member.isEnabled = false
                 bt_switch_member.startAnimation()
 
             } else {
                 bt_switch_member.revertAnimation()
-
-                bt_switch_member.isEnabled = true
             }
         })
 
@@ -108,12 +105,14 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
             isMember = true
             updateGroup(it)
             bt_switch_member.text = getString(R.string.leave_group)
+            bt_switch_member.saveInitialState()
         })
 
         viewModel.getMemberWasRemoved().observe(this, Observer<Group> {
             isMember = false
             updateGroup(it)
             bt_switch_member.text = getString(R.string.add_member_to_group)
+            bt_switch_member.saveInitialState()
         })
     }
 
