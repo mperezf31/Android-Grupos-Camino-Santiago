@@ -45,5 +45,6 @@
     <string name="leave_group">Salir del grupo</string>
     <string name="admin">Administrador</string>
     <string name="member">Miembro</string>
+    <string name="passwords_not_match">Las contraseñas no coinciden</string>
 
 </resources>

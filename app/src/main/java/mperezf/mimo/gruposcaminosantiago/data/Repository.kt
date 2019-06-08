@@ -45,7 +45,9 @@ object Repository : DataStorage {
     }
 
     override fun register(user: User): Observable<User> {
-        return apiService.register(userMapper.reverseMap(user)).map(userMapper.getMapper())
+        return apiService.register(userMapper.reverseMap(user)).doOnNext {
+            localStorage.saveAuthenticatedUser(it)
+        }.map(userMapper.getMapper())
     }
 
     override fun getGroups(): Observable<UserGroupList> {
@@ -79,19 +81,25 @@ object Repository : DataStorage {
 
     override fun addMemberGroup(groupId: Int): Observable<Group> {
         return localStorage.getAuthenticatedUser().toObservable().flatMap {
-            apiService.addMemberGroup(getAuthenticationToken(it.id.toString()), groupId).map(groupMapper.getMapper())
+            apiService.addMemberGroup(getAuthenticationToken(it.id.toString()), groupId)
+                .map(groupMapper.getMapper())
         }
     }
 
     override fun removeMemberGroup(groupId: Int): Observable<Group> {
         return localStorage.getAuthenticatedUser().toObservable().flatMap {
-            apiService.removeMemberGroup(getAuthenticationToken(it.id.toString()), groupId).map(groupMapper.getMapper())
+            apiService.removeMemberGroup(getAuthenticationToken(it.id.toString()), groupId)
+                .map(groupMapper.getMapper())
         }
     }
 
     override fun addMessageGroup(groupId: Int, message: Message): Observable<Group> {
         return localStorage.getAuthenticatedUser().toObservable().flatMap {
-            apiService.addMessageGroup(getAuthenticationToken(it.id.toString()), groupId, messageMapper.reverseMap(message))
+            apiService.addMessageGroup(
+                getAuthenticationToken(it.id.toString()),
+                groupId,
+                messageMapper.reverseMap(message)
+            )
                 .map(groupMapper.getMapper())
         }
     }

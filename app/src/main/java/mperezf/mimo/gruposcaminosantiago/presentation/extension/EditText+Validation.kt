@@ -14,6 +14,7 @@ fun EditText.validate(required: Boolean, inputType: Int = InputType.TYPE_CLASS_T
         return when (inputType) {
             InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS -> {
                 if (android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
+                    setTextColor(ContextCompat.getColor(context,R.color.grey_1))
                     true
                 } else {
                     setTextColor(ContextCompat.getColor(context,R.color.error))

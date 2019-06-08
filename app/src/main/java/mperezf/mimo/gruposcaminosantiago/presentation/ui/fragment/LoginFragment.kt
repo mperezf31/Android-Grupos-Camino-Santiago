@@ -48,34 +48,6 @@ class LoginFragment : BaseFragment() {
         addObservers()
     }
 
-    private fun addObservers() {
-        viewModel.getErrorMsg().observe(this, Observer<String> {
-            showMessage(it)
-        })
-
-        viewModel.getLoadingState().observe(this, Observer<Boolean> {
-            if (it) {
-                bt_login.isEnabled = false
-                bt_login.startAnimation()
-
-            } else {
-                bt_login.revertAnimation()
-                bt_login.isEnabled = true
-            }
-        })
-
-        viewModel.getFinishLogin().observe(this, Observer<Boolean> {
-            loginFragmentListener?.finishLogin()
-        })
-
-    }
-
-
-    private fun validateForm(): Boolean {
-        return (et_email.validate(true, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
-                && et_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD))
-    }
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         loginFragmentListener = activity as LoginFragmentListener
@@ -91,9 +63,39 @@ class LoginFragment : BaseFragment() {
         super.onDestroy()
     }
 
+    private fun addObservers() {
+        viewModel.getErrorMsg().observe(this, Observer<String> {
+            showMessage(it)
+        })
+
+        viewModel.getLoadingState().observe(this, Observer<Boolean> {
+            if (it) {
+                bt_login.startAnimation()
+
+            } else {
+                bt_login.revertAnimation()
+            }
+        })
+
+        viewModel.getFinishLogin().observe(this, Observer<Boolean> {
+            loginFragmentListener?.initApp()
+        })
+
+    }
+
+
+    private fun validateForm(): Boolean {
+        val validations = arrayOf(
+            et_email.validate(true, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+            , et_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        )
+        return !validations.contains(false)
+    }
+
+
     interface LoginFragmentListener {
         fun showRegister()
 
-        fun finishLogin()
+        fun initApp()
     }
 }

@@ -33,7 +33,7 @@ class GroupDetailActivity : AppCompatActivity(), GroupMemberListFragment.MemberF
     private lateinit var viewModel: GroupDetailViewModel
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        groupDetail?.let { group ->
+        groupDetail?.let { _ ->
             when (item.itemId) {
 
                 R.id.group_detail_tab -> {

@@ -29,11 +29,11 @@ class LoginActivity : AppCompatActivity(), LoginFragment.LoginFragmentListener,
         showFragment(LoginFragment.newInstance())
     }
 
-    override fun finishLogin() {
+    override fun initApp() {
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
+        finish()
     }
-
 
     private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
