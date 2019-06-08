@@ -27,5 +27,8 @@
     <dimen name="member_email_size">12sp</dimen>
     <dimen name="member_padding">8dp</dimen>
     <dimen name="member_avatar_margin_top">4dp</dimen>
+    <dimen name="button_member_width">180dp</dimen>
+    <dimen name="button_member_margin">20dp</dimen>
+    <dimen name="button_member_corner">10dp</dimen>
 
 </resources>

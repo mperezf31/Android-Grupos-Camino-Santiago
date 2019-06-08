@@ -63,7 +63,7 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
             userId = user.id
             group?.members?.let {
                 showGroupMemberList(group)
-                showMemberButton(user, group)
+                showMemberButtons(user, group)
             }
         }
 
@@ -90,10 +90,14 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
     private fun addObservers() {
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                bt_switch_member.startAnimation()
-
+                if (isMember){
+                    bt_remove_member.startAnimation()
+                }else{
+                    bt_add_member.startAnimation()
+                }
             } else {
-                bt_switch_member.revertAnimation()
+                bt_add_member.revertAnimation()
+                bt_remove_member.revertAnimation()
             }
         })
 
@@ -102,17 +106,14 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
         })
 
         viewModel.getMemberWasAdded().observe(this, Observer<Group> {
-            isMember = true
             updateGroup(it)
-            bt_switch_member.text = getString(R.string.leave_group)
-            bt_switch_member.saveInitialState()
+            prepareButtons(true)
+
         })
 
         viewModel.getMemberWasRemoved().observe(this, Observer<Group> {
-            isMember = false
             updateGroup(it)
-            bt_switch_member.text = getString(R.string.add_member_to_group)
-            bt_switch_member.saveInitialState()
+            prepareButtons(false)
         })
     }
 
@@ -130,29 +131,32 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun showMemberButton(authenticatedUser: User, group: Group?) {
-        if (authenticatedUser.id == group?.founder?.id) {
-            bt_switch_member.visibility = View.GONE
-        } else {
-            bt_switch_member.visibility = View.VISIBLE
-            bt_switch_member.setOnClickListener(this)
-        }
+    private fun showMemberButtons(authenticatedUser: User, group: Group?) {
+        if (authenticatedUser.id != group?.founder?.id) {
+            bt_add_member.setOnClickListener(this)
+            bt_remove_member.setOnClickListener(this)
 
-        if (viewModel.checkIsMember(userId!!, group?.members!!)) {
-            isMember = true
-            bt_switch_member.text = getString(R.string.leave_group)
-        } else {
-            isMember = false
-            bt_switch_member.text = getString(R.string.add_member_to_group)
+            prepareButtons(viewModel.checkIsMember(userId!!, group?.members!!))
         }
+    }
 
+    private fun prepareButtons(isMember: Boolean) {
+        if (isMember) {
+            this.isMember = true
+            bt_add_member.visibility = View.GONE
+            bt_remove_member.visibility = View.VISIBLE
+        } else {
+            this.isMember = false
+            bt_add_member.visibility = View.VISIBLE
+            bt_remove_member.visibility = View.GONE
+        }
     }
 
     override fun onClick(view: View) {
-        if (isMember) {
-            viewModel.removeMemberGroup(group!!.id!!)
-        } else {
+        if (view.id == bt_add_member.id) {
             viewModel.addMemberToGroup(group!!.id!!)
+        } else if (view.id == bt_remove_member.id) {
+            viewModel.removeMemberGroup(group!!.id!!)
         }
     }
 

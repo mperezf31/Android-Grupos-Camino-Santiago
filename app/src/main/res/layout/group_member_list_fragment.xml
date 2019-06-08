@@ -18,19 +18,25 @@
         tools:listitem="@layout/item_member" />
 
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-        android:id="@+id/bt_switch_member"
-        style="@style/CustomButton"
-        android:layout_width="180dp"
+        android:id="@+id/bt_add_member"
+        style="@style/CustomButton.Member"
+        android:layout_width="@dimen/button_member_width"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:minHeight="35dp"
-        tools:text="@string/add_member_to_group"
-        android:textAllCaps="false"
-        android:textSize="13sp"
-        app:initialCornerAngle="10dp"
-        app:spinning_bar_color="@color/colorPrimary" />
+        android:text="@string/add_member_to_group"
+        android:visibility="gone"
+        app:initialCornerAngle="@dimen/button_member_corner"
+        app:spinning_bar_color="@color/colorPrimary"
+        tools:visibility="visible" />
 
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/bt_remove_member"
+        style="@style/CustomButton.Member"
+        android:layout_width="@dimen/button_member_width"
+        android:layout_height="wrap_content"
+        android:text="@string/leave_group"
+        android:visibility="gone"
+        app:initialCornerAngle="@dimen/button_member_corner"
+        app:spinning_bar_color="@color/colorPrimary"
+        tools:visibility="visible" />
 
 </RelativeLayout>
