@@ -6,18 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_group.view.*
 import kotlinx.android.synthetic.main.item_member.view.*
 import mperezf.mimo.gruposcaminosantiago.R
-import mperezf.mimo.gruposcaminosantiago.domain.model.Group
-import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
-import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromTimestamp
-import java.lang.reflect.Member
+import mperezf.mimo.gruposcaminosantiago.presentation.model.Member
 
 class GroupMembersAdapter() : RecyclerView.Adapter<GroupMembersAdapter.ViewHolder>() {
 
-    private var items: ArrayList<User> = ArrayList()
+    private var items: ArrayList<Member> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_member, parent, false))
@@ -32,7 +28,7 @@ class GroupMembersAdapter() : RecyclerView.Adapter<GroupMembersAdapter.ViewHolde
         viewHolder.bind(member)
     }
 
-    fun updateItems(newItems: ArrayList<User>) {
+    fun updateItems(newItems: ArrayList<Member>) {
         this.items = newItems
     }
 
@@ -41,12 +37,17 @@ class GroupMembersAdapter() : RecyclerView.Adapter<GroupMembersAdapter.ViewHolde
         var tvName: TextView = itemView.tv_member_name
         var tvEmail: TextView = itemView.tv_member_email
 
-        fun bind(member: User) {
+        fun bind(member: Member) {
 
             member.apply {
                 photo?.let { ivMember.fromBase64(it) }
                 tvName.text = name?.trim() ?: ""
-                tvEmail.text = email?.trim() ?: ""
+
+                if (admin) {
+                    tvEmail.text = itemView.context.getString(R.string.admin)
+                } else {
+                    tvEmail.text = itemView.context.getString(R.string.member)
+                }
 
             }
         }

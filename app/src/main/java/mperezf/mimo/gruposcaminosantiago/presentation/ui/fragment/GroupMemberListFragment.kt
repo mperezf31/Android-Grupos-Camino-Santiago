@@ -125,7 +125,7 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
 
     private fun showGroupMemberList(group: Group?) {
         group?.members?.let {
-            (rv_group_members.adapter as GroupMembersAdapter).updateItems(ArrayList(it))
+            (rv_group_members.adapter as GroupMembersAdapter).updateItems(viewModel.getGroupMembers(group))
             rv_group_members.adapter?.notifyDataSetChanged()
         }
 

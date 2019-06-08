@@ -13,6 +13,7 @@ import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInte
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.RemoveMemberGrouplnteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
+import mperezf.mimo.gruposcaminosantiago.presentation.model.Member
 
 class GroupMemberListViewModel : BaseViewModel() {
 
@@ -109,12 +110,28 @@ class GroupMemberListViewModel : BaseViewModel() {
 
     fun checkIsMember(userId: Int, members: List<User>): Boolean {
         return members.any {
-           it.id == userId
+            it.id == userId
         }
     }
 
     override fun dispose() {
         addMemberGrouplnteractor.dispose()
+    }
+
+    fun getGroupMembers(group: Group): ArrayList<Member> {
+        return if (group.members != null) {
+            val members = ArrayList<Member>()
+            members.add(Member(group.founder?.id, group.founder?.name, group.founder?.photo, true))
+
+            members.addAll(group.members.map {
+                Member(it.id, it.name, it.photo, false)
+            })
+
+            ArrayList(members)
+        } else {
+            ArrayList()
+        }
+
     }
 
 

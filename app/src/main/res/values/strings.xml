@@ -43,5 +43,7 @@
     <string name="group_admin">Organizador</string>
     <string name="add_member_to_group">Unirse al grupo</string>
     <string name="leave_group">Salir del grupo</string>
+    <string name="admin">Administrador</string>
+    <string name="member">Miembro</string>
 
 </resources>
