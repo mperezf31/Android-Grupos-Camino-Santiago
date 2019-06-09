@@ -3,15 +3,16 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
@@ -22,9 +23,12 @@ import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.SettingsFragme
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.MainViewModel
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
     LogoutDialogFragment.OnLogoutListener {
 
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var tvDrawerTitle: TextView
+    private lateinit var tvDrawerSubTitle: TextView
     private lateinit var viewModel: MainViewModel
 
     private var authenticatedUser: User? = null
@@ -37,16 +41,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar,
+            this, drawerLayout, toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
+        drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setCheckedItem(R.id.nav_groups)
-        nav_view.setNavigationItemSelectedListener(this)
+        navView.setCheckedItem(R.id.nav_groups)
+        navView.setNavigationItemSelectedListener(this)
+
+        tvDrawerTitle = navView.getHeaderView(0).findViewById(R.id.nav_header_title)
+        tvDrawerSubTitle = navView.getHeaderView(0).findViewById(R.id.nav_header_subtitle)
 
         viewModel.getAuthenticatedUser({
             authenticatedUser = it
@@ -57,24 +67,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
     }
 
-
     private fun showUserInfo(user: User) {
         user.photo?.let { it -> iv_drawer_avatar.fromBase64(it) }
-        nav_header_title.text = user.name
-        nav_header_subtitle.text = user.email
+        tvDrawerTitle.text = user.name
+        tvDrawerSubTitle.text = user.email
     }
-
-    private fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.main_container, fragment)
-            .commitNow()
-    }
-
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 LogoutDialogFragment.newInstance().show(supportFragmentManager, LogoutDialogFragment.TAG)
             }
         }
-        drawer_layout.closeDrawer(GravityCompat.START)
+        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

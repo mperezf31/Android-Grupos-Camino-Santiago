@@ -7,13 +7,13 @@ data class Message(
     val id: Int?,
     val author: User?,
     val content: String?,
-    val whenSent: Int?
+    val whenSent: Long?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readParcelable(User::class.java.classLoader),
         parcel.readString(),
-        parcel.readValue(Int::class.java.classLoader) as? Int
+        parcel.readValue(Long::class.java.classLoader) as? Long
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -70,7 +70,7 @@
             <EditText
                 android:id="@+id/et_name"
                 style="@style/CustomEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:drawableStart="@drawable/ic_avatar"
@@ -85,7 +85,7 @@
             <EditText
                 android:id="@+id/et_email"
                 style="@style/CustomEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_mail"
@@ -100,7 +100,7 @@
             <EditText
                 android:id="@+id/et_password"
                 style="@style/CustomEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_password"
@@ -115,7 +115,7 @@
             <EditText
                 android:id="@+id/et__confirm_password"
                 style="@style/CustomEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_password"

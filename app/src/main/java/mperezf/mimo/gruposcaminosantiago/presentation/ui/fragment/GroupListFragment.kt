@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.group_list_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.AddGroupActivity
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.GroupDetailActivity
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupsAdapter
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupListViewModel
@@ -46,17 +47,22 @@ class GroupListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_add_group -> {
+                showAddGroupFragment()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun showAddGroupFragment() {
+        startActivityForResult(Intent(activity, AddGroupActivity::class.java), 0)
+        activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
     private fun createGroupsAdapter() {
         rv_groups.adapter = GroupsAdapter {
             groupSelected(it)
         }
-
     }
 
     private fun groupSelected(selectedGroup: Group) {

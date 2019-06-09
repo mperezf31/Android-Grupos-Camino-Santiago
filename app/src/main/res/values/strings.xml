@@ -46,5 +46,11 @@
     <string name="admin">Administrador</string>
     <string name="member">Miembro</string>
     <string name="passwords_not_match">Las contraseñas no coinciden</string>
+    <string name="title">Título</string>
+    <string name="departure_place">Lugar de salida</string>
+    <string name="select_group_image">Seleccionar imagen de grupo</string>
+    <string name="departure_coordinates">Coordenadas</string>
+    <string name="departure_zone">Punto de salida</string>
+    <string name="add_location">Añadir localización</string>
 
 </resources>

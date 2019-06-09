@@ -21,7 +21,7 @@ import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupMemberLis
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
-class GroupDetailActivity : AppCompatActivity(), GroupMemberListFragment.MemberFragmentListener,
+class GroupDetailActivity : BaseActivity(), GroupMemberListFragment.MemberFragmentListener,
     ViewPager.OnPageChangeListener {
 
     companion object {

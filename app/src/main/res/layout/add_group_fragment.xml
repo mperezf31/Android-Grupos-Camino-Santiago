@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.fragment.AddGroupFragment">
+
+    <include layout="@layout/bg_view" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_group_image"
+                android:layout_width="@dimen/group_image_size"
+                android:layout_height="@dimen/group_image_size"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default"
+                app:civ_border_color="@color/grey_1"
+                app:civ_border_width="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bt_select_group_image"
+                style="@style/CustomButtonSecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="32dp"
+                android:text="@string/select_group_image"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_group_image" />
+
+
+            <EditText
+                android:id="@+id/et_group_title"
+                style="@style/CustomEditText"
+                android:layout_width="@dimen/edit_text_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:drawableStart="@drawable/ic_members"
+                android:hint="@string/title"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bt_select_group_image"
+                tools:targetApi="o" />
+
+            <EditText
+                android:id="@+id/et_group_description"
+                style="@style/CustomEditText"
+                android:layout_width="@dimen/edit_text_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="top"
+                android:hint="@string/group_description_title"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_group_title"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/et_departure_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:drawableStart="@drawable/ic_date"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/group_departure_date"
+                android:textColor="@color/grey_2"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/et_group_description"
+                app:layout_constraintTop_toBottomOf="@+id/et_group_description" />
+
+            <EditText
+                android:id="@+id/et_departure_date_value"
+                style="@style/CustomEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:focusable="false"
+                android:gravity="end"
+                android:textSize="14sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/et_departure_date"
+                app:layout_constraintEnd_toEndOf="@+id/et_group_description"
+                app:layout_constraintStart_toEndOf="@+id/et_arrival_date"
+                tools:hint="12:23 10/12/19" />
+
+
+            <TextView
+                android:id="@+id/et_arrival_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:drawableStart="@drawable/ic_date"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/group_arrival_Date"
+                android:textColor="@color/grey_2"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/et_departure_date"
+                app:layout_constraintTop_toBottomOf="@+id/et_departure_date" />
+
+            <EditText
+                android:id="@+id/et_arrival_date_value"
+                style="@style/CustomEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:focusable="false"
+                android:gravity="end"
+                android:textSize="14sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/et_arrival_date"
+                app:layout_constraintEnd_toEndOf="@+id/et_departure_date_value"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/et_arrival_date"
+                tools:hint="12:23 10/12/19" />
+
+
+            <EditText
+                android:id="@+id/et_departure_place"
+                style="@style/CustomEditText"
+                android:layout_width="@dimen/edit_text_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:drawableStart="@drawable/ic_location"
+                android:gravity="top"
+                android:hint="@string/group_departure_place"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_arrival_date_value"
+                tools:targetApi="o" />
+
+            <EditText
+                android:id="@+id/et_departure_coordinates"
+                style="@style/CustomEditText"
+                android:layout_width="@dimen/edit_text_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/ic_location"
+                android:focusable="false"
+                android:gravity="top"
+                android:hint="@string/departure_coordinates"
+                android:imeOptions="actionDone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_departure_place" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>
+

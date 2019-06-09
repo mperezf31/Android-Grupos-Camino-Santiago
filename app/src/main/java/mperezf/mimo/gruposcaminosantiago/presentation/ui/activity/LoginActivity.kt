@@ -9,7 +9,7 @@ import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.LoginFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.RegisterFragment
 
-class LoginActivity : AppCompatActivity(), LoginFragment.LoginFragmentListener,
+class LoginActivity : BaseActivity(), LoginFragment.LoginFragmentListener,
     RegisterFragment.RegisterFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +35,4 @@ class LoginActivity : AppCompatActivity(), LoginFragment.LoginFragmentListener,
         finish()
     }
 
-    private fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.container, fragment)
-            .commitNow()
-    }
 }

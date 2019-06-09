@@ -49,10 +49,7 @@ class GroupsAdapter(val listener: (Group) -> Unit) :
             tvGroupName.text = group.title?.trim() ?: ""
             tvDeparturePlace.text.let { tvDeparturePlace.text = group.departurePlace?.trim() }
             group.departureDate?.let {
-                tvDepartureDate.fromTimestamp(
-                    it,
-                    "dd/mm/yy' a las 'hh:mm"
-                )
+                tvDepartureDate.fromTimestamp(it)
             }
 
         }
