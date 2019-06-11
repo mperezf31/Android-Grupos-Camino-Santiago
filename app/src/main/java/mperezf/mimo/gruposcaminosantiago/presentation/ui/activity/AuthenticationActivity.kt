@@ -2,19 +2,16 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.LoginFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.RegisterFragment
 
-class LoginActivity : BaseActivity(), LoginFragment.LoginFragmentListener,
+class AuthenticationActivity : BaseActivity(), LoginFragment.LoginFragmentListener,
     RegisterFragment.RegisterFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity)
+        setContentView(R.layout.authentication_activity)
 
         if (savedInstanceState == null) {
             showLogin()
