@@ -1,5 +1,9 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +16,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
 import mperezf.mimo.gruposcaminosantiago.R
 
+
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 1
+    }
 
     private lateinit var map: GoogleMap
 
@@ -35,16 +45,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showMyLocation()
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        map.setOnMapClickListener(this)
 
-        val sydney = LatLng(-34.0, 151.0)
-        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                showMyLocation()
+            } else {
+                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+            }
+        } else {
+            showMyLocation()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showMyLocation() {
+        map.isMyLocationEnabled = true
     }
 
     override fun onMapClick(it: LatLng) {
         map.clear()
         map.addMarker(MarkerOptions().position(it))
+        map.moveCamera(CameraUpdateFactory.newLatLng(it))
     }
 }
