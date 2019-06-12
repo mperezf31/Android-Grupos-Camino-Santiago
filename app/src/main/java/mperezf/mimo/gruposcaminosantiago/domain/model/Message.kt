@@ -4,10 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Message(
-    val id: Int?,
-    val author: User?,
-    val content: String?,
-    val whenSent: Long?
+    val id: Int? = 0,
+    val author: User? = null,
+    val content: String? = "",
+    val whenSent: Long? = 0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
@@ -37,3 +37,10 @@ data class Message(
         }
     }
 }
+
+data class MessageGroup(
+
+    var idGroup: Int,
+    var message: Message
+
+)

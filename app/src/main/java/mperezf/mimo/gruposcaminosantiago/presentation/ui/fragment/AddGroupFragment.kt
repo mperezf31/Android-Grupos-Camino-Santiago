@@ -26,7 +26,7 @@ import java.util.*
 class AddGroupFragment : BaseFragment() {
 
     companion object {
-        val TAG: String = AddGroupFragment::class.java.simpleName
+
         const val DEPARTURE_DIALOG_TAG: String = "departure_dialog"
         const val ARRIVAL_DIALOG_TAG: String = "arrival_dialog"
 
@@ -39,12 +39,15 @@ class AddGroupFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: AddGroupViewModel
-    private var departureDate: Date = Date()
-    private var arrivalDate: Date = Date()
     private lateinit var departureDialogFragment: SwitchDateTimeDialogFragment
     private lateinit var arrivalDialogFragment: SwitchDateTimeDialogFragment
     private lateinit var etDepartureDate: TextView
     private lateinit var etArrivalDate: TextView
+
+    private var departureDate: Date = Date()
+    private var arrivalDate: Date = Date()
+    private var groupLat: Int? = 0
+    private var groupLng: Int? = 0
 
     private var bitmapGroupImage: Bitmap? = null
 
@@ -54,7 +57,6 @@ class AddGroupFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         etDepartureDate = view.findViewById(R.id.et_departure_date_value)
         etArrivalDate = view.findViewById(R.id.et_arrival_date_value)
 
@@ -88,12 +90,11 @@ class AddGroupFragment : BaseFragment() {
                     iv_group_image.setImageBitmap(bitmapGroupImage)
                 }
                 REQUEST_LOCATION -> {
-                    val lat = data?.getIntExtra(MapsActivity.MAP_LAT, 0)
-                    val lng = data?.getIntExtra(MapsActivity.MAP_LNG, 0)
+                    groupLat = data?.getIntExtra(MapsActivity.MAP_LAT, 0)
+                    groupLng = data?.getIntExtra(MapsActivity.MAP_LNG, 0)
                 }
             }
     }
-
 
     private fun addListeners() {
 

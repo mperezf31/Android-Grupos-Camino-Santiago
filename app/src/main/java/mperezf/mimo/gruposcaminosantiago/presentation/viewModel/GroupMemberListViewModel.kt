@@ -115,7 +115,9 @@ class GroupMemberListViewModel : BaseViewModel() {
     }
 
     override fun dispose() {
+        authenticatedUserInteractor.dispose()
         addMemberGrouplnteractor.dispose()
+        removeMemberGrouplnteractor.dispose()
     }
 
     fun getGroupMembers(group: Group): ArrayList<Member> {
