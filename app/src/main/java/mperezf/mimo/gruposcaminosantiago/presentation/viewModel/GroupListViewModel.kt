@@ -11,7 +11,6 @@ import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupListInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.SettingsFragment
-import retrofit2.HttpException
 
 
 class GroupListViewModel : BaseViewModel() {
@@ -49,13 +48,7 @@ class GroupListViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-
-                if (e is HttpException && e.code() == 404) {
-                    errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
-                } else {
-                    errorMsg.postValue(context.getString(R.string.internet_error))
-                }
-                errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
+                errorMsg.postValue(context.getString(R.string.internet_error))
             }
 
             override fun onComplete() {

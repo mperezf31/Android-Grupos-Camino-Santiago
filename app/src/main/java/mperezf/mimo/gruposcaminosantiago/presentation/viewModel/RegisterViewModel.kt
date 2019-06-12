@@ -46,12 +46,11 @@ class RegisterViewModel : BaseViewModel() {
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
 
-                if ((e as HttpException).code() == 404) {
-                    errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
+                if (e is HttpException && e.code() == 404) {
+                    errorMsg.postValue(context.getString(R.string.email_not_valid))
                 } else {
                     errorMsg.postValue(context.getString(R.string.internet_error))
                 }
-                errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
             }
 
             override fun onComplete() {

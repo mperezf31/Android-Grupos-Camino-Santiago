@@ -18,9 +18,7 @@ import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment
 import kotlinx.android.synthetic.main.add_group_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromTimestamp
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.AddGroupActivity
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.MapsActivity
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.MapDialogFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.AddGroupViewModel
 import java.util.*
 
@@ -34,6 +32,7 @@ class AddGroupFragment : BaseFragment() {
 
         private const val PERMISSION_REQUEST_CODE = 1
         private const val GALLERY_REQUEST_CODE = 2
+        private const val REQUEST_LOCATION: Int = 3
         private const val DATE_PATTERN = "hh:mm dd/mm/yy"
 
         fun newInstance() = AddGroupFragment()
@@ -55,6 +54,7 @@ class AddGroupFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         etDepartureDate = view.findViewById(R.id.et_departure_date_value)
         etArrivalDate = view.findViewById(R.id.et_arrival_date_value)
 
@@ -86,6 +86,10 @@ class AddGroupFragment : BaseFragment() {
                     val selectedImage: Uri? = data?.data
                     bitmapGroupImage = MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImage)
                     iv_group_image.setImageBitmap(bitmapGroupImage)
+                }
+                REQUEST_LOCATION -> {
+                    val lat = data?.getIntExtra(MapsActivity.MAP_LAT, 0)
+                    val lng = data?.getIntExtra(MapsActivity.MAP_LNG, 0)
                 }
             }
     }
@@ -123,7 +127,7 @@ class AddGroupFragment : BaseFragment() {
         }
 
         et_departure_coordinates.setOnClickListener {
-            startActivity(Intent(context, MapsActivity::class.java))
+            startActivityForResult(Intent(context, MapsActivity::class.java), REQUEST_LOCATION)
         }
     }
 
