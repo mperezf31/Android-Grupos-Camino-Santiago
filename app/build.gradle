@@ -7,7 +7,18 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    signingConfigs {
+        release {
+            storeFile file('./keystore/camino_de_santiago_key.jks')
+            storePassword 'groups_santiago'
+            keyAlias = 'groups_santiago'
+            keyPassword 'groups_santiago'
+        }
+    }
+
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "mperezf.mimo.gruposcaminosantiago"
         minSdkVersion 22
@@ -16,6 +27,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
 
         debug {
@@ -26,7 +38,9 @@ android {
             minifyEnabled false
             buildConfigField "String", "SERVER_URL", "\"http://ec2-35-156-79-168.eu-central-1.compute.amazonaws.com/\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+
     }
 }
 

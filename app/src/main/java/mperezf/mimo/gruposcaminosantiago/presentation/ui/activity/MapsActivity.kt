@@ -2,11 +2,14 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -18,10 +21,12 @@ import mperezf.mimo.gruposcaminosantiago.R
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
+
     companion object {
         const val MAP_LAT: String = "latitude"
         const val MAP_LNG: String = "longitude"
 
+        private const val PERMISSION_REQUEST_CODE = 1
     }
 
     private lateinit var map: GoogleMap
@@ -73,18 +78,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
 
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showMyLocation()
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        map.setOnMapClickListener(this)
 
-        val sydney = LatLng(-34.0, 151.0)
-        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                showMyLocation()
+            } else {
+                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+            }
+        } else {
+            showMyLocation()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showMyLocation() {
+        map.isMyLocationEnabled = true
     }
 
     override fun onMapClick(it: LatLng) {
         point = it
         map.clear()
         map.addMarker(MarkerOptions().position(it))
+        map.moveCamera(CameraUpdateFactory.newLatLng(it))
     }
 
 
