@@ -2,17 +2,18 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.group_member_list_fragment.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.group_chat_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupMembersAdapter
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupChatAdapter
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupChatViewModel
+
 
 class GroupChatFragment : BaseFragment() {
 
@@ -49,18 +50,25 @@ class GroupChatFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_group_members.adapter = GroupMembersAdapter()
+
+        val layoutManager = LinearLayoutManager(activity)
+        layoutManager.reverseLayout = true
+        rv_group_chat.layoutManager = layoutManager
+
+        rv_group_chat.adapter = GroupChatAdapter()
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GroupChatViewModel::class.java)
 
-
-        showGroupMemberList(group)
-
         addObservers()
+        addListeners()
 
+        group?.let {
+            updateMessages(it)
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -82,9 +90,9 @@ class GroupChatFragment : BaseFragment() {
     private fun addObservers() {
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-
+                bt_add_message.startAnimation()
             } else {
-
+                bt_add_message.revertAnimation()
             }
         })
 
@@ -93,29 +101,38 @@ class GroupChatFragment : BaseFragment() {
         })
 
         viewModel.getSendMessage().observe(this, Observer<Group> {
+            et_msg.setText("")
             updateGroup(it)
-          //  updateMessages(null)
-
         })
     }
 
-
-    private fun updateMessages(messages: List<Message>) {
-
-
+    private fun addListeners() {
+        bt_add_message.setOnClickListener {
+            if (et_msg.text.isNotEmpty()) {
+                group?.id?.let { id ->
+                    viewModel.sendMessage(id, et_msg.text.toString())
+                }
+            }
+        }
     }
 
     private fun updateGroup(it: Group) {
         group = it
-        showGroupMemberList(it)
+        updateMessages(it)
         chatFragmentListener?.updateGroup(it)
     }
 
-    private fun showGroupMemberList(group: Group?) {
+    private fun updateMessages(group: Group) {
+        group.messages?.let {
+            (rv_group_chat.adapter as GroupChatAdapter).updateItems(ArrayList(it.reversed()))
+            rv_group_chat.adapter?.notifyDataSetChanged()
+
+        }
 
     }
 
     interface ChatFragmentListener {
         fun updateGroup(group: Group)
     }
+
 }

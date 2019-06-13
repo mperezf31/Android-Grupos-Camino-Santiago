@@ -25,7 +25,6 @@ class GroupChatViewModel : BaseViewModel() {
             Schedulers.io()
         )
 
-
     fun getLoadingState(): LiveData<Boolean> {
         return showLoading
     }
@@ -39,6 +38,8 @@ class GroupChatViewModel : BaseViewModel() {
     }
 
     fun sendMessage(idGroup: Int, msg: String) {
+        showLoading.postValue(true)
+
         sendMessageInteractor.execute(object : DisposableObserver<Group>() {
 
             override fun onError(e: Throwable) {
@@ -54,7 +55,7 @@ class GroupChatViewModel : BaseViewModel() {
                 showLoading.postValue(false)
             }
 
-        }, MessageGroup(idGroup = idGroup, message = Message(content = msg)))
+        }, MessageGroup(idGroup = idGroup, message = Message(content = msg, whenSent = System.currentTimeMillis())))
     }
 
 

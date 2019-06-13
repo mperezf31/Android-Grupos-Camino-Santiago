@@ -7,14 +7,13 @@
     tools:context=".presentation.ui.fragment.GroupMemberListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_group_members"
+        android:id="@+id/rv_group_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/line"
         android:layout_marginBottom="3dp"
         android:clipToPadding="false"
-        android:paddingBottom="50dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:paddingBottom="16dp"
         tools:listitem="@layout/item_chat_1" />
 
     <View
@@ -32,25 +31,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <ImageButton
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/bt_add_message"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_button_send"
+            android:drawableStart="@drawable/ic_send"
             android:padding="10dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_send" />
+            app:spinning_bar_color="@android:color/white" />
 
         <EditText
             android:id="@+id/et_msg"
-            android:lines="2"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -60,7 +55,12 @@
             android:layout_toStartOf="@+id/bt_add_message"
             android:background="@android:color/transparent"
             android:hint="@string/message"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp" />
 
     </RelativeLayout>
 
