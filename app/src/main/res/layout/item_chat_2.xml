@@ -16,9 +16,9 @@
         android:src="@drawable/ic_avatar" />
 
     <LinearLayout
-        android:layout_marginStart="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:background="@drawable/bg_chat_item_2"
         android:orientation="vertical"
         android:padding="16dp">
@@ -42,4 +42,5 @@
             tools:text="10:12" />
 
     </LinearLayout>
+
 </LinearLayout>
