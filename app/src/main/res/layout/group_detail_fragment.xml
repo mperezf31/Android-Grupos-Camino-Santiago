@@ -14,6 +14,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="@dimen/group_item_card_corner"
             app:cardUseCompatPadding="true">
@@ -37,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="2dp"
                     android:text="@string/group_departure_date"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
@@ -60,7 +61,7 @@
                     android:id="@+id/tv_group_arrival_date_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="5dp"
                     android:text="@string/group_arrival_Date"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp"

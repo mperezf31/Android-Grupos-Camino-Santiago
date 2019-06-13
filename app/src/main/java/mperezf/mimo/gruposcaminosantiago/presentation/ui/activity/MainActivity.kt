@@ -3,6 +3,7 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -26,6 +27,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var tvDrawerTitle: TextView
     private lateinit var tvDrawerSubTitle: TextView
+    private lateinit var ivDrawerAvatar: ImageView
     private lateinit var viewModel: MainViewModel
 
     private var authenticatedUser: User? = null
@@ -54,6 +56,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         tvDrawerTitle = navView.getHeaderView(0).findViewById(R.id.nav_header_title)
         tvDrawerSubTitle = navView.getHeaderView(0).findViewById(R.id.nav_header_subtitle)
+        ivDrawerAvatar = navView.getHeaderView(0).findViewById(R.id.iv_drawer_avatar)
 
         viewModel.getAuthenticatedUser({
             authenticatedUser = it
@@ -65,7 +68,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun showUserInfo(user: User) {
-        user.photo?.let { it -> iv_drawer_avatar.fromBase64(it) }
+        user.photo?.let { it -> ivDrawerAvatar.fromBase64(it) }
         tvDrawerTitle.text = user.name
         tvDrawerSubTitle.text = user.email
     }

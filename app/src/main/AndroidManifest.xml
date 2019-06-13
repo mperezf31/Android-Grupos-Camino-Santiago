@@ -46,9 +46,11 @@
 
         <activity
             android:name=".presentation.ui.activity.GroupDetailActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_group_detail" />
         <activity
             android:name=".presentation.ui.activity.AddGroupActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_group_detail" />
         <activity
             android:name=".presentation.ui.activity.AuthenticationActivity"

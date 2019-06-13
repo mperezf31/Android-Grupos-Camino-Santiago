@@ -16,12 +16,14 @@ import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.DetailFragmentPagerAdapter
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.BaseFragment
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupChatFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupDetailFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupMemberListFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
 class GroupDetailActivity : BaseActivity(), GroupMemberListFragment.MemberFragmentListener,
+    GroupChatFragment.ChatFragmentListener,
     ViewPager.OnPageChangeListener {
 
     companion object {
@@ -117,7 +119,7 @@ class GroupDetailActivity : BaseActivity(), GroupMemberListFragment.MemberFragme
         return arrayListOf(
             GroupDetailFragment.newInstance(group),
             GroupMemberListFragment.newInstance(group),
-            GroupDetailFragment.newInstance(group)
+            GroupChatFragment.newInstance(group)
         )
     }
 
