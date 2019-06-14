@@ -101,9 +101,7 @@ class GroupListFragment : BaseFragment() {
 
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                if (!srl_group_list.isRefreshing) {
-                    pb_groups.visibility = View.VISIBLE
-                }
+                pb_groups.visibility = View.VISIBLE
             } else {
                 pb_groups.visibility = View.GONE
                 srl_group_list.isRefreshing = false
@@ -115,7 +113,9 @@ class GroupListFragment : BaseFragment() {
         })
 
         srl_group_list.setOnRefreshListener {
-            viewModel.getGroups()
+            if (pb_groups.visibility != View.VISIBLE) {
+                viewModel.getGroups()
+            }
         }
     }
 
