@@ -127,7 +127,7 @@ class RegisterFragment : BaseFragment() {
             closeKeyboard()
 
             if (validateForm()) {
-                if (et_password.text.toString() != et__confirm_password.text.toString()) {
+                if (et_password.text.toString() != et_confirm_password.text.toString()) {
                     showMessage(getString(R.string.passwords_not_match))
                 } else {
                     val newUser = User(
@@ -156,7 +156,7 @@ class RegisterFragment : BaseFragment() {
             et_name.validate(true)
             , et_email.validate(true, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
             , et_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD)
-            , et__confirm_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD)
+            , et_confirm_password.validate(true, InputType.TYPE_TEXT_VARIATION_PASSWORD)
         )
         return !validations.contains(false)
     }

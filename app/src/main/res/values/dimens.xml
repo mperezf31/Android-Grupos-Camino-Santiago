@@ -32,4 +32,29 @@
     <dimen name="button_member_corner">10dp</dimen>
     <dimen name="edit_text_width">270dp</dimen>
 
+    <!-- Register page dimens-->
+    <dimen name="rg_padding_bottom">40dp</dimen>
+    <dimen name="rg_tv_title_margin_top">64dp</dimen>
+    <dimen name="rg_iv_avatar_margin_top">40dp</dimen>
+    <dimen name="rg_bt_avatar_margin">8dp</dimen>
+    <dimen name="rg_bt_avatar_text_size">12sp</dimen>
+    <dimen name="rg_bt_avatar_height">32dp</dimen>
+    <dimen name="rg_et_name_margin">24dp</dimen>
+    <dimen name="rg_et_des_margin">8dp</dimen>
+    <dimen name="rg_et_pass_margin">8dp</dimen>
+    <dimen name="rg_et_confirm_pass_margin">8dp</dimen>
+    <dimen name="rg_bt_register_margin">24dp</dimen>
+    <dimen name="rg_bt_register_corner">10dp</dimen>
+    <dimen name="rg_tv_login_margin">32dp</dimen>
+
+    <!-- Login page dimens-->
+    <dimen name="lg_tv_title_margin_top">86dp</dimen>
+    <dimen name="lg_et_email_margin">8dp</dimen>
+    <dimen name="lg_et_pass_margin_start_end">8dp</dimen>
+    <dimen name="lg_et_pass_margin_bottom">24dp</dimen>
+    <dimen name="lg_bt_login_margin_start_end">8dp</dimen>
+    <dimen name="lg_bt_login_bottom">40dp</dimen>
+    <dimen name="lg_bt_login_corner">10dp</dimen>
+    <dimen name="lg_tv_register_margin">40dp</dimen>
+
 </resources>

@@ -8,13 +8,10 @@
 
     <include
         layout="@layout/bg_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -26,15 +23,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:paddingBottom="40dp">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/rg_padding_bottom">
 
             <TextView
                 android:id="@+id/textView2"
                 style="@style/TitleFullScreenPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="@dimen/rg_tv_title_margin_top"
                 android:text="@string/app_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +42,7 @@
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="@dimen/rg_iv_avatar_margin_top"
                 android:src="@drawable/ic_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +54,11 @@
                 style="@style/CustomButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:minHeight="32dp"
+                android:layout_marginTop="@dimen/rg_bt_avatar_margin"
+                android:minHeight="@dimen/rg_bt_avatar_height"
                 android:text="@string/select_avatar"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/rg_bt_avatar_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
@@ -72,7 +69,7 @@
                 style="@style/CustomEditText"
                 android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/rg_et_name_margin"
                 android:drawableStart="@drawable/ic_avatar"
                 android:hint="@string/name"
                 android:imeOptions="actionNext"
@@ -87,7 +84,7 @@
                 style="@style/CustomEditText"
                 android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/rg_et_des_margin"
                 android:drawableStart="@drawable/ic_mail"
                 android:hint="@string/email"
                 android:imeOptions="actionNext"
@@ -102,7 +99,7 @@
                 style="@style/CustomEditText"
                 android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/rg_et_pass_margin"
                 android:drawableStart="@drawable/ic_password"
                 android:hint="@string/password"
                 android:imeOptions="actionNext"
@@ -113,11 +110,11 @@
 
 
             <EditText
-                android:id="@+id/et__confirm_password"
+                android:id="@+id/et_confirm_password"
                 style="@style/CustomEditText"
                 android:layout_width="@dimen/edit_text_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/rg_et_confirm_pass_margin"
                 android:drawableStart="@drawable/ic_password"
                 android:hint="@string/confirm_password"
                 android:imeOptions="actionDone"
@@ -132,12 +129,12 @@
                 style="@style/CustomButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/rg_bt_register_margin"
                 android:text="@string/create_account"
-                app:initialCornerAngle="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/et__confirm_password"
-                app:layout_constraintStart_toStartOf="@+id/et__confirm_password"
-                app:layout_constraintTop_toBottomOf="@+id/et__confirm_password"
+                app:initialCornerAngle="@dimen/rg_bt_register_corner"
+                app:layout_constraintEnd_toEndOf="@+id/et_confirm_password"
+                app:layout_constraintStart_toStartOf="@+id/et_confirm_password"
+                app:layout_constraintTop_toBottomOf="@+id/et_confirm_password"
                 app:spinning_bar_color="@color/colorPrimary" />
 
 
@@ -145,7 +142,7 @@
                 android:id="@+id/tv_go_to_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/rg_tv_login_margin"
                 android:text="@string/already_have_account"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
