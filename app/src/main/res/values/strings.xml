@@ -54,5 +54,7 @@
     <string name="add_location">Añadir localización</string>
     <string name="email_not_valid">Ya existe un usuario con ese email</string>
     <string name="accept">Aceptar</string>
+    <string name="delete_group_comfirmation">¿Seguro que desea eliminar este grupo?</string>
+    <string name="delete_group">Eliminar grupo</string>
 
 </resources>

@@ -73,7 +73,7 @@ class GroupListViewModel : BaseViewModel() {
             groups.addAll(groupList.otherGroups)
         }
 
-        groupsUpdate.postValue(groups)
+        groupsUpdate.postValue(groups.reversed())
 
     }
 

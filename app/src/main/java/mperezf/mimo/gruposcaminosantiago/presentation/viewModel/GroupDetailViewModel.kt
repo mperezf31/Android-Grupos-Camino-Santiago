@@ -8,7 +8,9 @@ import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupDetailnteractor
+import mperezf.mimo.gruposcaminosantiago.domain.interactor.RemoveGrouplnteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import okhttp3.ResponseBody
 
 
 class GroupDetailViewModel : BaseViewModel() {
@@ -22,12 +24,19 @@ class GroupDetailViewModel : BaseViewModel() {
             Schedulers.io()
         )
 
+    private val removeGrouplnteractor: RemoveGrouplnteractor =
+        RemoveGrouplnteractor(
+            Repository,
+            mainThread(),
+            Schedulers.io()
+        )
+
 
     fun getLoadingState(): LiveData<Boolean> {
         return showLoading
     }
 
-    fun getGroupDetail(groupId : Int, success: (Group) -> Unit, error: (String) -> Unit) {
+    fun getGroupDetail(groupId: Int, success: (Group) -> Unit, error: (String) -> Unit) {
 
         showLoading.postValue(true)
 
@@ -51,7 +60,33 @@ class GroupDetailViewModel : BaseViewModel() {
     }
 
 
+    fun deleteGroup(groupId: Int, success: () -> Unit, error: (String) -> Unit) {
+
+        showLoading.postValue(true)
+
+        removeGrouplnteractor.execute(object : DisposableObserver<ResponseBody>() {
+            override fun onNext(t: ResponseBody) {
+                success.invoke()
+            }
+
+            override fun onError(e: Throwable) {
+                showLoading.postValue(false)
+                error(context.getString(R.string.internet_error))
+
+            }
+
+            override fun onComplete() {
+                showLoading.postValue(false)
+            }
+
+        }, groupId)
+
+    }
+
     override fun dispose() {
         groupDetailnteractor.dispose()
+        removeGrouplnteractor.dispose()
     }
+
+
 }

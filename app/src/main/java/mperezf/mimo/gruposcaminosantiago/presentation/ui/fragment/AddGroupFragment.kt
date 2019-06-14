@@ -165,8 +165,8 @@ class AddGroupFragment : BaseFragment() {
                     photo = bitmapGroupImage?.resize(500, 500)?.toBase64(),
                     title = et_group_title.text.toString(),
                     description = et_group_description.text.toString(),
-                    departureDate = departureDate.time,
-                    arrivalDate = arrivalDate.time,
+                    departureDate = departureDate.time / 1000,
+                    arrivalDate = arrivalDate.time / 1000,
                     departurePlace = et_departure_place.text.toString(),
                     latitude = groupLat,
                     longitude = groupLng

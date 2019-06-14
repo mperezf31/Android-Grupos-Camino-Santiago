@@ -71,9 +71,9 @@ object Repository : DataStorage {
         }
     }
 
-    override fun deleteGroup(): Observable<ResponseBody> {
+    override fun deleteGroup(groupId: Int): Observable<ResponseBody> {
         return localStorage.getAuthenticatedUser().toObservable().flatMap {
-            apiService.deleteGroup(getAuthenticationToken(it.id.toString()))
+            apiService.deleteGroup(getAuthenticationToken(it.id.toString()), groupId)
         }
     }
 

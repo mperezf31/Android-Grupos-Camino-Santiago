@@ -1,5 +1,6 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -16,6 +17,10 @@ import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupListViewMod
 class GroupListFragment : BaseFragment() {
 
     companion object {
+
+        const val RELOAD_LIST = "reload_groups_list"
+        const val GROUP_DETAIL = 1
+
         @JvmStatic
         fun newInstance(): GroupListFragment = GroupListFragment()
     }
@@ -54,6 +59,21 @@ class GroupListFragment : BaseFragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK)
+            when (requestCode) {
+                GROUP_DETAIL -> {
+                    data?.getBooleanExtra(RELOAD_LIST, false)?.let { reload ->
+                        if (reload) {
+                            viewModel.getGroups()
+                        }
+                    }
+                }
+            }
+    }
+
     private fun showAddGroupFragment() {
         startActivityForResult(Intent(activity, AddGroupActivity::class.java), 0)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -70,7 +90,7 @@ class GroupListFragment : BaseFragment() {
         val intent = Intent(context, GroupDetailActivity::class.java)
         intent.putExtra(GroupDetailActivity.GROUP_ID, selectedGroup.id)
         intent.putExtra(GroupDetailActivity.GROUP_TITLE, selectedGroup.title)
-        startActivity(intent)
+        startActivityForResult(intent, GROUP_DETAIL)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 

@@ -33,7 +33,7 @@ class AddGroupDialogFragment : DialogFragment() {
         private const val PERMISSION_REQUEST_CODE = 1
         private const val GALLERY_REQUEST_CODE = 2
         private const val REQUEST_LOCATION: Int = 3
-        private const val DATE_PATTERN = "hh:mm dd/mm/yy"
+        private const val DATE_PATTERN = "HH:mm dd/mm/yy"
 
         val TAG: String = AddGroupDialogFragment::class.java.simpleName
         fun newInstance() = AddGroupDialogFragment()

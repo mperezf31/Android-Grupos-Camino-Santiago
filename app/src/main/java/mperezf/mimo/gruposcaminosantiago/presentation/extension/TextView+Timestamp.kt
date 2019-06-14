@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-fun TextView.fromTimestamp(value: Long, pattern: String = "dd/MM/yy' a las 'HH:mm") {
+fun TextView.fromTimestamp(value: Long, pattern: String = "HH:mm dd/MM/yy") {
 
     text = try {
         val sdf = SimpleDateFormat(pattern, Locale("es", "ES"))

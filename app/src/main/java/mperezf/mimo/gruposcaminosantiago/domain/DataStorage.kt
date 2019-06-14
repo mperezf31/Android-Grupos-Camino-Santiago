@@ -25,7 +25,7 @@ interface DataStorage {
 
     fun addGroup(group: Group): Observable<Group>
 
-    fun deleteGroup(): Observable<ResponseBody>
+    fun deleteGroup(id: Int): Observable<ResponseBody>
 
     fun addMemberGroup(groupId: Int): Observable<Group>
 

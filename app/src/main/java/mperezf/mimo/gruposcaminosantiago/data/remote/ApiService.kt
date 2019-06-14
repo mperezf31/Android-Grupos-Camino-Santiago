@@ -26,7 +26,7 @@ interface ApiService {
     fun addGroup(@HeaderMap token: Map<String, String>, group: GroupData): Observable<GroupData>
 
     @DELETE("group/{id}")
-    fun deleteGroup(@HeaderMap token: Map<String, String>): Observable<ResponseBody>
+    fun deleteGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<ResponseBody>
 
     @POST("group/{id}/pilgrim")
     fun addMemberGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<GroupData>

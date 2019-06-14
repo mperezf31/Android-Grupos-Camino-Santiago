@@ -1,7 +1,10 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -14,11 +17,13 @@ import kotlinx.android.synthetic.main.activity_group_detail.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.DetailFragmentPagerAdapter
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.dialog.DeleteGroupDialogFragment
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupListFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
 class GroupDetailActivity : BaseActivity(),UpdateGroupDetailListener,
-    ViewPager.OnPageChangeListener {
+    ViewPager.OnPageChangeListener , DeleteGroupDialogFragment.OnDeleteGroupListener {
 
     companion object {
         const val GROUP_ID = "group_id"
@@ -80,12 +85,46 @@ class GroupDetailActivity : BaseActivity(),UpdateGroupDetailListener,
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_detail, menu)
+        return true
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            R.id.menu_delete_group -> {
+                confirmDeleteGroup()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+    }
+
+    private fun confirmDeleteGroup() {
+        DeleteGroupDialogFragment.newInstance().show(supportFragmentManager,DeleteGroupDialogFragment.TAG)
+    }
+
+    override fun deleteGroupConfirmed() {
+        groupDetail?.id?.let {
+            viewModel.deleteGroup(it,{
+
+                groupDeleted()
+            },{
+                Snackbar.make(findViewById(android.R.id.content), it, Snackbar.LENGTH_LONG).show()
+            })
+        }
+    }
+
+
+    private fun groupDeleted() {
+        val output = Intent()
+        output.putExtra(GroupListFragment.RELOAD_LIST, true)
+        setResult(Activity.RESULT_OK, output)
+        finish()
     }
 
 

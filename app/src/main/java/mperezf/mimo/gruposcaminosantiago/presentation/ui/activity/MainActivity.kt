@@ -91,9 +91,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 showFragment(SettingsFragment.newInstance())
             }
 
-            R.id.nav_share -> {
-            }
-
             R.id.nav_logout -> {
                 LogoutDialogFragment.newInstance().show(supportFragmentManager, LogoutDialogFragment.TAG)
             }

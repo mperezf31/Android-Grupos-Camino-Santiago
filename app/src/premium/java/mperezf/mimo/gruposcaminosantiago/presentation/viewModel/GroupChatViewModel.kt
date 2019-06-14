@@ -66,22 +66,28 @@ class GroupChatViewModel : BaseViewModel() {
     fun sendMessage(idGroup: Int, msg: String) {
         showLoading.postValue(true)
 
-        sendMessageInteractor.execute(object : DisposableObserver<Group>() {
+        sendMessageInteractor.execute(
+            object : DisposableObserver<Group>() {
 
-            override fun onError(e: Throwable) {
-                showLoading.postValue(false)
-                errorMsg.postValue(context.getString(R.string.internet_error))
-            }
+                override fun onError(e: Throwable) {
+                    showLoading.postValue(false)
+                    errorMsg.postValue(context.getString(R.string.internet_error))
+                }
 
-            override fun onNext(group: Group) {
-                messageSended.postValue(group)
-            }
+                override fun onNext(group: Group) {
+                    messageSended.postValue(group)
+                }
 
-            override fun onComplete() {
-                showLoading.postValue(false)
-            }
+                override fun onComplete() {
+                    showLoading.postValue(false)
+                }
 
-        }, MessageGroup(idGroup = idGroup, message = Message(content = msg, whenSent = System.currentTimeMillis())))
+            },
+            MessageGroup(
+                idGroup = idGroup,
+                message = Message(content = msg, whenSent = System.currentTimeMillis() / 1000)
+            )
+        )
     }
 
 
