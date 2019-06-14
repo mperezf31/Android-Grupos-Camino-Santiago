@@ -7,6 +7,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.data.Repository
+import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupDetailnteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.RemoveGrouplnteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
@@ -16,6 +17,13 @@ import okhttp3.ResponseBody
 class GroupDetailViewModel : BaseViewModel() {
 
     val showLoading = MutableLiveData<Boolean>()
+
+    private val authenticatedUserInteractor: AuthenticatedUserInteractor =
+        AuthenticatedUserInteractor(
+            Repository,
+            mainThread(),
+            Schedulers.io()
+        )
 
     private val groupDetailnteractor: GroupDetailnteractor =
         GroupDetailnteractor(
@@ -84,6 +92,7 @@ class GroupDetailViewModel : BaseViewModel() {
     }
 
     override fun dispose() {
+        authenticatedUserInteractor.dispose()
         groupDetailnteractor.dispose()
         removeGrouplnteractor.dispose()
     }

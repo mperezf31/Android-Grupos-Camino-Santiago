@@ -64,7 +64,7 @@ class GroupChatFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GroupChatViewModel::class.java)
 
-        viewModel.getAuthenticatedUser { user ->
+        viewModel.getAuthenticatedUser({ user ->
             user.id?.let { id ->
                 userId = id
             }
@@ -77,7 +77,7 @@ class GroupChatFragment : BaseFragment() {
             group?.let {
                 updateMessages(it)
             }
-        }
+        }, {})
     }
 
     override fun onAttach(context: Context?) {

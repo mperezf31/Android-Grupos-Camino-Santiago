@@ -22,12 +22,6 @@ class GroupMemberListViewModel : BaseViewModel() {
     private val memberAddedToGroup = MutableLiveData<Group>()
     private val memberRemovedFromGroup = MutableLiveData<Group>()
 
-    private val authenticatedUserInteractor: AuthenticatedUserInteractor =
-        AuthenticatedUserInteractor(
-            Repository,
-            mainThread(),
-            Schedulers.io()
-        )
 
     private val addMemberGrouplnteractor: AddMemberGrouplnteractor =
         AddMemberGrouplnteractor(Repository, mainThread(), Schedulers.io())
@@ -35,20 +29,6 @@ class GroupMemberListViewModel : BaseViewModel() {
     private val removeMemberGrouplnteractor: RemoveMemberGrouplnteractor =
         RemoveMemberGrouplnteractor(Repository, mainThread(), Schedulers.io())
 
-
-    fun getAuthenticatedUser(authenticatedUser: (User) -> Unit) {
-        authenticatedUserInteractor.execute(object : DisposableMaybeObserver<User>() {
-
-            override fun onError(e: Throwable) {}
-
-            override fun onSuccess(user: User) {
-                authenticatedUser(user)
-            }
-
-            override fun onComplete() {}
-
-        }, Unit)
-    }
 
     fun addMemberToGroup(groupId: Int) {
         showLoading.postValue(true)
@@ -115,7 +95,7 @@ class GroupMemberListViewModel : BaseViewModel() {
     }
 
     override fun dispose() {
-        authenticatedUserInteractor.dispose()
+        super.dispose()
         addMemberGrouplnteractor.dispose()
         removeMemberGrouplnteractor.dispose()
     }

@@ -63,6 +63,7 @@ class LoginViewModel : BaseViewModel() {
 
 
     override fun dispose() {
+        super.dispose()
         loginInteractor.dispose()
     }
 }

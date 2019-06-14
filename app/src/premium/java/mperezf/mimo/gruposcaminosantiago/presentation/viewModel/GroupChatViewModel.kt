@@ -21,13 +21,6 @@ class GroupChatViewModel : BaseViewModel() {
     private val errorMsg = MutableLiveData<String>()
     private val messageSended = MutableLiveData<Group>()
 
-    private val authenticatedUserInteractor: AuthenticatedUserInteractor =
-        AuthenticatedUserInteractor(
-            Repository,
-            mainThread(),
-            Schedulers.io()
-        )
-
     private val sendMessageInteractor: SendMessageInteractor =
         SendMessageInteractor(
             Repository,
@@ -46,22 +39,6 @@ class GroupChatViewModel : BaseViewModel() {
     fun getSendMessage(): LiveData<Group> {
         return messageSended
     }
-
-
-    fun getAuthenticatedUser(authenticatedUser: (User) -> Unit) {
-        authenticatedUserInteractor.execute(object : DisposableMaybeObserver<User>() {
-
-            override fun onError(e: Throwable) {}
-
-            override fun onSuccess(user: User) {
-                authenticatedUser(user)
-            }
-
-            override fun onComplete() {}
-
-        }, Unit)
-    }
-
 
     fun sendMessage(idGroup: Int, msg: String) {
         showLoading.postValue(true)
@@ -92,7 +69,7 @@ class GroupChatViewModel : BaseViewModel() {
 
 
     override fun dispose() {
-        authenticatedUserInteractor.dispose()
+        super.dispose()
         sendMessageInteractor.dispose()
     }
 

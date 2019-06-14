@@ -1,14 +1,13 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.group_member_list_fragment.*
-
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
@@ -60,13 +59,13 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GroupMemberListViewModel::class.java)
 
-        viewModel.getAuthenticatedUser { user ->
+        viewModel.getAuthenticatedUser({ user ->
             userId = user.id
             group?.members?.let {
                 showGroupMemberList(group)
                 showMemberButtons(user, group)
             }
-        }
+        }, {})
 
         addObservers()
 
@@ -91,9 +90,9 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
     private fun addObservers() {
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                if (isMember){
+                if (isMember) {
                     bt_remove_member.startAnimation()
-                }else{
+                } else {
                     bt_add_member.startAnimation()
                 }
             } else {

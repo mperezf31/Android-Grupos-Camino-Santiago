@@ -30,6 +30,7 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
         const val GROUP_TITLE = "group_title"
     }
 
+    private var userId: Int = 0
     private var groupUpdated: Boolean = false
     private var groupDetail: Group? = null
     private lateinit var viewModel: GroupDetailViewModel
@@ -74,21 +75,40 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
             }
 
             if (extras.containsKey(GROUP_ID)) {
-                viewModel.getGroupDetail(extras.getInt(GROUP_ID, 0), { group ->
-                    showGroupDetailTabs(group)
-                }, { error ->
-                    Snackbar.make(findViewById(android.R.id.content), error, Snackbar.LENGTH_LONG).show()
-                })
-
+                val groupId = extras.getInt(GROUP_ID, 0)
+                getData(groupId)
             } else {
                 finish()
             }
         }
     }
 
+    private fun getData(groupId: Int) {
+
+        viewModel.getAuthenticatedUser({ user ->
+            user.id?.let { it ->
+                userId = it
+            }
+            if (user.id == groupId) {
+                invalidateOptionsMenu()
+            }
+        }, {})
+
+        viewModel.getGroupDetail(groupId, { group ->
+            showGroupDetailTabs(group)
+        }, { error ->
+            Snackbar.make(findViewById(android.R.id.content), error, Snackbar.LENGTH_LONG).show()
+        })
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_detail, menu)
-        return true
+        return if (userId == groupDetail?.id) {
+            menuInflater.inflate(R.menu.activity_detail, menu)
+            true
+        } else {
+            false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
