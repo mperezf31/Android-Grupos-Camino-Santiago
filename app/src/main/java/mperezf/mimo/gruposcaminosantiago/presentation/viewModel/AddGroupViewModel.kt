@@ -30,7 +30,7 @@ class AddGroupViewModel : BaseViewModel() {
         return groupAddSuccess
     }
 
-    fun register(newGroup: Group) {
+    fun createGroup(newGroup: Group) {
 
         showLoading.postValue(true)
 

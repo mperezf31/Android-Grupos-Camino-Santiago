@@ -13,11 +13,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment
 import kotlinx.android.synthetic.main.add_group_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
+import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromTimestamp
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.resize
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.toBase64
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.validate
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.MapsActivity
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.AddGroupViewModel
 import java.util.*
@@ -46,8 +52,8 @@ class AddGroupFragment : BaseFragment() {
 
     private var departureDate: Date = Date()
     private var arrivalDate: Date = Date()
-    private var groupLat: Int? = 0
-    private var groupLng: Int? = 0
+    private var groupLat: Double? = 0.0
+    private var groupLng: Double? = 0.0
 
     private var bitmapGroupImage: Bitmap? = null
 
@@ -59,10 +65,6 @@ class AddGroupFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         etDepartureDate = view.findViewById(R.id.et_departure_date_value)
         etArrivalDate = view.findViewById(R.id.et_arrival_date_value)
-
-        addListeners()
-
-        initDateTimeDialogs()
     }
 
 
@@ -70,6 +72,11 @@ class AddGroupFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddGroupViewModel::class.java)
 
+        addListeners()
+
+        addObservers()
+
+        initDateTimeDialogs()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -90,10 +97,30 @@ class AddGroupFragment : BaseFragment() {
                     iv_group_image.setImageBitmap(bitmapGroupImage)
                 }
                 REQUEST_LOCATION -> {
-                    groupLat = data?.getIntExtra(MapsActivity.MAP_LAT, 0)
-                    groupLng = data?.getIntExtra(MapsActivity.MAP_LNG, 0)
+                    groupLat = data?.getDoubleExtra(MapsActivity.MAP_LAT, 0.0)
+                    groupLng = data?.getDoubleExtra(MapsActivity.MAP_LNG, 0.0)
                 }
             }
+    }
+
+
+    private fun addObservers() {
+        viewModel.getErrorMsg().observe(this, Observer<String> {
+            showMessage(it)
+        })
+
+        viewModel.getLoadingState().observe(this, Observer<Boolean> {
+            if (it) {
+                bt_add_group.startAnimation()
+            } else {
+                bt_add_group.revertAnimation()
+            }
+        })
+
+        viewModel.getGroupAdd().observe(this, Observer<Boolean> {
+
+        })
+
     }
 
     private fun addListeners() {
@@ -130,8 +157,49 @@ class AddGroupFragment : BaseFragment() {
         et_departure_coordinates.setOnClickListener {
             startActivityForResult(Intent(context, MapsActivity::class.java), REQUEST_LOCATION)
         }
+
+        bt_add_group.setOnClickListener {
+            closeKeyboard()
+            if (validateForm()) {
+                val newGroup = Group(
+                    photo = bitmapGroupImage?.resize(500, 500)?.toBase64(),
+                    title = et_group_title.text.toString(),
+                    description = et_group_description.text.toString(),
+                    departureDate = departureDate.time,
+                    arrivalDate = arrivalDate.time,
+                    departurePlace = et_departure_place.text.toString(),
+                    latitude = groupLat,
+                    longitude = groupLng
+                )
+                viewModel.createGroup(newGroup)
+            }
+        }
     }
 
+    private fun validateForm(): Boolean {
+        val validations = arrayOf(
+            et_group_title.validate(true)
+            , et_group_description.validate(true),
+            et_departure_place.validate(true),
+            et_departure_coordinates.validate(true)
+        )
+
+        val validDepartureDate = et_departure_date_value.text.isNotEmpty()
+        if (!validDepartureDate) {
+            et_departure_date.setTextColor(ContextCompat.getColor(context!!, R.color.error))
+        } else {
+            et_departure_date.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
+        }
+
+        val validArrivalDate = et_arrival_date_value.text.isNotEmpty()
+        if (!validArrivalDate) {
+            et_arrival_date.setTextColor(ContextCompat.getColor(context!!, R.color.error))
+        } else {
+            et_arrival_date.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
+        }
+
+        return !validations.contains(false) && validDepartureDate && validArrivalDate
+    }
 
     private fun initDateTimeDialogs() {
         departureDialogFragment = SwitchDateTimeDialogFragment.newInstance(

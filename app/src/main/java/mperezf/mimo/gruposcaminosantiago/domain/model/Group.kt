@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Group(
-    val id: Int?,
+    val id: Int? = 0,
     val photo: String?,
     val title: String?,
     val description: String?,
@@ -13,9 +13,9 @@ data class Group(
     val departurePlace: String?,
     val latitude: Double?,
     val longitude: Double?,
-    val founder: User?,
-    val members: List<User>?,
-    val messages: List<Message>?
+    val founder: User? = null,
+    val members: List<User>? = emptyList(),
+    val messages: List<Message>? = emptyList()
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
