@@ -56,7 +56,7 @@ class GroupMemberListViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                error(context.getString(R.string.internet_error))
+                errorMsg.postValue(context.getString(R.string.internet_error))
             }
 
             override fun onNext(group: Group) {
@@ -77,7 +77,7 @@ class GroupMemberListViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                error(context.getString(R.string.internet_error))
+                errorMsg.postValue(context.getString(R.string.internet_error))
             }
 
             override fun onNext(group: Group) {

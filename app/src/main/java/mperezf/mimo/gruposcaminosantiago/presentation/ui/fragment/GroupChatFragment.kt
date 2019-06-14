@@ -20,6 +20,8 @@ class GroupChatFragment : BaseFragment() {
     private var chatFragmentListener: ChatFragmentListener? = null
     private var group: Group? = null
 
+    private var userId: Int = 0
+
     companion object {
 
         private const val GROUP_DETAIL = "group_detail"
@@ -55,19 +57,25 @@ class GroupChatFragment : BaseFragment() {
         layoutManager.reverseLayout = true
         rv_group_chat.layoutManager = layoutManager
 
-        rv_group_chat.adapter = GroupChatAdapter()
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GroupChatViewModel::class.java)
 
-        addObservers()
-        addListeners()
+        viewModel.getAuthenticatedUser { user ->
+            user.id?.let { id ->
+                userId = id
+            }
 
-        group?.let {
-            updateMessages(it)
+            rv_group_chat.adapter = GroupChatAdapter(userId)
+
+            addObservers()
+            addListeners()
+
+            group?.let {
+                updateMessages(it)
+            }
         }
     }
 

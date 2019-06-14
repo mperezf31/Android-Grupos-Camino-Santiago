@@ -3,20 +3,30 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.data.Repository
+import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.SendMessageInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.domain.model.MessageGroup
+import mperezf.mimo.gruposcaminosantiago.domain.model.User
 
 class GroupChatViewModel : BaseViewModel() {
 
     private val showLoading = MutableLiveData<Boolean>()
     private val errorMsg = MutableLiveData<String>()
     private val messageSended = MutableLiveData<Group>()
+
+    private val authenticatedUserInteractor: AuthenticatedUserInteractor =
+        AuthenticatedUserInteractor(
+            Repository,
+            mainThread(),
+            Schedulers.io()
+        )
 
     private val sendMessageInteractor: SendMessageInteractor =
         SendMessageInteractor(
@@ -37,6 +47,22 @@ class GroupChatViewModel : BaseViewModel() {
         return messageSended
     }
 
+
+    fun getAuthenticatedUser(authenticatedUser: (User) -> Unit) {
+        authenticatedUserInteractor.execute(object : DisposableMaybeObserver<User>() {
+
+            override fun onError(e: Throwable) {}
+
+            override fun onSuccess(user: User) {
+                authenticatedUser(user)
+            }
+
+            override fun onComplete() {}
+
+        }, Unit)
+    }
+
+
     fun sendMessage(idGroup: Int, msg: String) {
         showLoading.postValue(true)
 
@@ -44,7 +70,7 @@ class GroupChatViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                error(context.getString(R.string.internet_error))
+                errorMsg.postValue(context.getString(R.string.internet_error))
             }
 
             override fun onNext(group: Group) {
@@ -60,6 +86,7 @@ class GroupChatViewModel : BaseViewModel() {
 
 
     override fun dispose() {
+        authenticatedUserInteractor.dispose()
         sendMessageInteractor.dispose()
     }
 

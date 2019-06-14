@@ -1,11 +1,11 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_group_detail.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.DetailFragmentPagerAdapter
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.BaseFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupChatFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupDetailFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupMemberListFragment
@@ -151,6 +150,16 @@ class GroupDetailActivity : BaseActivity(), GroupMemberListFragment.MemberFragme
             0 -> nav_view_group_detail.selectedItemId = R.id.group_detail_tab
             1 -> nav_view_group_detail.selectedItemId = R.id.group_members_tab
             2 -> nav_view_group_detail.selectedItemId = R.id.group_chat_tab
+        }
+
+        closeKeyboard()
+    }
+
+    private fun closeKeyboard() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
