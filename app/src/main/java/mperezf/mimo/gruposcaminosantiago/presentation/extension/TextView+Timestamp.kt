@@ -9,8 +9,7 @@ fun TextView.fromTimestamp(value: Long, pattern: String = "dd/MM/yy' a las 'HH:m
 
     text = try {
         val sdf = SimpleDateFormat(pattern, Locale("es", "ES"))
-        sdf.timeZone = TimeZone.getTimeZone("UTC")
-        sdf.format( Date(value))
+        sdf.format(Date(value * 1000))
     } catch (e: Exception) {
         ""
     }

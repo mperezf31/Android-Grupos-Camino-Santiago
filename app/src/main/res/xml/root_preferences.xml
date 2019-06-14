@@ -1,22 +1,20 @@
-
-<androidx.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/preferences_visible_groups_title">
 
         <SwitchPreferenceCompat
-            app:key="pref_groups_created"
             app:defaultValue="true"
+            app:key="pref_groups_created"
             app:title="@string/preferences_groups_created" />
 
         <SwitchPreferenceCompat
-            app:key="pref_groups_member"
             app:defaultValue="true"
+            app:key="pref_groups_member"
             app:title="@string/preferences_groups_member" />
 
         <SwitchPreferenceCompat
-            app:key="pref_other_groups"
             app:defaultValue="true"
+            app:key="pref_other_groups"
             app:title="@string/preferences_other_groups" />
 
     </PreferenceCategory>
