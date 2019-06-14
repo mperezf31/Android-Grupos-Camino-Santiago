@@ -3,14 +3,12 @@ package mperezf.mimo.gruposcaminosantiago.data
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
-import io.reactivex.functions.Function
 import mperezf.mimo.gruposcaminosantiago.BuildConfig
 import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.data.local.LocalStorage
 import mperezf.mimo.gruposcaminosantiago.data.mapper.GroupMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.MessageMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.UserMapper
-import mperezf.mimo.gruposcaminosantiago.data.model.UserGroupListData
 import mperezf.mimo.gruposcaminosantiago.data.remote.ApiService
 import mperezf.mimo.gruposcaminosantiago.data.remote.RetrofitClient
 import mperezf.mimo.gruposcaminosantiago.domain.DataStorage

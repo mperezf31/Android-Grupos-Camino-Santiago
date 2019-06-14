@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.group_chat_fragment.*
+import kotlinx.android.synthetic.premium.group_chat_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.UpdateGroupDetailListener
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupChatAdapter
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupChatViewModel
 
 
 class GroupChatFragment : BaseFragment() {
 
-    private var chatFragmentListener: ChatFragmentListener? = null
+    private var fragmentListener: UpdateGroupDetailListener? = null
     private var group: Group? = null
 
     private var userId: Int = 0
@@ -81,11 +82,11 @@ class GroupChatFragment : BaseFragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        chatFragmentListener = activity as ChatFragmentListener
+        fragmentListener = activity as UpdateGroupDetailListener
     }
 
     override fun onDetach() {
-        chatFragmentListener = null
+        fragmentListener = null
         super.onDetach()
     }
 
@@ -127,7 +128,7 @@ class GroupChatFragment : BaseFragment() {
     private fun updateGroup(it: Group) {
         group = it
         updateMessages(it)
-        chatFragmentListener?.updateGroup(it)
+        fragmentListener?.updateGroup(it)
     }
 
     private fun updateMessages(group: Group) {
@@ -138,9 +139,4 @@ class GroupChatFragment : BaseFragment() {
         }
 
     }
-
-    interface ChatFragmentListener {
-        fun updateGroup(group: Group)
-    }
-
 }

@@ -8,7 +8,6 @@ import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupDetailnteractor
-import mperezf.mimo.gruposcaminosantiago.domain.interactor.LogoutInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 
 

@@ -12,12 +12,13 @@ import kotlinx.android.synthetic.main.group_member_list_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.UpdateGroupDetailListener
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.GroupMembersAdapter
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupMemberListViewModel
 
 class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
 
-    private var memberFragmentListener: MemberFragmentListener? = null
+    private var fragmentListener: UpdateGroupDetailListener? = null
     private var group: Group? = null
     private var userId: Int? = 0
     private var isMember: Boolean = false
@@ -73,11 +74,11 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        memberFragmentListener = activity as MemberFragmentListener
+        fragmentListener = activity as UpdateGroupDetailListener
     }
 
     override fun onDetach() {
-        memberFragmentListener = null
+        fragmentListener = null
         super.onDetach()
     }
 
@@ -120,7 +121,7 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
     private fun updateGroup(it: Group) {
         group = it
         showGroupMemberList(it)
-        memberFragmentListener?.updateGroup(it)
+        fragmentListener?.updateGroup(it)
     }
 
     private fun showGroupMemberList(group: Group?) {
@@ -160,8 +161,4 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-
-    interface MemberFragmentListener {
-        fun updateGroup(group: Group)
-    }
 }

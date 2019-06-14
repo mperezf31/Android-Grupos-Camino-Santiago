@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_chat_2.view.*
+import kotlinx.android.synthetic.premium.item_chat_2.view.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64

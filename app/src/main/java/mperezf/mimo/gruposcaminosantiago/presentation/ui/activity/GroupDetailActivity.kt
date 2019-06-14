@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -15,14 +14,10 @@ import kotlinx.android.synthetic.main.activity_group_detail.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.DetailFragmentPagerAdapter
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupChatFragment
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupDetailFragment
-import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupMemberListFragment
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
-class GroupDetailActivity : BaseActivity(), GroupMemberListFragment.MemberFragmentListener,
-    GroupChatFragment.ChatFragmentListener,
+class GroupDetailActivity : BaseActivity(),UpdateGroupDetailListener,
     ViewPager.OnPageChangeListener {
 
     companion object {
@@ -107,19 +102,11 @@ class GroupDetailActivity : BaseActivity(), GroupMemberListFragment.MemberFragme
 
     private fun showGroupDetailTabs(it: Group) {
         groupDetail = it
-        vp_group_detail.adapter = DetailFragmentPagerAdapter(getTabFragments(it), supportFragmentManager)
+        vp_group_detail.adapter = DetailFragmentPagerAdapter(it, supportFragmentManager)
         vp_group_detail.addOnPageChangeListener(this)
 
         nav_view_group_detail.visibility = View.VISIBLE
         nav_view_group_detail.selectedItemId = R.id.group_detail_tab
-    }
-
-    private fun getTabFragments(group: Group): ArrayList<Fragment> {
-        return arrayListOf(
-            GroupDetailFragment.newInstance(group),
-            GroupMemberListFragment.newInstance(group),
-            GroupChatFragment.newInstance(group)
-        )
     }
 
     private fun addObservers() {
@@ -200,4 +187,10 @@ class ZoomOutPageTransformer : ViewPager.PageTransformer {
             }
         }
     }
+}
+
+
+interface UpdateGroupDetailListener {
+
+    fun updateGroup(group: Group)
 }

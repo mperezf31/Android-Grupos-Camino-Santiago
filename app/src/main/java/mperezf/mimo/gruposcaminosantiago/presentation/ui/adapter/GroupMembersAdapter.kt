@@ -11,7 +11,7 @@ import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
 import mperezf.mimo.gruposcaminosantiago.presentation.model.Member
 
-class GroupMembersAdapter() : RecyclerView.Adapter<GroupMembersAdapter.ViewHolder>() {
+class GroupMembersAdapter : RecyclerView.Adapter<GroupMembersAdapter.ViewHolder>() {
 
     private var items: ArrayList<Member> = ArrayList()
 

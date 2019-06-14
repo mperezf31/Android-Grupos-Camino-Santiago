@@ -42,6 +42,19 @@ android {
         }
 
     }
+
+    flavorDimensions 'default'
+
+    productFlavors {
+        free {
+            dimension = 'default'
+            applicationId = 'mperezf.mimo.gruposcaminosantiago.free'
+        }
+        premium {
+            dimension = 'default'
+            applicationId = 'mperezf.mimo.gruposcaminosantiago.premium'
+        }
+    }
 }
 
 dependencies {
