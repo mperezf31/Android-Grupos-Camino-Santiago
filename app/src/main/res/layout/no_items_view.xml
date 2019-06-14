@@ -12,8 +12,8 @@
         android:layout_width="@dimen/oops_icon_size"
         android:layout_height="@dimen/oops_icon_size"
         android:layout_gravity="center_horizontal"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_oops" />
+        android:scaleType="centerInside"
+        android:src="@drawable/oops" />
 
     <TextView
         android:layout_width="match_parent"

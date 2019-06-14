@@ -22,14 +22,15 @@ import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.GroupListFragm
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.GroupDetailViewModel
 
 
-class GroupDetailActivity : BaseActivity(),UpdateGroupDetailListener,
-    ViewPager.OnPageChangeListener , DeleteGroupDialogFragment.OnDeleteGroupListener {
+class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
+    ViewPager.OnPageChangeListener, DeleteGroupDialogFragment.OnDeleteGroupListener {
 
     companion object {
         const val GROUP_ID = "group_id"
         const val GROUP_TITLE = "group_title"
     }
 
+    private var groupUpdated: Boolean = false
     private var groupDetail: Group? = null
     private lateinit var viewModel: GroupDetailViewModel
 
@@ -105,32 +106,37 @@ class GroupDetailActivity : BaseActivity(),UpdateGroupDetailListener,
     }
 
     private fun confirmDeleteGroup() {
-        DeleteGroupDialogFragment.newInstance().show(supportFragmentManager,DeleteGroupDialogFragment.TAG)
+        DeleteGroupDialogFragment.newInstance().show(supportFragmentManager, DeleteGroupDialogFragment.TAG)
     }
 
     override fun deleteGroupConfirmed() {
         groupDetail?.id?.let {
-            viewModel.deleteGroup(it,{
+            viewModel.deleteGroup(it, {
 
-                groupDeleted()
-            },{
+                finishDetail()
+            }, {
                 Snackbar.make(findViewById(android.R.id.content), it, Snackbar.LENGTH_LONG).show()
             })
         }
     }
 
 
-    private fun groupDeleted() {
+    private fun finishDetail() {
         val output = Intent()
         output.putExtra(GroupListFragment.RELOAD_LIST, true)
         setResult(Activity.RESULT_OK, output)
         finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        if (groupUpdated) {
+            finishDetail()
+        } else {
+            super.onBackPressed()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
     }
 
     override fun onDestroy() {
@@ -162,8 +168,8 @@ class GroupDetailActivity : BaseActivity(),UpdateGroupDetailListener,
 
     override fun updateGroup(group: Group) {
         groupDetail = group
+        groupUpdated = true
     }
-
 
     override fun onPageScrollStateChanged(state: Int) {
     }
