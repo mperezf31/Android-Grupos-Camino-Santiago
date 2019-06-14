@@ -48,7 +48,7 @@
         <item name="android:textSize">13sp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginBottom">@dimen/button_member_margin</item>
+        <item name="android:layout_marginBottom">@dimen/member_bt_margin</item>
     </style>
 
     <style name="TitleFullScreenPage" parent="android:style/Widget.TextView">

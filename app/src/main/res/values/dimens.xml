@@ -20,16 +20,6 @@
     <dimen name="group_info_text_size">12sp</dimen>
     <dimen name="group_title_size">18sp</dimen>
     <dimen name="avatar_admin_size">60dp</dimen>
-    <dimen name="member_item_card_corner">8dp</dimen>
-    <dimen name="avatar_member_size">65dp</dimen>
-    <dimen name="member_name_top_margin">8dp</dimen>
-    <dimen name="member_name_size">15sp</dimen>
-    <dimen name="member_email_size">12sp</dimen>
-    <dimen name="member_padding">8dp</dimen>
-    <dimen name="member_avatar_margin_top">4dp</dimen>
-    <dimen name="button_member_width">180dp</dimen>
-    <dimen name="button_member_margin">20dp</dimen>
-    <dimen name="button_member_corner">10dp</dimen>
     <dimen name="edit_text_width">270dp</dimen>
 
     <!-- Register page dimens-->
@@ -56,5 +46,17 @@
     <dimen name="lg_bt_login_bottom">40dp</dimen>
     <dimen name="lg_bt_login_corner">10dp</dimen>
     <dimen name="lg_tv_register_margin">40dp</dimen>
+
+    <!-- Member item view dimens-->
+    <dimen name="member_tv_name_margin_top">8dp</dimen>
+    <dimen name="member_tv_name_text_size">15sp</dimen>
+    <dimen name="member_tv_email_text_size">12sp</dimen>
+    <dimen name="member_padding">8dp</dimen>
+    <dimen name="member_iv_avatar_margin_top">4dp</dimen>
+    <dimen name="member_item_card_corner">8dp</dimen>
+    <dimen name="member_iv_avatar_size">65dp</dimen>
+    <dimen name="member_bt_width">180dp</dimen>
+    <dimen name="member_bt_margin">20dp</dimen>
+    <dimen name="member_bt_corner">10dp</dimen>
 
 </resources>

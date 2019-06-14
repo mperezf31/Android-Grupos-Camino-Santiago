@@ -20,22 +20,22 @@
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/bt_add_member"
         style="@style/CustomButton.Member"
-        android:layout_width="@dimen/button_member_width"
+        android:layout_width="@dimen/member_bt_width"
         android:layout_height="wrap_content"
         android:text="@string/add_member_to_group"
         android:visibility="gone"
-        app:initialCornerAngle="@dimen/button_member_corner"
+        app:initialCornerAngle="@dimen/member_bt_corner"
         app:spinning_bar_color="@color/colorPrimary"
         tools:visibility="visible" />
 
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/bt_remove_member"
         style="@style/CustomButton.Member"
-        android:layout_width="@dimen/button_member_width"
+        android:layout_width="@dimen/member_bt_width"
         android:layout_height="wrap_content"
         android:text="@string/leave_group"
         android:visibility="gone"
-        app:initialCornerAngle="@dimen/button_member_corner"
+        app:initialCornerAngle="@dimen/member_bt_corner"
         app:spinning_bar_color="@color/colorPrimary"
         tools:visibility="visible" />
 

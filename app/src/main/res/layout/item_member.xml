@@ -17,9 +17,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_member"
-            android:layout_marginTop="@dimen/member_avatar_margin_top"
-            android:layout_width="@dimen/avatar_member_size"
-            android:layout_height="@dimen/avatar_member_size"
+            android:layout_marginTop="@dimen/member_iv_avatar_margin_top"
+            android:layout_width="@dimen/member_iv_avatar_size"
+            android:layout_height="@dimen/member_iv_avatar_size"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_avatar" />
 
@@ -28,11 +28,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/member_name_top_margin"
+            android:layout_marginTop="@dimen/member_tv_name_margin_top"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/member_name_size"
+            android:textSize="@dimen/member_tv_name_text_size"
             android:textStyle="bold"
             tools:text="Juan Pérez" />
 
@@ -45,7 +45,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/member_email_size"
+            android:textSize="@dimen/member_tv_email_text_size"
             tools:text="juan@gmail.com" />
 
     </LinearLayout>
