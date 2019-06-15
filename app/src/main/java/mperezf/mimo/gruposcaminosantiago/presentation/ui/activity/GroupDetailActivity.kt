@@ -89,12 +89,12 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
             user.id?.let { it ->
                 userId = it
             }
-            if (user.id == groupId) {
-                invalidateOptionsMenu()
-            }
         }, {})
 
         viewModel.getGroupDetail(groupId, { group ->
+            if (userId == group.founder?.id) {
+                invalidateOptionsMenu()
+            }
             showGroupDetailTabs(group)
         }, { error ->
             Snackbar.make(findViewById(android.R.id.content), error, Snackbar.LENGTH_LONG).show()
@@ -103,7 +103,7 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        return if (userId == groupDetail?.id) {
+        return if (userId == groupDetail?.founder?.id) {
             menuInflater.inflate(R.menu.activity_detail, menu)
             true
         } else {

@@ -2,6 +2,7 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -20,10 +21,8 @@ import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment
 import kotlinx.android.synthetic.main.add_group_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
-import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromTimestamp
-import mperezf.mimo.gruposcaminosantiago.presentation.extension.resize
-import mperezf.mimo.gruposcaminosantiago.presentation.extension.toBase64
-import mperezf.mimo.gruposcaminosantiago.presentation.extension.validate
+import mperezf.mimo.gruposcaminosantiago.presentation.extension.*
+import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.AddGroupListener
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.MapsActivity
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.AddGroupViewModel
 import java.util.*
@@ -39,7 +38,7 @@ class AddGroupFragment : BaseFragment() {
         private const val PERMISSION_REQUEST_CODE = 1
         private const val GALLERY_REQUEST_CODE = 2
         private const val REQUEST_LOCATION: Int = 3
-        private const val DATE_PATTERN = "hh:mm dd/mm/yy"
+        private const val DATE_PATTERN = "HH:mm dd/MM/yy"
 
         fun newInstance() = AddGroupFragment()
     }
@@ -55,6 +54,7 @@ class AddGroupFragment : BaseFragment() {
     private var groupLat: Double? = 0.0
     private var groupLng: Double? = 0.0
 
+    private var addGroupListener: AddGroupListener? = null
     private var bitmapGroupImage: Bitmap? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -99,8 +99,21 @@ class AddGroupFragment : BaseFragment() {
                 REQUEST_LOCATION -> {
                     groupLat = data?.getDoubleExtra(MapsActivity.MAP_LAT, 0.0)
                     groupLng = data?.getDoubleExtra(MapsActivity.MAP_LNG, 0.0)
+                    val coordinates = String.format("Lat: %.3f", groupLat) + " Lng:" + String.format("%.3f", groupLng)
+                    et_departure_coordinates.setText(coordinates)
                 }
             }
+    }
+
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        addGroupListener = activity as AddGroupListener
+    }
+
+    override fun onDetach() {
+        addGroupListener = null
+        super.onDetach()
     }
 
 
@@ -117,8 +130,8 @@ class AddGroupFragment : BaseFragment() {
             }
         })
 
-        viewModel.getGroupAdd().observe(this, Observer<Boolean> {
-
+        viewModel.getGroupAdd().observe(this, Observer<Group> {
+            addGroupListener?.groupAdded(it)
         })
 
     }
@@ -222,8 +235,9 @@ class AddGroupFragment : BaseFragment() {
                 override fun onPositiveButtonClick(date: Date) {
                     departureDate = date
                     etDepartureDate.fromTimestamp(
-                        date.time,
-                        DATE_PATTERN
+                        value = date.time,
+                        pattern = DATE_PATTERN,
+                        unit = MILLIISECONDS
                     )
                 }
 
@@ -251,8 +265,9 @@ class AddGroupFragment : BaseFragment() {
                 override fun onPositiveButtonClick(date: Date) {
                     arrivalDate = date
                     etArrivalDate.fromTimestamp(
-                        date.time,
-                        DATE_PATTERN
+                        value = date.time,
+                        pattern = DATE_PATTERN,
+                        unit = MILLIISECONDS
                     )
                 }
 

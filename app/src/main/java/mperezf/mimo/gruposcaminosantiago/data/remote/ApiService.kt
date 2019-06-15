@@ -23,7 +23,7 @@ interface ApiService {
     fun getGroupDetail(@HeaderMap token: Map<String, String>, @Path("id") id: Int): Observable<GroupData>
 
     @POST("group")
-    fun addGroup(@HeaderMap token: Map<String, String>, group: GroupData): Observable<GroupData>
+    fun addGroup(@HeaderMap token: Map<String, String>, @Body group: GroupData): Observable<GroupData>
 
     @DELETE("group/{id}")
     fun deleteGroup(@HeaderMap token: Map<String, String>, @Path("id") groupId: Int): Observable<ResponseBody>

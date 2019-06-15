@@ -42,6 +42,7 @@
             android:drawableStart="@drawable/ic_send"
             android:padding="@dimen/chat_bt_send_padding"
             android:scaleType="centerInside"
+            app:spinning_bar_padding="@dimen/chat_bt_send_spinner_padding"
             app:spinning_bar_color="@android:color/white" />
 
         <EditText

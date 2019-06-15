@@ -16,7 +16,7 @@ class AddGroupViewModel : BaseViewModel() {
 
     private val errorMsg = MutableLiveData<String>()
     private val showLoading = MutableLiveData<Boolean>()
-    private val groupAddSuccess = MutableLiveData<Boolean>()
+    private val groupAddSuccess = MutableLiveData<Group>()
 
     fun getErrorMsg(): LiveData<String> {
         return errorMsg
@@ -26,7 +26,7 @@ class AddGroupViewModel : BaseViewModel() {
         return showLoading
     }
 
-    fun getGroupAdd(): LiveData<Boolean> {
+    fun getGroupAdd(): LiveData<Group> {
         return groupAddSuccess
     }
 
@@ -36,7 +36,7 @@ class AddGroupViewModel : BaseViewModel() {
 
         addGroupInteractor.execute(object : DisposableObserver<Group>() {
             override fun onNext(group: Group) {
-                groupAddSuccess.postValue(true)
+                groupAddSuccess.postValue(group)
             }
 
             override fun onError(e: Throwable) {

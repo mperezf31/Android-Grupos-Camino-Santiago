@@ -73,6 +73,7 @@
     <dimen name="chat_bt_send_size">40dp</dimen>
     <dimen name="chat_bt_send_margin">16dp</dimen>
     <dimen name="chat_bt_send_padding">10dp</dimen>
+    <dimen name="chat_bt_send_spinner_padding">6dp</dimen>
     <dimen name="chat_et_margin">8dp</dimen>
     <dimen name="chat_et_padding_start_end">16dp</dimen>
     <dimen name="chat_et_padding_top">12dp</dimen>
@@ -129,6 +130,7 @@
     <dimen name="gd_rv_height">0dp</dimen>
     <dimen name="gd_header_margin_top">8dp</dimen>
     <dimen name="gd_section_corner">8dp</dimen>
+    <dimen name="gd_section_padding">8dp</dimen>
     <dimen name="gd_iv_group_size">85dp</dimen>
     <dimen name="gd_tv_departure_date_margin_start">8dp</dimen>
     <dimen name="gd_tv_departure_date_margin_top">2dp</dimen>

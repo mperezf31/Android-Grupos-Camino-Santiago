@@ -20,6 +20,7 @@ class GroupListFragment : BaseFragment() {
 
         const val RELOAD_LIST = "reload_groups_list"
         const val GROUP_DETAIL = 1
+        const val ADD_GROUP = 2
 
         @JvmStatic
         fun newInstance(): GroupListFragment = GroupListFragment()
@@ -64,7 +65,7 @@ class GroupListFragment : BaseFragment() {
 
         if (resultCode == Activity.RESULT_OK)
             when (requestCode) {
-                GROUP_DETAIL -> {
+                GROUP_DETAIL, ADD_GROUP -> {
                     data?.getBooleanExtra(RELOAD_LIST, false)?.let { reload ->
                         if (reload) {
                             viewModel.getGroups()
@@ -75,7 +76,7 @@ class GroupListFragment : BaseFragment() {
     }
 
     private fun showAddGroupFragment() {
-        startActivityForResult(Intent(activity, AddGroupActivity::class.java), 0)
+        startActivityForResult(Intent(activity, AddGroupActivity::class.java), ADD_GROUP)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         // AddGroupDialogFragment.newInstance().show(childFragmentManager, AddGroupDialogFragment.TAG)
     }

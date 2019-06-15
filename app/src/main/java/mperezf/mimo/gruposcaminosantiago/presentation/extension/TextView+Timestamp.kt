@@ -5,11 +5,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-fun TextView.fromTimestamp(value: Long, pattern: String = "HH:mm dd/MM/yy") {
+const val SECONDS = 1
+const val MILLIISECONDS = 2
+
+fun TextView.fromTimestamp(value: Long, pattern: String = "HH:mm dd/MM/yy", unit: Int = SECONDS) {
 
     text = try {
+        var time = value
+        if (unit == SECONDS) {
+            time *= 1000
+        }
         val sdf = SimpleDateFormat(pattern, Locale("es", "ES"))
-        sdf.format(Date(value * 1000))
+        sdf.format(Date(time))
     } catch (e: Exception) {
         ""
     }
