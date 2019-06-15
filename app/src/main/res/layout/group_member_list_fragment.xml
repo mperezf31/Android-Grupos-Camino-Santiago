@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="50dp"
+        android:paddingBottom="@dimen/member_rv_padding_bottom"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
         tools:listitem="@layout/item_member" />
@@ -26,6 +26,7 @@
         android:visibility="gone"
         app:initialCornerAngle="@dimen/member_bt_corner"
         app:spinning_bar_color="@color/colorPrimary"
+        app:spinning_bar_padding="@dimen/member_bt_spinner_padding"
         tools:visibility="visible" />
 
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
@@ -37,6 +38,7 @@
         android:visibility="gone"
         app:initialCornerAngle="@dimen/member_bt_corner"
         app:spinning_bar_color="@color/colorPrimary"
+        app:spinning_bar_padding="5dp"
         tools:visibility="visible" />
 
 </RelativeLayout>

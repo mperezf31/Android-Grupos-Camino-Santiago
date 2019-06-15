@@ -24,8 +24,8 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_group_detail"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/gd_rv_width"
+        android:layout_height="@dimen/gd_rv_height"
         app:layout_constraintBottom_toTopOf="@+id/nav_view_group_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +36,6 @@
         android:id="@+id/nav_view_group_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:visibility="gone"
         tools:visibility="visible"
         android:background="?android:attr/windowBackground"

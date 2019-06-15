@@ -186,14 +186,14 @@ class AddGroupFragment : BaseFragment() {
 
         val validDepartureDate = et_departure_date_value.text.isNotEmpty()
         if (!validDepartureDate) {
-            et_departure_date.setTextColor(ContextCompat.getColor(context!!, R.color.error))
+            et_departure_date.setTextColor(ContextCompat.getColor(context!!, R.color.error_color))
         } else {
             et_departure_date.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
         }
 
         val validArrivalDate = et_arrival_date_value.text.isNotEmpty()
         if (!validArrivalDate) {
-            et_arrival_date.setTextColor(ContextCompat.getColor(context!!, R.color.error))
+            et_arrival_date.setTextColor(ContextCompat.getColor(context!!, R.color.error_color))
         } else {
             et_arrival_date.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
         }

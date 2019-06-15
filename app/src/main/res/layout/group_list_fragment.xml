@@ -30,7 +30,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_groups"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/group_list_padding_top"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"

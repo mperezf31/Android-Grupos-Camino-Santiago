@@ -11,18 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/line"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="@dimen/chat_rv_margin_bottom"
         android:clipToPadding="false"
-        android:paddingBottom="16dp"
+        android:paddingBottom="@dimen/chat_rv_padding_bottom"
         tools:listitem="@layout/item_chat_1" />
 
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/chat_filed_line_height"
         android:layout_above="@+id/buttons_view"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/chat_field_line_margin"
+        android:layout_marginEnd="@dimen/chat_field_line_margin"
         android:background="@android:color/darker_gray" />
 
     <RelativeLayout
@@ -33,14 +33,14 @@
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/bt_add_message"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/chat_bt_send_size"
+            android:layout_height="@dimen/chat_bt_send_size"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/chat_bt_send_margin"
+            android:layout_marginEnd="@dimen/chat_bt_send_margin"
             android:background="@drawable/bg_button_send"
             android:drawableStart="@drawable/ic_send"
-            android:padding="10dp"
+            android:padding="@dimen/chat_bt_send_padding"
             android:scaleType="centerInside"
             app:spinning_bar_color="@android:color/white" />
 
@@ -50,17 +50,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/chat_et_margin"
+            android:layout_marginEnd="@dimen/chat_et_margin"
             android:layout_toStartOf="@+id/bt_add_message"
             android:background="@android:color/transparent"
             android:hint="@string/message"
             android:inputType="textMultiLine"
             android:lines="2"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="24dp" />
+            android:paddingStart="@dimen/chat_et_padding_start_end"
+            android:paddingTop="@dimen/chat_et_padding_top"
+            android:paddingEnd="@dimen/chat_et_padding_start_end"
+            android:paddingBottom="@dimen/chat_et_padding_bottom" />
 
     </RelativeLayout>
 

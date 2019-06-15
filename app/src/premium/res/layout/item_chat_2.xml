@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="50dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginStart="@dimen/item_chat_2_margin_start"
+    android:layout_marginTop="@dimen/item_chat_2_margin_top"
+    android:layout_marginEnd="@dimen/item_chat_2_margin_end"
+    android:layout_marginBottom="@dimen/item_chat_2_margin_bottom"
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_msg"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/item_chat_2_iv_avatar_size"
+        android:layout_height="@dimen/item_chat_2_iv_avatar_size"
         android:layout_gravity="bottom"
         android:src="@drawable/ic_avatar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/item_chat_2_info_margin"
         android:background="@drawable/bg_chat_item_2"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/item_chat_2_info_padding">
 
         <TextView
             android:id="@+id/tv_msg"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="@android:color/darker_gray"
-            android:textSize="13sp"
+            android:textSize="@dimen/item_chat_2_tv_date_text_size"
             tools:text="10:12" />
 
     </LinearLayout>

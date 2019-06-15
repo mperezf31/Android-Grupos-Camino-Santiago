@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="100dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginStart="@dimen/item_chat_1_margin_start"
+    android:layout_marginTop="@dimen/item_chat_1_margin_top"
+    android:layout_marginEnd="@dimen/item_chat_1_margin_end"
+    android:layout_marginBottom="@dimen/item_chat_1_margin_bottom"
     android:background="@drawable/bg_chat_item_1"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/item_chat_1_padding">
 
     <TextView
         android:id="@+id/tv_msg"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:textColor="@color/grey_2"
-        android:textSize="13sp"
+        android:textSize="@dimen/item_chat_1_tv_date_text_size"
         tools:text="10:12" />
 
 </LinearLayout>

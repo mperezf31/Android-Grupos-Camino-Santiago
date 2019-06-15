@@ -32,6 +32,7 @@ android {
 
         debug {
             buildConfigField "String", "SERVER_URL", "\"http://ec2-35-156-79-168.eu-central-1.compute.amazonaws.com/\""
+            signingConfig signingConfigs.release
         }
 
         release {
