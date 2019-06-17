@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Chat fragment dimens-->
+    <dimen name="chat_rv_margin_bottom">3dp</dimen>
+    <dimen name="chat_rv_padding_bottom">16dp</dimen>
+    <dimen name="chat_field_line_margin">16dp</dimen>
+    <dimen name="chat_bt_send_size">40dp</dimen>
+    <dimen name="chat_bt_send_margin">16dp</dimen>
+    <dimen name="chat_bt_send_padding">10dp</dimen>
+    <dimen name="chat_bt_send_spinner_padding">6dp</dimen>
+    <dimen name="chat_et_margin">8dp</dimen>
+    <dimen name="chat_et_padding_start_end">16dp</dimen>
+    <dimen name="chat_et_padding_top">12dp</dimen>
+    <dimen name="chat_et_padding_bottom">24dp</dimen>
+    <dimen name="chat_filed_line_height">1dp</dimen>
+
+    <!-- Chat item_1 view dimens-->
+    <dimen name="item_chat_1_margin_start">100dp</dimen>
+    <dimen name="item_chat_1_margin_top">8dp</dimen>
+    <dimen name="item_chat_1_margin_end">16dp</dimen>
+    <dimen name="item_chat_1_margin_bottom">8dp</dimen>
+    <dimen name="item_chat_1_padding">16dp</dimen>
+    <dimen name="item_chat_1_tv_date_text_size">13sp</dimen>
+
+    <!-- Chat item_2 view dimens-->
+    <dimen name="item_chat_2_margin_start">16dp</dimen>
+    <dimen name="item_chat_2_margin_top">8dp</dimen>
+    <dimen name="item_chat_2_margin_end">50dp</dimen>
+    <dimen name="item_chat_2_margin_bottom">8dp</dimen>
+    <dimen name="item_chat_2_iv_avatar_size">50dp</dimen>
+    <dimen name="item_chat_2_info_margin">8dp</dimen>
+    <dimen name="item_chat_2_info_padding">16dp</dimen>
+    <dimen name="item_chat_2_tv_date_text_size">13sp</dimen>
+
+</resources>

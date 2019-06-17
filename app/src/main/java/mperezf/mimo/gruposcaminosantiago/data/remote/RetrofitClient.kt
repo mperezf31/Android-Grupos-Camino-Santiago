@@ -13,6 +13,7 @@ class RetrofitClient(private val baseUrl: String) {
 
     private fun getOkHttpClient(): OkHttpClient {
         val client = Builder()
+
         if (DEBUG) {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY

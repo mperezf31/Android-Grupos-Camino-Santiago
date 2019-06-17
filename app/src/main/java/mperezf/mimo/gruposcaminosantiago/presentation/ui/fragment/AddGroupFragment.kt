@@ -99,7 +99,7 @@ class AddGroupFragment : BaseFragment() {
                 REQUEST_LOCATION -> {
                     groupLat = data?.getDoubleExtra(MapsActivity.MAP_LAT, 0.0)
                     groupLng = data?.getDoubleExtra(MapsActivity.MAP_LNG, 0.0)
-                    val coordinates = String.format("Lat: %.3f", groupLat) + " Lng:" + String.format("%.3f", groupLng)
+                    val coordinates = String.format("Lat: %.3f", groupLat) + " Lng: " + String.format("%.3f", groupLng)
                     et_departure_coordinates.setText(coordinates)
                 }
             }
