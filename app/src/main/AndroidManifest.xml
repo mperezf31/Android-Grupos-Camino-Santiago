@@ -35,26 +35,30 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".presentation.ui.activity.MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:theme="@style/AppTheme.NoActionBar" />
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity
+            android:name=".presentation.ui.activity.MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".presentation.ui.activity.GroupDetailActivity"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_group_detail" />
         <activity
             android:name=".presentation.ui.activity.AddGroupActivity"
             android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_group_detail" />
         <activity
             android:name=".presentation.ui.activity.AuthenticationActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".presentation.ui.activity.MainActivity"
