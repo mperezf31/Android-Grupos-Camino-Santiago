@@ -53,5 +53,6 @@
     <string name="accept">Aceptar</string>
     <string name="delete_group_comfirmation">¿Seguro que desea eliminar este grupo?</string>
     <string name="delete_group">Eliminar grupo</string>
+    <string name="date_conditions">La fecha de llegada debe de ser posterior a la de salida</string>
 
 </resources>

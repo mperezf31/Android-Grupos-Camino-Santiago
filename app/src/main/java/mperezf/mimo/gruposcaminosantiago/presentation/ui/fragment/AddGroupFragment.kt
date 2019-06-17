@@ -174,17 +174,23 @@ class AddGroupFragment : BaseFragment() {
         bt_add_group.setOnClickListener {
             closeKeyboard()
             if (validateForm()) {
-                val newGroup = Group(
-                    photo = bitmapGroupImage?.resize(500, 500)?.toBase64(),
-                    title = et_group_title.text.toString(),
-                    description = et_group_description.text.toString(),
-                    departureDate = departureDate.time / 1000,
-                    arrivalDate = arrivalDate.time / 1000,
-                    departurePlace = et_departure_place.text.toString(),
-                    latitude = groupLat,
-                    longitude = groupLng
-                )
-                viewModel.createGroup(newGroup)
+
+                if (arrivalDate > departureDate) {
+                    val newGroup = Group(
+                        photo = bitmapGroupImage?.resize(500, 500)?.toBase64(),
+                        title = et_group_title.text.toString(),
+                        description = et_group_description.text.toString(),
+                        departureDate = departureDate.time / 1000,
+                        arrivalDate = arrivalDate.time / 1000,
+                        departurePlace = et_departure_place.text.toString(),
+                        latitude = groupLat,
+                        longitude = groupLng
+                    )
+                    viewModel.createGroup(newGroup)
+                } else {
+                    showMessage(getString(R.string.date_conditions))
+                }
+
             }
         }
     }
