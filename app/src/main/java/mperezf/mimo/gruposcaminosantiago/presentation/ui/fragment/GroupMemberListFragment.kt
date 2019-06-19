@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.group_member_list_fragment.*
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
@@ -57,7 +58,9 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(GroupMemberListViewModel::class.java)
+
+        val factory = GroupMemberListViewModel.Factory(application = activity?.application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(GroupMemberListViewModel::class.java)
 
         viewModel.getAuthenticatedUser({ user ->
             userId = user.id

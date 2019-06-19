@@ -1,5 +1,7 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
@@ -7,10 +9,10 @@ import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.LogoutInteractor
 
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
     private val logoutInteractor: LogoutInteractor =
-        LogoutInteractor(CaminoDeSantiagoApp.instance.getDataStorage(), mainThread(), Schedulers.io())
+        LogoutInteractor(app.getDataStorage(), mainThread(), Schedulers.io())
 
 
     fun logout(callback: () -> Unit) {
@@ -23,6 +25,14 @@ class MainViewModel : BaseViewModel() {
             }
 
         }, Unit)
+    }
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return MainViewModel(application) as T
+        }
     }
 
 }

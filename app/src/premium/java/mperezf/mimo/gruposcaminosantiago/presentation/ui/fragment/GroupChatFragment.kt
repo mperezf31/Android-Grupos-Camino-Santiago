@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.premium.group_chat_fragment.*
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.activity.UpdateGroupDetailListener
@@ -62,7 +63,9 @@ class GroupChatFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(GroupChatViewModel::class.java)
+
+        val factory = GroupChatViewModel.Factory(application = activity?.application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(GroupChatViewModel::class.java)
 
         viewModel.getAuthenticatedUser({ user ->
             user.id?.let { id ->

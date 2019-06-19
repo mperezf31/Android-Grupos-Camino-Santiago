@@ -3,6 +3,8 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -14,12 +16,12 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment.SettingsFragment
 
 
-class GroupListViewModel : BaseViewModel() {
+class GroupListViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
 
     private val groupListInteractor: GroupListInteractor =
         GroupListInteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            app.getDataStorage(),
             AndroidSchedulers.mainThread(),
             Schedulers.io()
         )
@@ -53,7 +55,7 @@ class GroupListViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                errorMsg.postValue(context.getString(R.string.internet_error))
+                errorMsg.postValue(application.getString(R.string.internet_error))
             }
 
             override fun onComplete() {
@@ -120,6 +122,14 @@ class GroupListViewModel : BaseViewModel() {
 
     override fun dispose() {
         groupListInteractor.dispose()
+    }
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return GroupListViewModel(application) as T
+        }
     }
 
 }

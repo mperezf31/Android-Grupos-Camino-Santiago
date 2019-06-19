@@ -12,8 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_group_detail.*
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.ui.adapter.DetailFragmentPagerAdapter
@@ -63,7 +63,9 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
         setContentView(R.layout.activity_group_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewModel = ViewModelProviders.of(this).get(GroupDetailViewModel::class.java)
+        val factory = GroupDetailViewModel.Factory(application = application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(GroupDetailViewModel::class.java)
+
         nav_view_group_detail.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         vp_group_detail.setPageTransformer(true, ZoomOutPageTransformer())
 
@@ -97,7 +99,7 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
             }
             showGroupDetailTabs(group)
         }, { error ->
-           showMessage(error)
+            showMessage(error)
         })
 
     }

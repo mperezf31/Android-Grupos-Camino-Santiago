@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.register_fragment.*
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.resize
@@ -44,7 +45,9 @@ class RegisterFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
+
+        val factory = RegisterViewModel.Factory(application = activity?.application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(RegisterViewModel::class.java)
 
         addObservers()
         addListeners()

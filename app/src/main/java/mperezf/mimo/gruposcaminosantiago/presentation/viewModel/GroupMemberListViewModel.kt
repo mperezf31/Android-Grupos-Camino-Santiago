@@ -2,6 +2,8 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +15,7 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.model.Member
 
-class GroupMemberListViewModel : BaseViewModel() {
+class GroupMemberListViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
     private val showLoading = MutableLiveData<Boolean>()
     private val errorMsg = MutableLiveData<String>()
@@ -22,10 +24,13 @@ class GroupMemberListViewModel : BaseViewModel() {
 
 
     private val addMemberGrouplnteractor: AddMemberGrouplnteractor =
-        AddMemberGrouplnteractor(CaminoDeSantiagoApp.instance.getDataStorage(), mainThread(), Schedulers.io())
+        AddMemberGrouplnteractor(app.getDataStorage(), mainThread(), Schedulers.io())
 
     private val removeMemberGrouplnteractor: RemoveMemberGrouplnteractor =
-        RemoveMemberGrouplnteractor(CaminoDeSantiagoApp.instance.getDataStorage(), mainThread(), Schedulers.io())
+        RemoveMemberGrouplnteractor(
+            app.getDataStorage(),
+            mainThread(), Schedulers.io()
+        )
 
 
     fun addMemberToGroup(groupId: Int) {
@@ -34,7 +39,7 @@ class GroupMemberListViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                errorMsg.postValue(context.getString(R.string.internet_error))
+                errorMsg.postValue(application.getString(R.string.internet_error))
             }
 
             override fun onNext(group: Group) {
@@ -55,7 +60,7 @@ class GroupMemberListViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                errorMsg.postValue(context.getString(R.string.internet_error))
+                errorMsg.postValue(application.getString(R.string.internet_error))
             }
 
             override fun onNext(group: Group) {
@@ -92,12 +97,6 @@ class GroupMemberListViewModel : BaseViewModel() {
         }
     }
 
-    override fun dispose() {
-        super.dispose()
-        addMemberGrouplnteractor.dispose()
-        removeMemberGrouplnteractor.dispose()
-    }
-
     fun getGroupMembers(group: Group): ArrayList<Member> {
         return if (group.members != null) {
             val members = ArrayList<Member>()
@@ -112,6 +111,21 @@ class GroupMemberListViewModel : BaseViewModel() {
             ArrayList()
         }
 
+    }
+
+
+    override fun dispose() {
+        super.dispose()
+        addMemberGrouplnteractor.dispose()
+        removeMemberGrouplnteractor.dispose()
+    }
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return GroupMemberListViewModel(application) as T
+        }
     }
 
 

@@ -10,14 +10,14 @@ import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 
-open class BaseViewModel : ViewModel() {
 
-    val context = CaminoDeSantiagoApp.instance
-    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+open class BaseViewModel(val application: CaminoDeSantiagoApp) : ViewModel() {
+
+    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
 
     private val authenticatedUserInteractor: AuthenticatedUserInteractor =
         AuthenticatedUserInteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            application.getDataStorage(),
             AndroidSchedulers.mainThread(),
             Schedulers.io()
         )

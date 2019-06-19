@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.login_fragment.*
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.validate
 import mperezf.mimo.gruposcaminosantiago.presentation.viewModel.LoginViewModel
@@ -43,7 +44,9 @@ class LoginFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+
+        val factory = LoginViewModel.Factory(application = activity?.application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
 
         addObservers()
     }

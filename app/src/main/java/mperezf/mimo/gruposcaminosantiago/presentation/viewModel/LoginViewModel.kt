@@ -2,6 +2,8 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -12,10 +14,9 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import retrofit2.HttpException
 
 
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
-    private val loginInteractor: LoginInteractor =
-        LoginInteractor(CaminoDeSantiagoApp.instance.getDataStorage(), mainThread(), Schedulers.io())
+    private val loginInteractor: LoginInteractor = LoginInteractor(app.getDataStorage(), mainThread(), Schedulers.io())
 
     private val errorMsg = MutableLiveData<String>()
     private val showLoading = MutableLiveData<Boolean>()
@@ -49,9 +50,9 @@ class LoginViewModel : BaseViewModel() {
                 showLoading.postValue(false)
 
                 if (e is HttpException && e.code() == 404) {
-                    errorMsg.postValue(context.getString(R.string.user_or_pass_not_valid))
+                    errorMsg.postValue(application.getString(R.string.user_or_pass_not_valid))
                 } else {
-                    errorMsg.postValue(context.getString(R.string.internet_error))
+                    errorMsg.postValue(application.getString(R.string.internet_error))
                 }
             }
 
@@ -66,5 +67,13 @@ class LoginViewModel : BaseViewModel() {
     override fun dispose() {
         super.dispose()
         loginInteractor.dispose()
+    }
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return LoginViewModel(application) as T
+        }
     }
 }

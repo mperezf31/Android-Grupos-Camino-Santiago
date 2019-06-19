@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment
 import kotlinx.android.synthetic.main.add_group_fragment.*
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.*
@@ -70,7 +71,9 @@ class AddGroupFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AddGroupViewModel::class.java)
+
+        val factory = AddGroupViewModel.Factory(application = activity?.application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(AddGroupViewModel::class.java)
 
         addListeners()
 

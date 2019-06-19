@@ -2,6 +2,8 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -11,12 +13,11 @@ import mperezf.mimo.gruposcaminosantiago.domain.interactor.RegisterInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import retrofit2.HttpException
 
-class RegisterViewModel : BaseViewModel() {
-
+class RegisterViewModel (app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
     private val registerInteractor: RegisterInteractor =
         RegisterInteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            app.getDataStorage(),
             AndroidSchedulers.mainThread(),
             Schedulers.io()
         )
@@ -51,9 +52,9 @@ class RegisterViewModel : BaseViewModel() {
                 showLoading.postValue(false)
 
                 if (e is HttpException && e.code() == 404) {
-                    errorMsg.postValue(context.getString(R.string.email_not_valid))
+                    errorMsg.postValue(application.getString(R.string.email_not_valid))
                 } else {
-                    errorMsg.postValue(context.getString(R.string.internet_error))
+                    errorMsg.postValue(application.getString(R.string.internet_error))
                 }
             }
 
@@ -67,6 +68,15 @@ class RegisterViewModel : BaseViewModel() {
 
     override fun dispose() {
         registerInteractor.dispose()
+    }
+
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return RegisterViewModel(application) as T
+        }
     }
 
 }

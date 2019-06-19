@@ -11,15 +11,9 @@ import mperezf.mimo.gruposcaminosantiago.domain.DataStorage
 class CaminoDeSantiagoApp : Application() {
 
     private lateinit var repository: Repository
-
-    companion object {
-        lateinit var instance: CaminoDeSantiagoApp
-            private set
-    }
-
+    
     override fun onCreate() {
         super.onCreate()
-        instance = this
 
         createRepositoryInstance()
     }

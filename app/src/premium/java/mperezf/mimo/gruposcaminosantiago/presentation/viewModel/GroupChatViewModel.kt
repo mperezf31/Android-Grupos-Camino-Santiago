@@ -2,6 +2,8 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -12,7 +14,7 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.domain.model.MessageGroup
 
-class GroupChatViewModel : BaseViewModel() {
+class GroupChatViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
     private val showLoading = MutableLiveData<Boolean>()
     private val errorMsg = MutableLiveData<String>()
@@ -20,7 +22,7 @@ class GroupChatViewModel : BaseViewModel() {
 
     private val sendMessageInteractor: SendMessageInteractor =
         SendMessageInteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            app.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )
@@ -45,7 +47,7 @@ class GroupChatViewModel : BaseViewModel() {
 
                 override fun onError(e: Throwable) {
                     showLoading.postValue(false)
-                    errorMsg.postValue(context.getString(R.string.internet_error))
+                    errorMsg.postValue(application.getString(R.string.internet_error))
                 }
 
                 override fun onNext(group: Group) {
@@ -68,6 +70,14 @@ class GroupChatViewModel : BaseViewModel() {
     override fun dispose() {
         super.dispose()
         sendMessageInteractor.dispose()
+    }
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return GroupChatViewModel(application) as T
+        }
     }
 
 }

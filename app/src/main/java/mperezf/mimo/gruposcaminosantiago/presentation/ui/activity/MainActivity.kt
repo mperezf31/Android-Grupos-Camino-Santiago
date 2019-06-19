@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.presentation.extension.fromBase64
@@ -37,7 +38,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        val factory = MainViewModel.Factory(application = application as CaminoDeSantiagoApp)
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
 
 
         drawerLayout = findViewById(R.id.drawer_layout)

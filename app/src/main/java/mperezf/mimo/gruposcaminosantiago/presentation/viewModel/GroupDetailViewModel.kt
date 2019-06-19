@@ -2,6 +2,8 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -14,27 +16,27 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import okhttp3.ResponseBody
 
 
-class GroupDetailViewModel : BaseViewModel() {
+class GroupDetailViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
     val showLoading = MutableLiveData<Boolean>()
 
     private val authenticatedUserInteractor: AuthenticatedUserInteractor =
         AuthenticatedUserInteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            app.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )
 
     private val groupDetailnteractor: GroupDetailnteractor =
         GroupDetailnteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            app.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )
 
     private val removeGrouplnteractor: RemoveGrouplnteractor =
         RemoveGrouplnteractor(
-            CaminoDeSantiagoApp.instance.getDataStorage(),
+            app.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )
@@ -52,7 +54,7 @@ class GroupDetailViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                error(context.getString(R.string.internet_error))
+                error(application.getString(R.string.internet_error))
 
             }
 
@@ -79,7 +81,7 @@ class GroupDetailViewModel : BaseViewModel() {
 
             override fun onError(e: Throwable) {
                 showLoading.postValue(false)
-                error(context.getString(R.string.internet_error))
+                error(application.getString(R.string.internet_error))
 
             }
 
@@ -97,5 +99,13 @@ class GroupDetailViewModel : BaseViewModel() {
         removeGrouplnteractor.dispose()
     }
 
+
+    class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return GroupDetailViewModel(application) as T
+        }
+    }
 
 }
