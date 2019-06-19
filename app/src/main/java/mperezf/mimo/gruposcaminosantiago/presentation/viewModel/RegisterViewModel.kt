@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
-import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.RegisterInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import retrofit2.HttpException
@@ -15,7 +15,11 @@ class RegisterViewModel : BaseViewModel() {
 
 
     private val registerInteractor: RegisterInteractor =
-        RegisterInteractor(Repository, AndroidSchedulers.mainThread(), Schedulers.io())
+        RegisterInteractor(
+            CaminoDeSantiagoApp.instance.getDataStorage(),
+            AndroidSchedulers.mainThread(),
+            Schedulers.io()
+        )
 
     private val errorMsg = MutableLiveData<String>()
     private val showLoading = MutableLiveData<Boolean>()

@@ -7,7 +7,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
-import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 
@@ -18,7 +17,7 @@ open class BaseViewModel : ViewModel() {
 
     private val authenticatedUserInteractor: AuthenticatedUserInteractor =
         AuthenticatedUserInteractor(
-            Repository,
+            CaminoDeSantiagoApp.instance.getDataStorage(),
             AndroidSchedulers.mainThread(),
             Schedulers.io()
         )

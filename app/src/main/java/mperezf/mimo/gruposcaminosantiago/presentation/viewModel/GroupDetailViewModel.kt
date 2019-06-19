@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
-import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupDetailnteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.RemoveGrouplnteractor
@@ -20,21 +20,21 @@ class GroupDetailViewModel : BaseViewModel() {
 
     private val authenticatedUserInteractor: AuthenticatedUserInteractor =
         AuthenticatedUserInteractor(
-            Repository,
+            CaminoDeSantiagoApp.instance.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )
 
     private val groupDetailnteractor: GroupDetailnteractor =
         GroupDetailnteractor(
-            Repository,
+            CaminoDeSantiagoApp.instance.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )
 
     private val removeGrouplnteractor: RemoveGrouplnteractor =
         RemoveGrouplnteractor(
-            Repository,
+            CaminoDeSantiagoApp.instance.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )

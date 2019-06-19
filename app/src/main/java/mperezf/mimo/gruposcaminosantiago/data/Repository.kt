@@ -3,14 +3,11 @@ package mperezf.mimo.gruposcaminosantiago.data
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
-import mperezf.mimo.gruposcaminosantiago.BuildConfig
-import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
-import mperezf.mimo.gruposcaminosantiago.data.local.LocalStorage
+import mperezf.mimo.gruposcaminosantiago.data.local.DataPersistence
 import mperezf.mimo.gruposcaminosantiago.data.mapper.GroupMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.MessageMapper
 import mperezf.mimo.gruposcaminosantiago.data.mapper.UserMapper
 import mperezf.mimo.gruposcaminosantiago.data.remote.ApiService
-import mperezf.mimo.gruposcaminosantiago.data.remote.RetrofitClient
 import mperezf.mimo.gruposcaminosantiago.domain.DataStorage
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
@@ -18,10 +15,7 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
 import okhttp3.ResponseBody
 
-object Repository : DataStorage {
-
-    private val apiService: ApiService = RetrofitClient(BuildConfig.SERVER_URL).getApiService()
-    private val localStorage: LocalStorage = LocalStorage(CaminoDeSantiagoApp.instance)
+class Repository(private val apiService: ApiService, private val localStorage: DataPersistence) : DataStorage {
 
     //Mappers
     private val userMapper = UserMapper()

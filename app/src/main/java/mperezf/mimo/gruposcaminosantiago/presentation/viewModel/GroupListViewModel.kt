@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
-import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupListInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.UserGroupList
@@ -18,7 +18,11 @@ class GroupListViewModel : BaseViewModel() {
 
 
     private val groupListInteractor: GroupListInteractor =
-        GroupListInteractor(Repository, AndroidSchedulers.mainThread(), Schedulers.io())
+        GroupListInteractor(
+            CaminoDeSantiagoApp.instance.getDataStorage(),
+            AndroidSchedulers.mainThread(),
+            Schedulers.io()
+        )
 
     val errorMsg = MutableLiveData<String>()
     val showLoading = MutableLiveData<Boolean>()
@@ -99,7 +103,7 @@ class GroupListViewModel : BaseViewModel() {
             })
 
             fun selector(p: Group): Int? = p.distance
-            groups.sortBy {selector(it)}
+            groups.sortBy { selector(it) }
         }
 
         groupsUpdate.postValue(groups)

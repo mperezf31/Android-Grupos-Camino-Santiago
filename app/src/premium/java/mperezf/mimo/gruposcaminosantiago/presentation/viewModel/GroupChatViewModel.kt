@@ -3,17 +3,14 @@ package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
-import mperezf.mimo.gruposcaminosantiago.data.Repository
-import mperezf.mimo.gruposcaminosantiago.domain.interactor.AuthenticatedUserInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.SendMessageInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
 import mperezf.mimo.gruposcaminosantiago.domain.model.MessageGroup
-import mperezf.mimo.gruposcaminosantiago.domain.model.User
 
 class GroupChatViewModel : BaseViewModel() {
 
@@ -23,7 +20,7 @@ class GroupChatViewModel : BaseViewModel() {
 
     private val sendMessageInteractor: SendMessageInteractor =
         SendMessageInteractor(
-            Repository,
+            CaminoDeSantiagoApp.instance.getDataStorage(),
             mainThread(),
             Schedulers.io()
         )

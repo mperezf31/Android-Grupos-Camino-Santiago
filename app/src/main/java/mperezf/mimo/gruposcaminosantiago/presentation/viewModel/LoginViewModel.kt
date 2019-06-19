@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
-import mperezf.mimo.gruposcaminosantiago.data.Repository
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.LoginInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.User
 import retrofit2.HttpException
@@ -14,7 +14,8 @@ import retrofit2.HttpException
 
 class LoginViewModel : BaseViewModel() {
 
-    private val loginInteractor: LoginInteractor = LoginInteractor(Repository, mainThread(), Schedulers.io())
+    private val loginInteractor: LoginInteractor =
+        LoginInteractor(CaminoDeSantiagoApp.instance.getDataStorage(), mainThread(), Schedulers.io())
 
     private val errorMsg = MutableLiveData<String>()
     private val showLoading = MutableLiveData<Boolean>()
