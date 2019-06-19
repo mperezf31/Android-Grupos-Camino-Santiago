@@ -9,6 +9,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import mperezf.mimo.gruposcaminosantiago.CaminoDeSantiagoApp
 import mperezf.mimo.gruposcaminosantiago.R
+import mperezf.mimo.gruposcaminosantiago.domain.interactor.GroupDetailnteractor
 import mperezf.mimo.gruposcaminosantiago.domain.interactor.SendMessageInteractor
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
 import mperezf.mimo.gruposcaminosantiago.domain.model.Message
@@ -16,9 +17,10 @@ import mperezf.mimo.gruposcaminosantiago.domain.model.MessageGroup
 
 class GroupChatViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application = app) {
 
-    private val showLoading = MutableLiveData<Boolean>()
+    private val showRefresh = MutableLiveData<Boolean>()
+    private val sendingState = MutableLiveData<Boolean>()
     private val errorMsg = MutableLiveData<String>()
-    private val messageSended = MutableLiveData<Group>()
+    private val updateMessages = MutableLiveData<Group>()
 
     private val sendMessageInteractor: SendMessageInteractor =
         SendMessageInteractor(
@@ -27,35 +29,46 @@ class GroupChatViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application =
             Schedulers.io()
         )
 
-    fun getLoadingState(): LiveData<Boolean> {
-        return showLoading
+    private val groupDetailnteractor: GroupDetailnteractor =
+        GroupDetailnteractor(
+            app.getDataStorage(),
+            mainThread(),
+            Schedulers.io()
+        )
+
+    fun getRefreshState(): LiveData<Boolean> {
+        return showRefresh
+    }
+
+    fun getSendingState(): LiveData<Boolean> {
+        return sendingState
     }
 
     fun getErrorMsg(): LiveData<String> {
         return errorMsg
     }
 
-    fun getSendMessage(): LiveData<Group> {
-        return messageSended
+    fun getUpdateMessage(): LiveData<Group> {
+        return updateMessages
     }
 
     fun sendMessage(idGroup: Int, msg: String) {
-        showLoading.postValue(true)
+        sendingState.postValue(true)
 
         sendMessageInteractor.execute(
             object : DisposableObserver<Group>() {
 
                 override fun onError(e: Throwable) {
-                    showLoading.postValue(false)
+                    sendingState.postValue(false)
                     errorMsg.postValue(application.getString(R.string.internet_error))
                 }
 
                 override fun onNext(group: Group) {
-                    messageSended.postValue(group)
+                    updateMessages.postValue(group)
                 }
 
                 override fun onComplete() {
-                    showLoading.postValue(false)
+                    sendingState.postValue(false)
                 }
 
             },
@@ -66,10 +79,31 @@ class GroupChatViewModel(app: CaminoDeSantiagoApp) : BaseViewModel(application =
         )
     }
 
+    fun getGroupDetail(groupId: Int) {
+        showRefresh.postValue(true)
+
+        groupDetailnteractor.execute(object : DisposableObserver<Group>() {
+
+            override fun onError(e: Throwable) {
+                showRefresh.postValue(false)
+                errorMsg.postValue(application.getString(R.string.internet_error))
+            }
+
+            override fun onNext(t: Group) {
+                updateMessages.postValue(t)
+            }
+
+            override fun onComplete() {
+                showRefresh.postValue(false)
+            }
+
+        }, groupId)
+    }
 
     override fun dispose() {
         super.dispose()
         sendMessageInteractor.dispose()
+        groupDetailnteractor.dispose()
     }
 
     class Factory(private val application: CaminoDeSantiagoApp) : ViewModelProvider.NewInstanceFactory() {

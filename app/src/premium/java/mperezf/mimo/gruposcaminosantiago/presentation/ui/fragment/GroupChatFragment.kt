@@ -2,9 +2,7 @@ package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,6 +52,9 @@ class GroupChatFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+
+        pb_chat.hide()
 
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.reverseLayout = true
@@ -83,6 +84,26 @@ class GroupChatFragment : BaseFragment() {
         }, {})
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.chat, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_refresh -> {
+                if (!pb_chat.isShown){
+                    group?.id?.let {
+                        viewModel.getGroupDetail(it)
+                    }
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         fragmentListener = activity as UpdateGroupDetailListener
@@ -100,7 +121,16 @@ class GroupChatFragment : BaseFragment() {
 
 
     private fun addObservers() {
-        viewModel.getLoadingState().observe(this, Observer<Boolean> {
+
+        viewModel.getRefreshState().observe(this, Observer<Boolean> {
+            if (it) {
+                pb_chat.show()
+            } else {
+                pb_chat.hide()
+            }
+        })
+
+        viewModel.getSendingState().observe(this, Observer<Boolean> {
             if (it) {
                 bt_add_message.startAnimation()
             } else {
@@ -112,7 +142,7 @@ class GroupChatFragment : BaseFragment() {
             showMessage(it)
         })
 
-        viewModel.getSendMessage().observe(this, Observer<Group> {
+        viewModel.getUpdateMessage().observe(this, Observer<Group> {
             et_msg.setText("")
             updateGroup(it)
         })
@@ -131,7 +161,7 @@ class GroupChatFragment : BaseFragment() {
     private fun updateGroup(it: Group) {
         group = it
         updateMessages(it)
-        fragmentListener?.updateGroup(it)
+        fragmentListener?.updateGroup(it, false)
     }
 
     private fun updateMessages(group: Group) {

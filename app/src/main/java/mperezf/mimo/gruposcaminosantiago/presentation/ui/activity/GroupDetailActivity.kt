@@ -188,9 +188,11 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
         })
     }
 
-    override fun updateGroup(group: Group) {
+    override fun updateGroup(group: Group, needUpdateList: Boolean) {
         groupDetail = group
-        groupUpdated = true
+        if (needUpdateList) {
+            groupUpdated = true
+        }
     }
 
     override fun onPageScrollStateChanged(state: Int) {
@@ -259,5 +261,5 @@ class ZoomOutPageTransformer : ViewPager.PageTransformer {
 
 interface UpdateGroupDetailListener {
 
-    fun updateGroup(group: Group)
+    fun updateGroup(group: Group, needUpdateList: Boolean)
 }

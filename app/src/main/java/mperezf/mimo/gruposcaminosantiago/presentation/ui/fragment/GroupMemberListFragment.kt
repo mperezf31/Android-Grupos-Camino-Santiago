@@ -123,7 +123,7 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
     private fun updateGroup(it: Group) {
         group = it
         showGroupMemberList(it)
-        fragmentListener?.updateGroup(it)
+        fragmentListener?.updateGroup(it, true)
     }
 
     private fun showGroupMemberList(group: Group?) {

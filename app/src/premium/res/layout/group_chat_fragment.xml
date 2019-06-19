@@ -16,6 +16,16 @@
         android:paddingBottom="@dimen/chat_rv_padding_bottom"
         tools:listitem="@layout/item_chat_1" />
 
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/pb_chat"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:indicatorColor="@color/blue_1"
+        app:indicatorName="BallPulseRiseIndicator"/>
+
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
