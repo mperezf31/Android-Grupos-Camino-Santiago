@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="@dimen/item_group_item_group_card_corner"
     app:cardUseCompatPadding="true">
@@ -95,6 +96,22 @@
             app:layout_constraintStart_toEndOf="@+id/iv_group_date"
             app:layout_constraintTop_toTopOf="@+id/iv_group_date"
             tools:text="Fecha de salida" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_distance"
+            android:paddingStart="@dimen/item_group_tv_km_padding_start"
+            android:paddingTop="@dimen/item_group_tv_km_padding_top"
+            android:paddingEnd="@dimen/item_group_tv_km_padding_end"
+            android:paddingBottom="@dimen/item_group_tv_km_padding_bottom"
+            android:textColor="@color/white"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_group_date_departure"
+            app:layout_constraintEnd_toEndOf="@+id/tv_group_name"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@+id/tv_group_date_departure"
+            tools:text="A 30 km" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

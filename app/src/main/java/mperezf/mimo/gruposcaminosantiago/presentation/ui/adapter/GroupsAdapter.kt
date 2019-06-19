@@ -43,6 +43,7 @@ class GroupsAdapter(val listener: (Group) -> Unit) :
         var tvGroupName: TextView = itemView.tv_group_name
         var tvDeparturePlace: TextView = itemView.tv_group_departure_place
         var tvDepartureDate: TextView = itemView.tv_group_date_departure
+        var tvDistance: TextView = itemView.tv_distance
 
         fun bind(group: Group) {
             group.photo?.let { ivGroup.fromBase64(it) }
@@ -51,7 +52,14 @@ class GroupsAdapter(val listener: (Group) -> Unit) :
             group.departureDate?.let {
                 tvDepartureDate.fromTimestamp(it)
             }
+            if (group.distance != -1) {
+                tvDistance.visibility = View.VISIBLE
+                val msg = "A ${group.distance} km"
+                tvDistance.text = msg
 
+            } else {
+                tvDistance.visibility = View.INVISIBLE
+            }
         }
     }
 }

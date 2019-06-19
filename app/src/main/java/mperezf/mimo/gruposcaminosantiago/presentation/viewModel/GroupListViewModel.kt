@@ -1,5 +1,6 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.viewModel
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,13 +38,13 @@ class GroupListViewModel : BaseViewModel() {
     }
 
 
-    fun getGroups() {
+    fun getGroups(userLocation: Location? = null) {
 
         showLoading.postValue(true)
 
         groupListInteractor.execute(object : DisposableObserver<UserGroupList>() {
             override fun onNext(groupList: UserGroupList) {
-                showGroups(groupList)
+                showGroups(userLocation, groupList)
             }
 
             override fun onError(e: Throwable) {
@@ -58,8 +59,8 @@ class GroupListViewModel : BaseViewModel() {
         }, Unit)
     }
 
-    private fun showGroups(groupList: UserGroupList) {
-        val groups: ArrayList<Group> = ArrayList()
+    private fun showGroups(userLocation: Location?, groupList: UserGroupList) {
+        var groups = ArrayList<Group>()
 
         if (preferences.getBoolean(SettingsFragment.PREF_GROUPS_CREATED, true)) {
             groups.addAll(groupList.groupsCreated)
@@ -73,8 +74,43 @@ class GroupListViewModel : BaseViewModel() {
             groups.addAll(groupList.otherGroups)
         }
 
-        groupsUpdate.postValue(groups.reversed())
+        //Add group distance
+        userLocation?.let { userCoordinates ->
+            groups = ArrayList(groups.map {
+                Group(
+                    id = it.id,
+                    photo = it.photo,
+                    title = it.title,
+                    description = it.description,
+                    departureDate = it.departureDate,
+                    arrivalDate = it.arrivalDate,
+                    departurePlace = it.departurePlace,
+                    latitude = it.latitude,
+                    longitude = it.longitude,
+                    distance = it.latitude?.let { it1 ->
+                        it.longitude?.let { it2 ->
+                            getDistance(
+                                userCoordinates, it1,
+                                it2
+                            )
+                        }
+                    }
+                )
+            })
 
+            fun selector(p: Group): Int? = p.distance
+            groups.sortBy {selector(it)}
+        }
+
+        groupsUpdate.postValue(groups)
+    }
+
+
+    private fun getDistance(userLocation: Location, latitude: Double, longitude: Double): Int {
+        val departureLocation = Location("")
+        departureLocation.latitude = latitude
+        departureLocation.longitude = longitude
+        return (userLocation.distanceTo(departureLocation) / 1000).toInt()
     }
 
 

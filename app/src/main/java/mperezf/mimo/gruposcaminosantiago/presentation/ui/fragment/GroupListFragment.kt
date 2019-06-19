@@ -1,11 +1,18 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.fragment
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.group_list_fragment.*
 import mperezf.mimo.gruposcaminosantiago.R
 import mperezf.mimo.gruposcaminosantiago.domain.model.Group
@@ -18,6 +25,8 @@ class GroupListFragment : BaseFragment() {
 
     companion object {
 
+        private const val PERMISSION_REQUEST_CODE = 1
+
         const val RELOAD_LIST = "reload_groups_list"
         const val GROUP_DETAIL = 1
         const val ADD_GROUP = 2
@@ -26,6 +35,7 @@ class GroupListFragment : BaseFragment() {
         fun newInstance(): GroupListFragment = GroupListFragment()
     }
 
+    private var userLocation: Location? = null
     private lateinit var viewModel: GroupListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,9 +49,44 @@ class GroupListFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel::class.java)
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (activity?.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                initGroupList(true)
+            } else {
+                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+            }
+        } else {
+            initGroupList(true)
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            initGroupList(true)
+        } else {
+            initGroupList(false)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initGroupList(permissionsGranted: Boolean) {
         createGroupsAdapter()
         addObservers()
-        viewModel.getGroups()
+        addListeners()
+
+        if (permissionsGranted) {
+            val locationClient = LocationServices.getFusedLocationProviderClient(activity as AppCompatActivity)
+            locationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                userLocation = location
+                viewModel.getGroups(userLocation)
+            }
+        } else {
+            viewModel.getGroups()
+        }
+
 
     }
 
@@ -68,7 +113,7 @@ class GroupListFragment : BaseFragment() {
                 GROUP_DETAIL, ADD_GROUP -> {
                     data?.getBooleanExtra(RELOAD_LIST, false)?.let { reload ->
                         if (reload) {
-                            viewModel.getGroups()
+                            viewModel.getGroups(userLocation)
                         }
                     }
                 }
@@ -113,12 +158,17 @@ class GroupListFragment : BaseFragment() {
             showGroupList(it)
         })
 
+
+    }
+
+    private fun addListeners() {
         srl_group_list.setOnRefreshListener {
             if (pb_groups.visibility != View.VISIBLE) {
-                viewModel.getGroups()
+                viewModel.getGroups(userLocation)
             }
         }
     }
+
 
     private fun showGroupList(groupList: List<Group>?) {
         if (groupList != null && groupList.isNotEmpty()) {
