@@ -97,7 +97,7 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
             }
             showGroupDetailTabs(group)
         }, { error ->
-            Snackbar.make(findViewById(android.R.id.content), error, Snackbar.LENGTH_LONG).show()
+           showMessage(error)
         })
 
     }
@@ -130,12 +130,12 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
     }
 
     override fun deleteGroupConfirmed() {
-        groupDetail?.id?.let {
-            viewModel.deleteGroup(it, {
+        groupDetail?.id?.let { id ->
+            viewModel.deleteGroup(id, {
 
                 finishDetail()
-            }, {
-                Snackbar.make(findViewById(android.R.id.content), it, Snackbar.LENGTH_LONG).show()
+            }, { error ->
+                showMessage(error)
             })
         }
     }

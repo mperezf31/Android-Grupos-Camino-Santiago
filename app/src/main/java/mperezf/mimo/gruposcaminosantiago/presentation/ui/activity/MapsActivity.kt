@@ -1,15 +1,16 @@
 package mperezf.mimo.gruposcaminosantiago.presentation.ui.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_maps.*
 import mperezf.mimo.gruposcaminosantiago.R
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
+class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
 
     companion object {
@@ -43,6 +44,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         toolbar.setNavigationIcon(R.drawable.ic_close)
         title = getString(R.string.add_location)
 
+        val lat = intent.getDoubleExtra(MAP_LAT, 0.0)
+        val lng = intent.getDoubleExtra(MAP_LNG, 0.0)
+
+        if (lat != 0.0 && lng != 0.0) {
+            point = LatLng(lat, lng)
+        }
+
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
@@ -59,7 +67,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
                 true
             }
             R.id.menu_ok -> {
-                returnLocation()
+                if (point != null) {
+                    returnLocation()
+                } else {
+                    showMessage(getString(R.string.click_to_map))
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -90,20 +102,42 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         map = googleMap
         map.setOnMapClickListener(this)
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                showMyLocation()
-            } else {
-                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
-            }
+
+        if (point != null) {
+            moveMapToLocation(point!!, true)
         } else {
-            showMyLocation()
+            //Move map to user location
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    showMyLocation()
+                } else {
+                    requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+                }
+            } else {
+                showMyLocation()
+            }
+        }
+
+    }
+
+    private fun moveMapToLocation(point: LatLng, addMarker: Boolean = false) {
+        map.moveCamera(CameraUpdateFactory.newLatLng(point))
+        map.animateCamera(CameraUpdateFactory.zoomTo(9.0f))
+        if (addMarker) {
+            map.addMarker(MarkerOptions().position(point))
         }
     }
 
     @SuppressLint("MissingPermission")
     private fun showMyLocation() {
         map.isMyLocationEnabled = true
+
+        val locationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let {
+                moveMapToLocation(LatLng(location.latitude, location.longitude))
+            }
+        }
     }
 
     override fun onMapClick(it: LatLng) {

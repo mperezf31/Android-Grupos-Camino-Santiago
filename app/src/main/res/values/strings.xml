@@ -54,5 +54,6 @@
     <string name="delete_group_comfirmation">¿Seguro que desea eliminar este grupo?</string>
     <string name="delete_group">Eliminar grupo</string>
     <string name="date_conditions">La fecha de llegada debe de ser posterior a la de salida</string>
+    <string name="click_to_map">Haga click sobre el mapa para añadir la localización</string>
 
 </resources>

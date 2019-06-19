@@ -168,7 +168,10 @@ class AddGroupFragment : BaseFragment() {
         }
 
         et_departure_coordinates.setOnClickListener {
-            startActivityForResult(Intent(context, MapsActivity::class.java), REQUEST_LOCATION)
+            val intent = Intent(context, MapsActivity::class.java)
+            intent.putExtra(MapsActivity.MAP_LAT, groupLat)
+            intent.putExtra(MapsActivity.MAP_LNG, groupLng)
+            startActivityForResult(intent, REQUEST_LOCATION)
         }
 
         bt_add_group.setOnClickListener {

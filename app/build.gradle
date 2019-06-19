@@ -82,6 +82,7 @@ dependencies {
     kapt "androidx.room:room-compiler:2.0.0"
     implementation "androidx.room:room-rxjava2:2.0.0"
     implementation 'com.github.Kunzisoft:Android-SwitchDateTimePicker:2.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
 
     testImplementation 'junit:junit:4.12'
