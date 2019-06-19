@@ -74,7 +74,7 @@ class GroupListViewModel : BaseViewModel() {
             groups.addAll(groupList.otherGroups)
         }
 
-        //Add group distance
+        //Calculate group distance
         userLocation?.let { userCoordinates ->
             groups = ArrayList(groups.map {
                 Group(
