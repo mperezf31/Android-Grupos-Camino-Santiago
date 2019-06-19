@@ -39,12 +39,14 @@ class GroupListFragment : BaseFragment() {
     private lateinit var viewModel: GroupListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.group_list_fragment, container, false)
-        setHasOptionsMenu(true)
-
-        return view
+        return inflater.inflate(R.layout.group_list_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        pb_groups.hide()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -60,7 +62,6 @@ class GroupListFragment : BaseFragment() {
             initGroupList(true)
         }
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -147,9 +148,9 @@ class GroupListFragment : BaseFragment() {
 
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                pb_groups.visibility = View.VISIBLE
+                pb_groups.show()
             } else {
-                pb_groups.visibility = View.GONE
+                pb_groups.hide()
                 srl_group_list.isRefreshing = false
             }
         })
@@ -163,7 +164,7 @@ class GroupListFragment : BaseFragment() {
 
     private fun addListeners() {
         srl_group_list.setOnRefreshListener {
-            if (pb_groups.visibility != View.VISIBLE) {
+            if (!pb_groups.isShown) {
                 viewModel.getGroups(userLocation)
             }
         }

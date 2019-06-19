@@ -28,15 +28,13 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ProgressBar
+    <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/pb_groups"
-        style="?android:attr/progressBarStyle"
+        style="@style/AVLoadingIndicatorView"
+        app:indicatorColor="@color/blue_1"
+        app:indicatorName="BallPulseRiseIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateTint="@color/grey_2"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
