@@ -43,6 +43,7 @@ class GroupMemberListFragment : BaseFragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         arguments?.let {
             group = it.getParcelable(GROUP_DETAIL)
+            it.remove(GROUP_DETAIL)
         }
     }
 
