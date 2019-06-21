@@ -127,7 +127,6 @@ class GroupListFragment : BaseFragment() {
     private fun showAddGroupFragment() {
         startActivityForResult(Intent(activity, AddGroupActivity::class.java), ADD_GROUP)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-        // AddGroupDialogFragment.newInstance().show(childFragmentManager, AddGroupDialogFragment.TAG)
     }
 
     private fun createGroupsAdapter() {
