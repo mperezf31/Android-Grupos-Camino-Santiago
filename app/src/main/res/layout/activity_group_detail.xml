@@ -8,18 +8,18 @@
     tools:context=".presentation.ui.activity.GroupDetailActivity">
 
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/pb_group_detail"
-        style="@style/AVLoadingIndicatorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:indicatorColor="@color/blue_1"
-        app:indicatorName="BallPulseRiseIndicator"
+        android:progressTint="@color/blue_1"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/nav_view_group_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_group_detail"

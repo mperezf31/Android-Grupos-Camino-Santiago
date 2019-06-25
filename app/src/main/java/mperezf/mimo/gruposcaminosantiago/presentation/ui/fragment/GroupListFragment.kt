@@ -46,7 +46,6 @@ class GroupListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        pb_groups.hide()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -150,9 +149,9 @@ class GroupListFragment : BaseFragment() {
 
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                pb_groups.show()
+                pb_groups.visibility = View.VISIBLE
             } else {
-                pb_groups.hide()
+                pb_groups.visibility = View.GONE
                 srl_group_list.isRefreshing = false
             }
         })

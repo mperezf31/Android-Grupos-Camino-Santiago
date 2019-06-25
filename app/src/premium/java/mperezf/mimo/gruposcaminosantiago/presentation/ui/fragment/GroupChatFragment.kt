@@ -55,8 +55,6 @@ class GroupChatFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        pb_chat.hide()
-
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.reverseLayout = true
         rv_group_chat.layoutManager = layoutManager
@@ -125,9 +123,9 @@ class GroupChatFragment : BaseFragment() {
 
         viewModel.getRefreshState().observe(this, Observer<Boolean> {
             if (it) {
-                pb_chat.show()
+                pb_chat.visibility = View.VISIBLE
             } else {
-                pb_chat.hide()
+                pb_chat.visibility = View.GONE
             }
         })
 

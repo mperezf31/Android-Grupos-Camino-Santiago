@@ -17,14 +17,14 @@
         tools:listitem="@layout/item_chat_1" />
 
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/pb_chat"
-        style="@style/AVLoadingIndicatorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:indicatorColor="@color/blue_1"
-        app:indicatorName="BallPulseRiseIndicator"/>
+        android:progressTint="@color/blue_1"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line"
@@ -52,8 +52,8 @@
             android:drawableStart="@drawable/ic_send"
             android:padding="@dimen/chat_bt_send_padding"
             android:scaleType="centerInside"
-            app:spinning_bar_padding="@dimen/chat_bt_send_spinner_padding"
-            app:spinning_bar_color="@android:color/white" />
+            app:spinning_bar_color="@android:color/white"
+            app:spinning_bar_padding="@dimen/chat_bt_send_spinner_padding" />
 
         <EditText
             android:id="@+id/et_msg"

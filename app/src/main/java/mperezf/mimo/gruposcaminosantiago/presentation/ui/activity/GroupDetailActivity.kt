@@ -180,10 +180,10 @@ class GroupDetailActivity : BaseActivity(), UpdateGroupDetailListener,
 
         viewModel.getLoadingState().observe(this, Observer<Boolean> {
             if (it) {
-                pb_group_detail.show()
+                pb_group_detail.visibility = View.VISIBLE
 
             } else {
-                pb_group_detail.hide()
+                pb_group_detail.visibility = View.GONE
             }
         })
     }
