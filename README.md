@@ -7,13 +7,19 @@ Grupos Camino de Santiago  is a kotlin app that allows create groups to do the C
 [Model‑View‑Viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel) (MVVM)
 
 ## Captures
+<p>
 <img src="captures/img1.png" width="250"/>
 <img src="captures/img2.png" width="250"/>
-<br>
+</p>
+
+<p>
 <img src="captures/img3.png" width="250"/>
 <img src="captures/img4.png" width="250"/>
-<br>
+</p>
+
+<p>
 <img src="captures/img5.png" width="250"/>
+</p>
 
 
 
